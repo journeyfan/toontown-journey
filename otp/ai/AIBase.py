@@ -7,7 +7,6 @@ from direct.directnotify.DirectNotifyGlobal import *
 from direct.interval.IntervalManager import ivalMgr
 from direct.showbase import EventManager
 from direct.showbase import ExceptionVarDump
-from direct.showbase import PythonUtil
 from direct.showbase.BulletinBoardGlobal import *
 from direct.showbase.EventManagerGlobal import *
 from direct.showbase.JobManagerGlobal import *
@@ -16,6 +15,7 @@ from direct.showbase.PythonUtil import *
 from direct.task import Task
 from direct.task.TaskManagerGlobal import *
 from otp.otpbase import BackupManager
+from toontown.toonbase import PythonUtil
 from pandac.PandaModules import *
 
 
