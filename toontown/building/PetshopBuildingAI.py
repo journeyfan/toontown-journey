@@ -47,6 +47,7 @@ class PetshopBuildingAI:
         insideDoor.setOtherDoor(door)
         door.zoneId = self.exteriorZone
         insideDoor.zoneId = self.interiorZone
+        door.setDoorLock(14)
         door.generateWithRequired(self.exteriorZone)
         insideDoor.generateWithRequired(self.interiorZone)
         self.door = door

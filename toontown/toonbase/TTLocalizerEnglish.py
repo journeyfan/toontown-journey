@@ -5452,6 +5452,7 @@ PetshopReturnConfirm = 'Return %s?'
 PetshopReturn = 'Return'
 PetshopChooserTitle = "TODAY'S DOODLES"
 PetshopGoHomeText = 'Would you like to go to your estate to play with your new Doodle?'
+PetshopClosed = 'The Pet Shop is currently closed.\nCheck back later!'
 NameShopNameMaster = 'NameMasterEnglish.txt'
 NameShopPay = 'Subscribe'
 NameShopPlay = 'Free Trial'
