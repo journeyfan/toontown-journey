@@ -5,6 +5,7 @@ from panda3d.core import PandaNode, PGButton, NodePath, MouseWatcherRegion
 
 class Clickable(FSM, PandaNode, DirectObject):
     def __init__(self, name):
+        FSM.state = '_Off' # Hacky bug fix for Panda3D 1.11.
         FSM.__init__(self, name)
         PandaNode.__init__(self, name)
         DirectObject.__init__(self)

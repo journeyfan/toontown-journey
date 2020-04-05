@@ -13,6 +13,8 @@ from direct.extensions_native import VBase3_extensions
 from direct.extensions_native import VBase4_extensions
 from direct.extensions_native import NodePath_extensions
 
+for dtool in ('children', 'parent', 'name'):
+    del NodePath.DtoolClassDict[dtool]
 
 from panda3d.core import loadPrcFile
 
@@ -31,6 +33,9 @@ notify.setInfo(True)
 
 from otp.settings.Settings import Settings
 
+from direct.gui.DirectGuiGlobals import NO_FADE_SORT_INDEX, FADE_SORT_INDEX
+__builtin__.NO_FADE_SORT_INDEX = NO_FADE_SORT_INDEX
+__builtin__.FADE_SORT_INDEX = FADE_SORT_INDEX
 
 preferencesFilename = ConfigVariableString(
     'preferences-filename', 'preferences.json').getValue()
@@ -183,6 +188,6 @@ if autoRun:
     except SystemExit:
         raise
     except:
-        from direct.showbase import PythonUtil
+        from toontown.toonbase import PythonUtil
         print PythonUtil.describeException()
         raise

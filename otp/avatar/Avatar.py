@@ -1,7 +1,7 @@
 from direct.actor.Actor import Actor
 from direct.directnotify import DirectNotifyGlobal
 from direct.distributed import ClockDelta
-from direct.showbase.PythonUtil import recordCreationStack
+from toontown.toonbase.PythonUtil import recordCreationStack
 from pandac.PandaModules import *
 import random
 

@@ -1367,13 +1367,6 @@ class OTPClientRepository(ClientRepositoryBase):
             self.gotTimeSync()
         else:
             DistributedSmoothNode.globalActivateSmoothing(1, 0)
-            h = HashVal()
-            hashPrcVariables(h)
-            pyc = HashVal()
-            if not __dev__:
-                self.hashFiles(pyc)
-            self.timeManager.d_setSignature(self.userSignature, h.asBin(), pyc.asBin())
-            self.timeManager.sendCpuInfo()
             if self.timeManager.synchronize('startup'):
                 self.accept('gotTimeSync', self.gotTimeSync)
                 self.waitForDatabaseTimeout(requestName='uberZoneInterest-timeSync')
