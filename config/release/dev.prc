@@ -44,4 +44,4 @@ want-instant-parties #f
 
 # Chat:
 want-whitelist #f
-want-blacklist-sequence #f
+want-blacklist-sequence #t
