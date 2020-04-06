@@ -651,8 +651,8 @@ class DistributedBanquetTable(DistributedObject.DistributedObject, FSM.FSM, Banq
         self.accept('InputState-reverse', self.__downArrow)
         self.accept('InputState-turnLeft', self.__leftArrow)
         self.accept('InputState-turnRight', self.__rightArrow)
-        self.accept(base.Move_Up, self.__upArrowKeyPressed)
-        self.accept(base.Move_Down, self.__downArrowKeyPressed)
+        self.accept(base.MOVE_UP, self.__upArrowKeyPressed)
+        self.accept(base.MOVE_DOWN, self.__downArrowKeyPressed)
         taskMgr.add(self.__watchControls, self.watchControlsName)
         taskMgr.doMethodLater(5, self.__displayPitcherAdvice, self.pitcherAdviceName)
         self.arrowVert = 0
@@ -672,8 +672,8 @@ class DistributedBanquetTable(DistributedObject.DistributedObject, FSM.FSM, Banq
         self.ignore('InputState-reverse')
         self.ignore('InputState-turnLeft')
         self.ignore('InputState-turnRight')
-        self.ignore(base.Move_Up)
-        self.ignore(base.Move_Down)
+        self.ignore(base.MOVE_UP)
+        self.ignore(base.MOVE_DOWN)
         self.arrowVert = 0
         self.arrowHorz = 0
         taskMgr.remove(self.watchControlsName)

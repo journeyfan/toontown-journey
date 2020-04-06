@@ -300,9 +300,9 @@ class DistributedPartyTrampolineActivity(DistributedPartyActivity):
         DistributedPartyTrampolineActivity.notify.debug('startActive')
         if self.toon != None and self.toon.doId == base.localAvatar.doId:
             base.setCellsActive(base.bottomCells, True)
-            self.accept(base.Move_Left, self.onLeft)
+            self.accept(base.MOVE_LEFT, self.onLeft)
             self.accept('arrow_left-up', self.onLeftUp)
-            self.accept(base.Move_Right, self.onRight)
+            self.accept(base.MOVE_RIGHT, self.onRight)
             self.accept('arrow_right-up', self.onRightUp)
             self.beginRoundInterval = Sequence(Func(self._showFlashMessage, TTLocalizer.PartyTrampolineReady), Wait(1.2), Func(self.flashMessage, TTLocalizer.PartyTrampolineGo), Func(self.beginRound))
             self.beginRoundInterval.start()
@@ -396,9 +396,9 @@ class DistributedPartyTrampolineActivity(DistributedPartyActivity):
 
     def releaseToon(self):
         self._hideFlashMessage()
-        self.ignore(base.Move_Left)
+        self.ignore(base.MOVE_LEFT)
         self.ignore('arrow_left-up')
-        self.ignore(base.Move_Right)
+        self.ignore(base.MOVE_RIGHT)
         self.ignore('arrow_right-up')
         taskMgr.remove(self.uniqueName('TrampolineActivity.updateTask'))
         self.hopOffAnim = Sequence(self.toon.hprInterval(0.5, VBase3(-90.0, 0.0, 0.0), other=self.tramp), Func(self.toon.b_setAnimState, 'jump', 1.0), Func(self.toon.dropShadow.reparentTo, hidden), Wait(0.4), PartyUtils.arcPosInterval(0.75, self.toon, self.hopOffPos, 5.0, self.tramp), Func(self.postHopOff))

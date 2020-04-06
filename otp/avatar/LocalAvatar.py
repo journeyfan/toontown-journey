@@ -944,24 +944,24 @@ class LocalAvatar(DistributedAvatar.DistributedAvatar, DistributedSmoothNode.Dis
         return self.animMultiplier
 
     def enableRun(self):
-        self.accept(base.Move_Up, self.startRunWatch)
-        self.accept(base.Move_Up + '-up', self.stopRunWatch)
-        self.accept('control-'+ base.Move_Up, self.startRunWatch)
-        self.accept('control-'+ base.Move_Up + '-up', self.stopRunWatch)
-        self.accept('alt-'+ base.Move_Up, self.startRunWatch)
-        self.accept('alt-'+ base.Move_Up + '-up', self.stopRunWatch)
-        self.accept('shift-' + base.Move_Up, self.startRunWatch)
-        self.accept('shift-' + base.Move_Up + '-up', self.stopRunWatch)
+        self.accept(base.MOVE_UP, self.startRunWatch)
+        self.accept(base.MOVE_UP + '-up', self.stopRunWatch)
+        self.accept('control-'+ base.MOVE_UP, self.startRunWatch)
+        self.accept('control-'+ base.MOVE_UP + '-up', self.stopRunWatch)
+        self.accept('alt-'+ base.MOVE_UP, self.startRunWatch)
+        self.accept('alt-'+ base.MOVE_UP + '-up', self.stopRunWatch)
+        self.accept('shift-' + base.MOVE_UP, self.startRunWatch)
+        self.accept('shift-' + base.MOVE_UP + '-up', self.stopRunWatch)
 
     def disableRun(self):
-        self.ignore(base.Move_Up)
-        self.ignore(base.Move_Up + '-up')
-        self.ignore('control-'+ base.Move_Up)
-        self.ignore('control-' + base.Move_Up + '-up')
-        self.ignore('alt-' + base.Move_Up)
-        self.ignore('alt-' + base.Move_Up + '-up')
-        self.ignore('shift-' + base.Move_Up)
-        self.ignore('shift-' + base.Move_Up + '-up')
+        self.ignore(base.MOVE_UP)
+        self.ignore(base.MOVE_UP + '-up')
+        self.ignore('control-'+ base.MOVE_UP)
+        self.ignore('control-' + base.MOVE_UP + '-up')
+        self.ignore('alt-' + base.MOVE_UP)
+        self.ignore('alt-' + base.MOVE_UP + '-up')
+        self.ignore('shift-' + base.MOVE_UP)
+        self.ignore('shift-' + base.MOVE_UP + '-up')
 
     def startRunWatch(self):
 
