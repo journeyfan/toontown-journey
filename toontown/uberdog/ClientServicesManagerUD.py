@@ -1540,7 +1540,7 @@ class ClientServicesManagerUD(DistributedObjectGlobalUD):
         self.nameGenerator = NameGenerator()
 
         # Temporary HMAC key:
-        self.key = 'bG9sLndlLmNoYW5nZS50aGlzLnRvby5tdWNo'
+        self.key = 'iQhFqzK9yRDM6DY52m6kJZ6pFJPrE6TE'
 
         # Instantiate our account DB interface:
         if accountDBType == 'developer':
