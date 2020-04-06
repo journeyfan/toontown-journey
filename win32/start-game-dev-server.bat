@@ -6,7 +6,7 @@ title Toontown Game Launcher
 set TTI_GAMESERVER=192.99.167.158
 set /P username=Username:
 set /P password=Password:
-TTI_PLAYCOOKIE = username:password
+set TTI_PLAYCOOKIE = username:password
 echo Starting Toontown...
 
 :main
