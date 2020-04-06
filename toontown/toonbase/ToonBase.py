@@ -30,6 +30,7 @@ from toontown.toonbase import TTLocalizer
 from toontown.toonbase import ToontownAccess
 from toontown.toonbase import ToontownBattleGlobals
 from toontown.toontowngui import TTDialog
+from direct.showbase.InputStateGlobal import inputState
 
 
 class ToonBase(OTPBase.OTPBase):
