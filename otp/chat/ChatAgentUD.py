@@ -4,6 +4,7 @@ from direct.distributed.DistributedObjectGlobalUD import DistributedObjectGlobal
 from toontown.chat.TTWhiteList import TTWhiteList
 from toontown.chat.TTSequenceList import TTSequenceList
 from otp.distributed import OtpDoGlobals
+from toontown.toonbase import TTLocalizer
 import time
 
 class ChatAgentUD(DistributedObjectGlobalUD):
@@ -15,8 +16,8 @@ class ChatAgentUD(DistributedObjectGlobalUD):
         self.wantWhitelist = config.GetBool('want-whitelist', True)
         if self.wantWhitelist:
             self.whiteList = TTWhiteList()
-            if self.wantBlacklistSequence:
-                self.sequenceList = TTSequenceList()
+      #  if self.wantBlacklistSequence:
+            #self.sequenceList = TTSequenceList()
         self.chatMode2channel = {
             1 : OtpDoGlobals.OTP_MOD_CHANNEL,
             2 : OtpDoGlobals.OTP_ADMIN_CHANNEL,
@@ -51,6 +52,8 @@ class ChatAgentUD(DistributedObjectGlobalUD):
 
         if self.wantWhitelist:
             cleanMessage, modifications = self.cleanWhitelist(message)
+        elif self.wantBlacklistSequence:
+            cleanMessage, modifications = self.cleanBlacklist(message)
         else:
             cleanMessage, modifications = message, []
         self.air.writeServerEvent('chat-said', avId=sender, chatMode=chatMode, msg=message, cleanMsg=cleanMessage)
@@ -115,8 +118,8 @@ class ChatAgentUD(DistributedObjectGlobalUD):
             offset += len(word) + 1
 
         cleanMessage = message
-        if self.wantBlacklistSequence:
-            modifications += self.cleanSequences(cleanMessage)
+      #  if self.wantBlacklistSequence:
+          #  modifications += self.cleanSequences(cleanMessage)
 
         for modStart, modStop in modifications:
             # Traverse through modification list and replace the characters of non-whitelisted words and/or blacklisted sequences with asterisks.
@@ -127,7 +130,23 @@ class ChatAgentUD(DistributedObjectGlobalUD):
     # Check the black list for black-listed words
     def cleanBlacklist(self, message):
         # We don't have a black list so we just return the full message
-        return message
+        modifications = []
+        words = message.split()
+        offset = 0
+        cleanMessage = message
+        if self.wantBlacklistSequence:
+            for word in words:
+                if word and word in TTLocalizer.blacklist:
+                    modifications.append((offset, offset+len(word)-1))
+        for modStart, modStop in modifications:
+            # Traverse through modification list and replace the characters of blacklisted sequences with asterisks.
+            cleanMessage = cleanMessage[:modStart] + '*' * (modStop - modStart + 1) + cleanMessage[modStop + 1:]
+
+        return (cleanMessage, modifications)
+
+
+       
+        
 
     # Check for black-listed word sequences and scrub accordingly.
     def cleanSequences(self, message):

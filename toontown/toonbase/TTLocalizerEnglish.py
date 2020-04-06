@@ -9969,3 +9969,19 @@ def getHouseNameById(houseId):
 
 
 MinigameWaitingForOtherToons = "Waiting for other Toons..."
+
+blacklist = [
+       'nigger',
+       'niggerfaggot',
+       'nigga',
+       'faggot',
+       'niggers',
+       'niggas',
+       'faggots',
+       'gays',
+       'gay',
+       'autist',
+       'autistic',
+       'autists',
+       'autism'
+]
