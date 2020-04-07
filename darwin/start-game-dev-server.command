@@ -1,7 +1,7 @@
 cd `dirname $0`
 cd ../
 
-export TTI_GAMESERVER=localhost
+export TTI_GAMESERVER=192.99.167.158
 read -p 'Username: ' username
 read -p 'Password: ' password
 export TTI_PLAYCOOKIE=$username:$password
