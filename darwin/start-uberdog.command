@@ -1,3 +1,4 @@
+cd `dirname $0`
 cd ..
 # Define some constants for our UberDOG server:
 export MAX_CHANNELS=999999

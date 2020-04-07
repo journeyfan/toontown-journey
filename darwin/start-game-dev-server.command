@@ -1,3 +1,4 @@
+cd `dirname $0`
 cd ../
 
 export TTI_GAMESERVER=localhost
