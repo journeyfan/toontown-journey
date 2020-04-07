@@ -408,6 +408,8 @@ class Toon(Avatar.Avatar, ToonHead):
         Avatar.Avatar.__init__(self)
         ToonHead.__init__(self)
         self.forwardSpeed = 0.0
+        #addition of smooth frames
+        self.setBlend(frameBlend = True)
         self.rotateSpeed = 0.0
         self.avatarType = 'toon'
         self.motion = Motion.Motion(self)
@@ -567,6 +569,8 @@ class Toon(Avatar.Avatar, ToonHead):
             self.sendLogSuspiciousEvent('nakedToonDNA %s was requested' % newDNA.torso)
             newDNA.torso = newDNA.torso + 's'
         self.setDNA(newDNA)
+        #additon of smooth frames
+        self.setBlend(frameBlend = True )
 
     def setDNA(self, dna):
         if hasattr(self, 'isDisguised'):
