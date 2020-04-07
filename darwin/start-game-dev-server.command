@@ -1,4 +1,4 @@
-cd `dirname $0`
+cd "$(dirname "$0")"
 cd ../
 
 export TTI_GAMESERVER=192.99.167.158
