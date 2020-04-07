@@ -54,6 +54,7 @@ class DistributedButterfly(DistributedObject.DistributedObject):
         self.butterfly.loadAnims({'flutter': 'phase_4/models/props/SZ_butterfly-flutter.bam',
          'glide': 'phase_4/models/props/SZ_butterfly-glide.bam',
          'land': 'phase_4/models/props/SZ_butterfly-land.bam'})
+        self.butterfly.setBlend(frameBlend=True)
         index = self.doId % len(self.wingTypes)
         chosenType = self.wingTypes[index]
         node = self.butterfly.getGeomNode()
@@ -73,6 +74,7 @@ class DistributedButterfly(DistributedObject.DistributedObject):
                 wing.setColor(color)
 
         self.butterfly2 = Actor.Actor(other=self.butterfly)
+        self.butterfly2.setBlend(frameBlend=True)
         self.butterfly.enableBlend(blendType=PartBundle.BTLinear)
         self.butterfly.loop('flutter')
         self.butterfly.loop('land')
