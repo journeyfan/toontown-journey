@@ -2583,13 +2583,13 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
             self.d_setInventory(self.inventory.makeNetString())
             self.notify.debug('Restock for ' + self.name)
         elif msgType == ResistanceChat.RESISTANCE_MONEY:
-            if msgValue == -1:
-                self.addMoney(999999)
-                #idk what this is but it breaks everythig
-        #elif msgType == ResistanceChat.RESISTANCE_CHEESY:
+            self.addMoney(msgValue)
+        elif msgType == ResistanceChat.RESISTANCE_DANCE:
+            print "Hello"
+        elif msgType == ResistanceChat.RESISTANCE_CHEESY:
             if self.oldCheesyExpireTime >= self.savedCheesyExpireTime:
-                #self.oldCheesyEffect = self.savedCheesyEffect
-                #self.oldCheesyHoodId = self.savedCheesyHoodId
+                self.oldCheesyEffect = self.savedCheesyEffect
+                self.oldCheesyHoodId = self.savedCheesyHoodId
                 self.oldCheesyExpireTime = self.savedCheesyExpireTime
             else:
                 self.oldCheesyEffect = self.oldCheesyEffect
