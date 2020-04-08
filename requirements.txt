@@ -2,3 +2,5 @@ semidbm
 pyyaml
 tk
 passlib
+termcolor
+colorama

@@ -440,6 +440,7 @@ class Suit(Avatar.Avatar):
         self.getGeomNode().setScale(self.scale)
         self.generateHealthBar()
         self.generateCorporateMedallion()
+        self.setBlend(frameBlend=True)
 
     def generateBody(self):
         global Preloaded
