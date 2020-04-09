@@ -275,6 +275,7 @@ from toontown.coghq import DistributedCountryClubBattle/AI
 from toontown.building import DistributedClubElevator/AI
 from toontown.coghq import DistributedMaze/AI
 from toontown.battle import DistributedBattleWaiters/AI
+from toontown.battle import DistributedBattleVirtuals/AI
 from toontown.coghq import DistributedFoodBelt/AI
 from toontown.coghq import DistributedBanquetTable/AI
 from toontown.battle import DistributedBattleDiners/AI
@@ -3053,6 +3054,9 @@ dclass DistributedMaze : DistributedEntity {
 };
 
 dclass DistributedBattleWaiters : DistributedBattleFinal {
+};
+
+dclass DistributedBattleVirtuals : DistributedBattleFinal {
 };
 
 dclass DistributedFoodBelt : DistributedObject {

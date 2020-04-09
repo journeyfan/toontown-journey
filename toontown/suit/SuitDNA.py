@@ -38,7 +38,8 @@ suitHeadTypes = ['f',
  'ms',
  'tf',
  'm',
- 'mh']
+ 'mh',
+ 'cp']
 suitATypes = ['ym',
  'hh',
  'tbc',
@@ -52,7 +53,8 @@ suitATypes = ['ym',
  'nd',
  'tf',
  'm',
- 'mh']
+ 'mh',
+ 'cp']
 suitBTypes = ['p',
  'ds',
  'b',
@@ -97,6 +99,9 @@ suitsPerLevel = [1,
  1]
 suitsPerDept = 8
 levelsPerSuit = 5
+customSuitDepts = {
+    'cp': 'c'
+}
 goonTypes = ['pg', 'sg']
 
 def getSuitBodyType(name):
@@ -120,6 +125,8 @@ def getSuitDept(name):
         return suitDepts[2]
     elif index < suitsPerDept * 4:
         return suitDepts[3]
+    elif name in customSuitDepts.keys():
+        return customSuitDepts.get(name)
     else:
         print 'Unknown dept for suit name: ', name
         return None
@@ -148,8 +155,12 @@ def getSuitName(deptIndex, typeIndex):
 
 
 def getRandomSuitType(level, rng = random):
-    return random.randint(max(level - 4, 1), min(level, 8))
+    try:
+        returnval = random.randint(max(level - 4, 1), min(level, 8))
+    except:
+        returnval = 8
 
+    return returnval
 
 def getRandomSuitByDept(dept):
     deptNumber = suitDepts.index(dept)

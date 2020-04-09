@@ -2,7 +2,7 @@
 from pandac.PandaModules import *
 
 
-hashVal = 851732802
+hashVal = 1019065696
 
 
 from toontown.cogdominium import DistributedCogdoInterior, DistributedCogdoBattleBldg, DistributedCogdoElevatorExt, DistributedCogdoElevatorInt, DistributedCogdoBarrel, DistCogdoGame, DistCogdoLevelGame, DistCogdoBoardroomGame, DistCogdoCraneGame, DistCogdoMazeGame, DistCogdoFlyingGame, DistCogdoCrane, DistCogdoCraneMoneyBag, DistCogdoCraneCog
@@ -58,7 +58,7 @@ from direct.distributed import DistributedObject, DistributedNode, DistributedSm
 from toontown.uberdog.DistributedWhitelistMgr import DistributedWhitelistMgr
 from otp.ai import TimeManager, MagicWordManager
 from otp.avatar import DistributedAvatar, DistributedPlayer, AvatarHandle
-from toontown.battle import DistributedBattleBase, DistributedBattle, DistributedBattleBldg, DistributedBattleFinal, DistributedBattleWaiters, DistributedBattleDiners
+from toontown.battle import DistributedBattleBase, DistributedBattle, DistributedBattleBldg, DistributedBattleFinal, DistributedBattleWaiters, DistributedBattleVirtuals, DistributedBattleDiners
 
 
 dcImports = locals().copy()
