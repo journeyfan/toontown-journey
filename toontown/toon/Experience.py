@@ -12,7 +12,7 @@ class Experience:
         self.owner = owner
         if expStr == None:
             self.experience = []
-            for track in xrange(0, len(Tracks)):
+            for track in xrange(0, 7):
                 self.experience.append(StartingLevel)
 
         else:

@@ -302,8 +302,8 @@ def invasion(cmd='start', dept=0, suit=0, flag=0):
     Starts/stops an invasion.
     """
     if cmd == 'start':
-        if dept < 0 or dept > 3:
-            return 'Invalid suit department. Must be 0-3.'
+        if dept < 0 or dept > 4:
+            return 'Invalid suit department. Must be 0-4.'
         elif suit < 0 or suit > 7:
             return 'Invalid suit. Must be 0-7.'
         elif flag < 0 or flag > 4:

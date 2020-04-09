@@ -202,7 +202,7 @@ class SuitPage(ShtikerPage.ShtikerPage):
         gui = loader.loadModel('phase_3.5/models/gui/suitpage_gui')
         self.panelModel = gui.find('**/card')
         self.shadowModels = []
-        for index in xrange(1, len(SuitDNA.suitHeadTypes) - len(SuitDNA.customSuitDepts.keys()) + 1):
+        for index in xrange(1, len(SuitDNA.suitHeadTypes) + 1):
             self.shadowModels.append(gui.find('**/shadow' + str(index)))
         del gui
         self.makePanels()
@@ -335,7 +335,8 @@ class SuitPage(ShtikerPage.ShtikerPage):
         yStart = -0.18
         xOffset = 0.199
         yOffset = 0.284
-        for dept in xrange(0, len(SuitDNA.suitDepts)):
+        ##NEED TO REDO THE COG PAGE IN SHTIKER BOOK
+        for dept in xrange(0, len(SuitDNA.suitDepts) -8):
             row = []
             color = PANEL_COLORS[dept]
             for type in xrange(0, SuitDNA.suitsPerDept):

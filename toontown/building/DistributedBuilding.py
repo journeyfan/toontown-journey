@@ -334,11 +334,8 @@ class DistributedBuilding(DistributedObject.DistributedObject):
         self.rightDoor = self.elevatorModel.find('**/right-door')
         if self.rightDoor.isEmpty():
             self.rightDoor = self.elevatorModel.find('**/right_door')
-        try:
-            self.suitDoorOrigin = newNP.find('**/*_door_origin')
-            self.elevatorNodePath.reparentTo(self.suitDoorOrigin)
-        except:
-            self.notify.warning("Tried to reparent non-existent door origin!")
+        self.suitDoorOrigin = newNP.find('**/*_door_origin')
+        self.elevatorNodePath.reparentTo(self.suitDoorOrigin)
         self.normalizeElevator()
         return
 
@@ -568,12 +565,9 @@ class DistributedBuilding(DistributedObject.DistributedObject):
         signTextNodePath = backgroundNP.attachNewNode(textNode.generate())
         signTextNodePath.setPosHprScale(0.0, 0.0, -0.13 + textHeight * 0.1 / zScale, 0.0, 0.0, 0.0, 0.1 * 8.0 / 20.0, 0.1, 0.1 / zScale)
         signTextNodePath.setColor(1.0, 1.0, 1.0, 1.0)
-        try:
-            frontNP = suitBuildingNP.find('**/*_front/+GeomNode;+s')
-            backgroundNP.wrtReparentTo(frontNP)
-            frontNP.node().setEffect(DecalEffect.make())
-        except:
-            self.notify.warning("Tried to reparent non-existent front namepanel!")
+        frontNP = suitBuildingNP.find('**/*_front/+GeomNode;+s')
+        backgroundNP.wrtReparentTo(frontNP)
+        frontNP.node().setEffect(DecalEffect.make())
         suitBuildingNP.setName('cb' + str(self.block) + ':_landmark__DNARoot')
         suitBuildingNP.setPosHprScale(nodePath, 15.463, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0)
         suitBuildingNP.flattenMedium()

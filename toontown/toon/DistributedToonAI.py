@@ -1724,7 +1724,7 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
 
     def fixTrackAccess(self):
         fixed = 0
-        healExp, trapExp, lureExp, soundExp, throwExp, squirtExp, dropExp = self.experience.experience
+        healExp, trapExp, lureExp, soundExp, throwExp, squirtExp, dropExp, powerupExp = self.experience.experience
         numTracks = reduce(lambda a, b: a + b, self.trackArray)
         if self.rewardTier in [0,
          1,
@@ -4445,7 +4445,7 @@ def SetMax(missingTrack=None):
     invoker = spellbook.getTarget()
 
     # First, unlock the invoker's Gag tracks:
-    gagTracks = [1, 1, 1, 1, 1, 1, 1]
+    gagTracks = [1, 1, 1, 1, 1, 1, 1, 1]
     if missingTrack is not None:
         try:
             index = ('toonup', 'trap', 'lure', 'sound', 'throw',
