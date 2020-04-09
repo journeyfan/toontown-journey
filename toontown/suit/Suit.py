@@ -79,6 +79,10 @@ tbc = (('cigar-smoke', 'cigar-smoke', 8),
  ('glower', 'glower', 5),
  ('song-and-dance', 'song-and-dance', 8),
  ('golf-club-swing', 'golf-club-swing', 5))
+cp = (('cigar-smoke', 'cigar-smoke', 8),
+ ('glower', 'glower', 5),
+ ('song-and-dance', 'song-and-dance', 8),
+ ('golf-club-swing', 'golf-club-swing', 5))
 cc = (('speak', 'speak', 5),
  ('glower', 'glower', 5),
  ('phone', 'phone', 3.5),
@@ -365,6 +369,7 @@ class Suit(Avatar.Avatar):
         self.isDisguised = 0
         self.isWaiter = 0
         self.isRental = 0
+        self.isVirtuallyVirtual = False
 
     def delete(self):
         try:
@@ -788,6 +793,8 @@ class Suit(Avatar.Avatar):
 
                 if self.isWaiter:
                     self.makeWaiter(self.loseActor)
+                elif self.isVirtual:
+                    self.makeStageVirtual(self.loseActor)
                 else:
                     self.setSuitClothes(self.loseActor)
             else:
