@@ -13,7 +13,8 @@ DeptColors = (
     Vec4(0.647, 0.608, 0.596, 1.0),
     Vec4(0.588, 0.635, 0.671, 1.0),
     Vec4(0.596, 0.714, 0.659, 1.0),
-    Vec4(0.761, 0.678, 0.69, 1.0)
+    Vec4(0.761, 0.678, 0.69, 1.0),
+    Vec4(0.588, 0.635, 0.671, 1.0)
 )
 NumParts = max(CogDisguiseGlobals.PartsPerSuit)
 PartNames = (
