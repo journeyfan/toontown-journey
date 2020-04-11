@@ -18,18 +18,17 @@ BUILDING_RADAR_POS = (0.375,
 PANEL_COLORS = (Vec4(0.8, 0.78, 0.77, 1),
  Vec4(0.75, 0.78, 0.8, 1),
  Vec4(0.75, 0.82, 0.79, 1),
- Vec4(0.825, 0.76, 0.77, 1),
- Vec4(0.75, 0.82, 0.79, 1))
+ Vec4(0.825, 0.76, 0.77, 1))
 PANEL_COLORS_COMPLETE1 = (Vec4(0.7, 0.725, 0.545, 1),
  Vec4(0.625, 0.725, 0.65, 1),
  Vec4(0.6, 0.75, 0.525, 1),
  Vec4(0.675, 0.675, 0.55, 1),
- Vec4(0.6, 0.75, 0.525, 1))
+ Vec4(0.675, 0.675, 0.55, 1))
 PANEL_COLORS_COMPLETE2 = (Vec4(0.9, 0.725, 0.32, 1),
  Vec4(0.825, 0.725, 0.45, 1),
  Vec4(0.8, 0.75, 0.325, 1),
  Vec4(0.875, 0.675, 0.35, 1),
- Vec4(0.8, 0.75, 0.325, 1))
+ Vec4(0.875, 0.675, 0.35, 1))
 SHADOW_SCALE_POS = ((1.225,
   0,
   10,
@@ -236,8 +235,6 @@ class SuitPage(ShtikerPage.ShtikerPage):
         for panel in self.panels:
             panel.destroy()
         del self.panels
-        for shadow in self.shadowModels:
-            shadow.removeNode()
 
         self.panelModel.removeNode()
         ShtikerPage.ShtikerPage.unload(self)

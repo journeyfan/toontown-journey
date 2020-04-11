@@ -836,6 +836,7 @@ class DistributedBattleBase(DistributedNode.DistributedNode, BattleBase):
             target_sz = ZoneUtil.getSafeZoneId(self.zoneId)
         else:
             target_sz = ZoneUtil.getSafeZoneId(base.localAvatar.defaultZone)
+        '''
         base.cr.playGame.getPlace().fsm.request('teleportOut', [{'loader': ZoneUtil.getLoaderName(target_sz),
           'where': ZoneUtil.getWhereName(target_sz, 1),
           'how': 'teleportIn',
@@ -844,6 +845,7 @@ class DistributedBattleBase(DistributedNode.DistributedNode, BattleBase):
           'shardId': None,
           'avId': -1,
           'battle': 1}])
+        '''
         return
 
     def __makeToonJoin(self, toon, pendingToons, ts):

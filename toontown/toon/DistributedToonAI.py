@@ -1143,7 +1143,6 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
             self.cogRadar = [0,
              0,
              0,
-             0,
              0]
         else:
             self.cogRadar = radar
@@ -1164,7 +1163,6 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
             self.buildingRadar = [0,
              0,
              0,
-             0,
              0]
         else:
             self.buildingRadar = radar
@@ -1183,7 +1181,6 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
         if not types:
             self.notify.warning('cogTypes set to bad value: %s. Resetting to [0,0,0,0]' % types)
             self.cogTypes = [0,
-             0,
              0,
              0,
              0]
@@ -1268,9 +1265,8 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
 
     def setCogParts(self, parts):
         if not parts:
-            self.notify.warning('cogParts set to bad value: %s. Resetting to [0,0,0,0,0]' % parts)
+            self.notify.warning('cogParts set to bad value: %s. Resetting to [0,0,0,0]' % parts)
             self.cogParts = [0,
-             0,
              0,
              0,
              0]
@@ -1803,18 +1799,21 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
              trapExp,
              lureExp,
              soundExp,
-             dropExp]
+             dropExp,
+             powerupExp]
             sortedExp.sort()
             if trapExp == sortedExp[0]:
-                self.b_setTrackAccess([1, 0, 1, 1, 1, 1, 1])
+                self.b_setTrackAccess([1, 0, 1, 1, 1, 1, 1, 1])
             elif lureExp == sortedExp[0]:
-                self.b_setTrackAccess([1, 1, 0, 1, 1, 1, 1])
+                self.b_setTrackAccess([1, 1, 0, 1, 1, 1, 1, 1])
             elif dropExp == sortedExp[0]:
-                self.b_setTrackAccess([1, 1, 1, 1, 1, 1, 0])
+                self.b_setTrackAccess([1, 1, 1, 1, 1, 1, 0, 1])
             elif soundExp == sortedExp[0]:
-                self.b_setTrackAccess([1, 1, 1, 0, 1, 1, 1])
+                self.b_setTrackAccess([1, 1, 1, 0, 1, 1, 1, 1])
             elif healExp == sortedExp[0]:
-                self.b_setTrackAccess([0, 1, 1, 1, 1, 1, 1])
+                self.b_setTrackAccess([0, 1, 1, 1, 1, 1, 1, 1])
+            elif powerupExp == sortedExp[0]:
+                self.b_setTrackAccess([1, 1, 1, 1, 1, 1, 1, 0])
             else:
                 self.notify.warning('invalid exp?!: %s, %s' % (sortedExp, self.trackArray))
                 self.b_setTrackAccess([1, 0, 1, 1, 1, 1, 1])
