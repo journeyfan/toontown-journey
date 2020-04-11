@@ -14,10 +14,12 @@ RADAR_DELAY = 0.2
 BUILDING_RADAR_POS = (0.375,
  0.065,
  -0.225,
+ -0.5,
  -0.5)
 PANEL_COLORS = (Vec4(0.8, 0.78, 0.77, 1),
  Vec4(0.75, 0.78, 0.8, 1),
  Vec4(0.75, 0.82, 0.79, 1),
+ Vec4(0.825, 0.76, 0.77, 1),
  Vec4(0.825, 0.76, 0.77, 1))
 PANEL_COLORS_COMPLETE1 = (Vec4(0.7, 0.725, 0.545, 1),
  Vec4(0.625, 0.725, 0.65, 1),
@@ -156,7 +158,40 @@ SHADOW_SCALE_POS = ((1.225,
  (0.9,
   0.0025,
   10,
-  -0.03))
+  -0.03),
+ (1.15,
+  0,
+  10,
+  -0.01),
+ (1.0,
+  0,
+  10,
+  0),
+ (1.0,
+  0,
+  10,
+  0),
+ (1.1,
+  0,
+  10,
+  -0.04),
+ (0.93,
+  0.005,
+  10,
+  -0.01),
+ (0.95,
+  0.005,
+  10,
+  -0.01),
+ (1.0,
+  0,
+  10,
+  -0.02),
+ (0.9,
+  0.0025,
+  10,
+  -0.03),
+)
 
 class SuitPage(ShtikerPage.ShtikerPage):
 
@@ -198,6 +233,9 @@ class SuitPage(ShtikerPage.ShtikerPage):
         icon = icons.find('**/sales_icon')
         self.salesRadarButton = DirectButton(parent=self.iconNode, relief=None, state=DGG.DISABLED, image=(icon, icon, icon), image_scale=(0.03375, 1, 0.045), image2_color=Vec4(1.0, 1.0, 1.0, 0.75), pos=(-0.2, 10, -0.575), command=self.toggleRadar, extraArgs=[3])
         self.radarButtons.append(self.salesRadarButton)
+        icon = icons.find('**/sales_icon')
+        self.techRadarButton = DirectButton(parent=self.iconNode, relief=None, state=DGG.DISABLED, image=(icon, icon, icon), image_scale=(0.03375, 1, 0.045), image2_color=Vec4(1.0, 1.0, 1.0, 0.75), pos=(-0.2, 10, -0.850), command=self.toggleRadar, extraArgs=[4])
+        self.radarButtons.append(self.techRadarButton)
         for radarButton in self.radarButtons:
             radarButton.building = 0
             radarButton.buildingRadarLabel = None
@@ -209,6 +247,7 @@ class SuitPage(ShtikerPage.ShtikerPage):
         del gui
         self.makePanels()
         self.radarOn = [0,
+         0,
          0,
          0,
          0]
@@ -336,7 +375,7 @@ class SuitPage(ShtikerPage.ShtikerPage):
         xOffset = 0.199
         yOffset = 0.284
         ##NEED TO REDO THE COG PAGE IN SHTIKER BOOK
-        for dept in xrange(0, len(SuitDNA.suitDepts) -8):
+        for dept in xrange(0, len(SuitDNA.suitDepts)):
             row = []
             color = PANEL_COLORS[dept]
             for type in xrange(0, SuitDNA.suitsPerDept):
@@ -365,14 +404,6 @@ class SuitPage(ShtikerPage.ShtikerPage):
         return
 
     def addSuitHead(self, panel, suitName):
-        panelIndex = self.panels.index(panel)
-        shadow = panel.attachNewNode('shadow')
-        shadowModel = self.shadowModels[panelIndex]
-        shadowModel.copyTo(shadow)
-        coords = SHADOW_SCALE_POS[panelIndex]
-        shadow.setScale(coords[0])
-        shadow.setPos(coords[1], coords[2], coords[3])
-        panel.shadow = shadow
         panel.head = Suit.attachSuitHead(panel, suitName)
 
     def addCogRadarLabel(self, panel):
@@ -553,6 +584,7 @@ class SuitPage(ShtikerPage.ShtikerPage):
             buildingList = base.cr.currSuitPlanner.buildingList
         else:
             buildingList = [0,
+             0,
              0,
              0,
              0]
