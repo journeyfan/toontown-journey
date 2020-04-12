@@ -24,7 +24,7 @@ dc-file astron/dclass/otp.dc
 # Core features:
 want-pets #t
 want-parties #f
-want-cogdominiums #f
+want-cogdominiums #t
 want-achievements #f
 estate-day-night #t
 want-mega-invasions #t
