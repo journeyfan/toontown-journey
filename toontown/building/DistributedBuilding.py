@@ -22,7 +22,9 @@ from toontown.hood import ZoneUtil
 FO_DICT = {'s': 'tt_m_ara_cbe_fieldOfficeMoverShaker',
  'l': 'tt_m_ara_cbe_fieldOfficeLegalEagle',
  'm': 'tt_m_ara_cbe_fieldOfficeMoverShaker',
- 'c': 'tt_m_ara_cbe_fieldOfficeMoverShaker'}
+ 'c': 'tt_m_ara_cbe_fieldOfficeMoverShaker',
+ ## NEED TO CHANGE FOR SECBOT
+ 'y':  'tt_m_ara_cbe_fieldOfficeLegalEagle'}
 
 class DistributedBuilding(DistributedObject.DistributedObject):
     SUIT_INIT_HEIGHT = 125

@@ -15,7 +15,7 @@ want-resistance-money #t
 want-housing #t
 want-pets #f
 want-parties #f
-want-cogdominiums #t
+want-cogdominiums #f
 want-achievements #f
 boarding-group-merges #t
 

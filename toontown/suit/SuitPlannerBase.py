@@ -7,24 +7,25 @@ from toontown.dna.DNAParser import DNASuitPoint, DNAStorage, loadDNAFileAI
 
 class SuitPlannerBase:
     notify = directNotify.newCategory('SuitPlannerBase')
-    SuitHoodInfo = [[2100,
-      5,
-      15,
-      0,
-      5,
-      20,
-      3,
-      (1,
-       5,
-       10,
-       40,
-       60,
-       80),
-      (25,
-       25,
-       25,
-       25),
-      (1, 2, 3),
+    SuitHoodInfo = [[2100,               ##This is the Street name Sily Street
+      5,                                 ##
+      15,                                ##
+      0,                                 ##
+      5,                                 ##
+      20,                                ##
+      3,                                 ##
+      (1,                                ##
+       5,                                ##
+       10,                               ##
+       40,                               ##
+       60,                               ##
+       80),                              ##
+      (0,                               ##This is the chance a Bossbot spawns
+       0,                               ## Lawbot Spawn
+       0,                               ##Cashbot
+       0,                               ## Sellbot
+       100),                              ## Secbot
+      (1, 2, 3),                         ## These are the cog levels
       []],
      [2200,
       3,
