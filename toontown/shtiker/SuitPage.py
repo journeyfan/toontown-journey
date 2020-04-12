@@ -11,11 +11,11 @@ from toontown.battle import SuitBattleGlobals
 from CogPageGlobals import *
 SCALE_FACTOR = 1.5
 RADAR_DELAY = 0.2
-BUILDING_RADAR_POS = (0.40,
- 0.18,
- -0.06,
- -0.29,
- -0.0)
+BUILDING_RADAR_POS = (0.27,
+ 0.07,
+ -0.13,
+ -0.32,
+ -0.32)
 PANEL_COLORS = (Vec4(0.8, 0.78, 0.77, 1),
  Vec4(0.75, 0.78, 0.8, 1),
  Vec4(0.75, 0.82, 0.79, 1),
@@ -399,7 +399,7 @@ class SuitPage(ShtikerPage.ShtikerPage):
             quota = str(COG_QUOTAS[0][index % SuitDNA.suitsPerDept])
         else:
             quota = str(COG_QUOTAS[1][index % SuitDNA.suitsPerDept])
-        quotaLabel = DirectLabel(parent=panel, pos=(0.0, 0.0, -0.14), relief=None, state=DGG.DISABLED, text=TTLocalizer.SuitPageQuota % (count, quota), text_scale=0.04, text_fg=(0, 0, 0, 1), text_font=ToontownGlobals.getSuitFont())
+        quotaLabel = DirectLabel(parent=panel, pos=(0.0, 0.0, -0.15), relief=None, state=DGG.DISABLED, text=TTLocalizer.SuitPageQuota % (count, quota), text_scale=0.04, text_fg=(0, 0, 0, 1), text_font=ToontownGlobals.getSuitFont())
         panel.quotaLabel = quotaLabel
         return
 
@@ -407,7 +407,7 @@ class SuitPage(ShtikerPage.ShtikerPage):
         panel.head = Suit.attachSuitHead(panel, suitName)
 
     def addCogRadarLabel(self, panel):
-        cogRadarLabel = DirectLabel(parent=panel, pos=(0.0, 0.0, -0.215), relief=None, state=DGG.DISABLED, text='', text_scale=0.05, text_fg=(0, 0, 0, 1), text_font=ToontownGlobals.getSuitFont())
+        cogRadarLabel = DirectLabel(parent=panel, pos=(0.0, 0.0, -0.15), relief=None, state=DGG.DISABLED, text='', text_scale=0.05, text_fg=(0, 0, 0, 1), text_font=ToontownGlobals.getSuitFont())
         panel.cogRadarLabel = cogRadarLabel
         return
 
@@ -416,10 +416,10 @@ class SuitPage(ShtikerPage.ShtikerPage):
         okButtonList = (buttons.find('**/ChtBx_OKBtn_UP'), buttons.find('**/ChtBx_OKBtn_DN'), buttons.find('**/ChtBx_OKBtn_Rllvr'))
         gui = loader.loadModel('phase_3.5/models/gui/stickerbook_gui')
         iconGeom = gui.find('**/summons')
-        summonButton = DirectButton(parent=panel, pos=(0.1, 0.0, -0.13), scale=0.1, relief=None, state=DGG.NORMAL, image=okButtonList, image_scale=13.0, geom=iconGeom, geom_scale=0.7, text=('',
+        summonButton = DirectButton(parent=panel, pos=(0.1, 0.0, -0.08), scale=0.05, relief=None, state=DGG.NORMAL, image=okButtonList, image_scale=13.0, geom=iconGeom, geom_scale=0.7, text=('',
          TTLocalizer.IssueSummons,
          TTLocalizer.IssueSummons,
-         ''), text_scale=0.4, text_pos=(-1.1, -0.4), command=self.summonButtonPressed, extraArgs=[panel])
+         ''), text_scale=0.8, text_pos=(-1.5, -0.4), command=self.summonButtonPressed, extraArgs=[panel])
         panel.summonButton = summonButton
         return
 
@@ -442,7 +442,7 @@ class SuitPage(ShtikerPage.ShtikerPage):
     def addBuildingRadarLabel(self, button):
         gui = loader.loadModel('phase_3.5/models/gui/suit_detail_panel')
         zPos = BUILDING_RADAR_POS[self.radarButtons.index(button)]
-        buildingRadarLabel = DirectLabel(parent=button, relief=None, pos=(0.225, 0.0, zPos), state=DGG.DISABLED, image=gui.find('**/avatar_panel'), image_hpr=(0, 0, 90), image_scale=(0.05, 1, 0.1), image_pos=(0, 0, 0.0), text=TTLocalizer.SuitPageBuildingRadarP % '0', text_scale=0.045, text_fg=(1, 0, 0, 1), text_font=ToontownGlobals.getSuitFont())
+        buildingRadarLabel = DirectLabel(parent=button, relief=None, pos=(0.265, 0.0, zPos), state=DGG.DISABLED, image=gui.find('**/avatar_panel'), image_hpr=(0, 0, 90), image_scale=(0.05, 1, 0.1), image_pos=(0, 0, 0.0), text=TTLocalizer.SuitPageBuildingRadarP % '0', text_scale=0.045, text_fg=(1, 0, 0, 1), text_font=ToontownGlobals.getSuitFont())
         gui.removeNode()
         button.buildingRadarLabel = buildingRadarLabel
         return
