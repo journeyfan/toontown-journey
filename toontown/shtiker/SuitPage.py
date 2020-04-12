@@ -379,7 +379,7 @@ class SuitPage(ShtikerPage.ShtikerPage):
             row = []
             color = PANEL_COLORS[dept]
             for type in xrange(0, SuitDNA.suitsPerDept):
-                panel = DirectLabel(parent=self.panelNode, pos=(xStart + type * xOffset, 0.0, yStart - dept * yOffset), relief=None, state=DGG.NORMAL, image=self.panelModel, image_scale=(.9, .78, .7), image_color=color, text=TTLocalizer.SuitPageMystery, text_scale=0.04, text_fg=(0, 0, 0, 1), text_pos=(0, 0.12, 0), text_font=ToontownGlobals.getSuitFont(), text_wordwrap=7)
+                panel = DirectLabel(parent=self.panelNode, pos=(xStart + type * xOffset, 0.0, yStart - dept * yOffset), relief=None, state=DGG.NORMAL, image=self.panelModel, image_scale=(.94, .78, .79), image_color=color, text=TTLocalizer.SuitPageMystery, text_scale=0.045, text_fg=(0, 0, 0, 1), text_pos=(0, 0.12, 0), text_font=ToontownGlobals.getSuitFont(), text_wordwrap=7)
                 panel.scale = 0.65
                 panel.setScale(panel.scale)
                 panel.quotaLabel = None
@@ -414,6 +414,8 @@ class SuitPage(ShtikerPage.ShtikerPage):
             panel.head.setScale(0.075)
         elif suitName == 'pp':
             panel.head.setScale(0.055)
+        elif suitName == 'bw' or suitName == 'cc' or suitName == 'sc':
+            panel.head.setScale(0.105)
         else:
             panel.head.setScale(0.09)
 
