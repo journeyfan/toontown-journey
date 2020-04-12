@@ -405,6 +405,15 @@ class SuitPage(ShtikerPage.ShtikerPage):
 
     def addSuitHead(self, panel, suitName):
         panel.head = Suit.attachSuitHead(panel, suitName)
+        panel.head.setPos(0.0,0.0,-0.09)
+        if suitName == 'bs' or suitName == 'bnc':
+            panel.head.setScale(0.065)
+        elif suitName == 'le' or suitName == 'cr' or suitName == 'tw' or suitName == 'mc' or suitName == 'wm' or suitName == 'f' or suitName == 'bf':
+            panel.head.setScale(0.13)
+        elif suitName == 'p' or suitName == 'nd':
+            panel.head.setScale(0.075)
+        else:
+            panel.head.setScale(0.09)
 
     def addCogRadarLabel(self, panel):
         cogRadarLabel = DirectLabel(parent=panel, pos=(0.0, 0.0, -0.15), relief=None, state=DGG.DISABLED, text='', text_scale=0.05, text_fg=(0, 0, 0, 1), text_font=ToontownGlobals.getSuitFont())
