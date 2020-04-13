@@ -1126,7 +1126,7 @@ SuitAttributes = {'f': {'name': TTLocalizer.SuitFlunky, 'singularname': TTLocali
                         (35, 35, 35, 35, 35)))}, 
     'bb': {'name': TTLocalizer.SuitSecBigBrother, 'singularname': TTLocalizer.SuitSecBigBrotherS, 
             'pluralname': TTLocalizer.SuitSecBigBrotherP, 
-            'level': 4, 
+            'level': 5, 
             'hp': (56, 72, 90, 110, 132), 
             'def': (20, 25, 30, 35, 40), 
             'freq': (50, 30, 10, 5, 5), 
