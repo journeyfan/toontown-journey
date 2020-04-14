@@ -24,6 +24,8 @@ from otp.chat import TalkAssistant
 from otp.otpbase import OTPGlobals
 from otp.otpbase import OTPLocalizer
 from otp.speedchat import SCDecoders
+from toontown.ai import DistributedBlackCatMgr
+from toontown.ai.DistributedBlackCatMgr import *
 from toontown.catalog import CatalogItem
 from toontown.catalog import CatalogItemList
 from toontown.chat import ResistanceChat
@@ -2940,8 +2942,6 @@ def SkipTutorial():
 	
 @magicWord(category=CATEGORY_MODERATOR, types=[int])
 def BlackToon():
-    from toontown.ai import DistributedBlackCatMgr
-    from toontown.ai.DistributedBlackCatMgr import *
     messenger.send('DistributedBlackCatMgr-activate')
 
 @magicWord(category=CATEGORY_MODERATOR, types=[int])	

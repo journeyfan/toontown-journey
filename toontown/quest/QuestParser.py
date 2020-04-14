@@ -55,9 +55,9 @@ def readFile(filename):
     global curId
     scriptFile = StreamReader(vfs.openReadFile(filename, 1), 1)
     def readline():
-        return scriptFile.readline().replace('\r', '')
+        return scriptFile.readline().replace(b'\r', b'')
 
-    gen = tokenize.generate_tokens(readline)
+    gen = tokenize.tokenize(readline)
     line = getLineOfTokens(gen)
     while line is not None:
         if line == []:
