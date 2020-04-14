@@ -1,4 +1,5 @@
 from panda3d.core import *
+from pandac.PandaModules import getConfigExpress
 import string
 import types
 try:

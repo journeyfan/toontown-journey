@@ -336,9 +336,17 @@ class DistributedBuilding(DistributedObject.DistributedObject):
         self.rightDoor = self.elevatorModel.find('**/right-door')
         if self.rightDoor.isEmpty():
             self.rightDoor = self.elevatorModel.find('**/right_door')
-        self.suitDoorOrigin = newNP.find('**/*_door_origin')
-        self.elevatorNodePath.reparentTo(self.suitDoorOrigin)
-        self.normalizeElevator()
+        if 'LegalEagle' in str(newNP):
+            self.suitDoorOrigin = newNP.find('**/group')
+            self.elevatorNodePath.reparentTo(self.suitDoorOrigin)
+            self.elevatorNodePath.setH(90)
+            self.elevatorNodePath.setX(205)
+            self.elevatorNodePath.setY(24)
+            self.suitDoorOrigin.ls()
+        else:
+            self.suitDoorOrigin = newNP.find('**/*_door_origin')
+            self.elevatorNodePath.reparentTo(self.suitDoorOrigin)
+            self.normalizeElevator()
         return
 
     def loadAnimToSuitSfx(self):
@@ -461,11 +469,23 @@ class DistributedBuilding(DistributedObject.DistributedObject):
         backgroundNP = loader.loadModel('phase_5/models/modules/suit_sign')
         backgroundNP.reparentTo(signOrigin)
         backgroundNP.setPosHprScale(0.0, 0.0, textHeight * 0.8 / zScale, 0.0, 0.0, 0.0, 8.0, 8.0, 8.0 * zScale)
-        backgroundNP.node().setEffect(DecalEffect.make())
+        backEffect = backgroundNP.find("**/tt_t_ara_cbe_fieldOfficeSign")
+        backEffect.node().setEffect(DecalEffect.make())
+        signTextNodePath = backEffect.attachNewNode(textNode.generate())
         signTextNodePath = backgroundNP.attachNewNode(textNode.generate())
         signTextNodePath.setPosHprScale(0.0, 0.0, -0.21 + textHeight * 0.1 / zScale, 0.0, 0.0, 0.0, 0.1, 0.1, 0.1 / zScale)
         signTextNodePath.setColor(1.0, 1.0, 1.0, 1.0)
-        frontNP = suitBuildingNP.find('**/*_front/+GeomNode;+s')
+        frontNP = suitBuildingNP.find('**/*_front')
+        if 'LegalEagle' in str(frontNP):
+            frontNP = suitBuildingNP.find('**/*_front/lbfo_door_origin')
+            frontNP = GeomNode(frontNP)
+            backgroundNP.wrtReparentTo(frontNP)
+            frontNP.node().setEffect(DecalEffect.make())
+        else:
+            frontNP = suitBuildingNP.find('**/*_front/+GeomNode;+s')
+            backgroundNP.wrtReparentTo(frontNP)
+            frontNP.node().setEffect(DecalEffect.make())
+
         backgroundNP.wrtReparentTo(frontNP)
         frontNP.node().setEffect(DecalEffect.make())
         suitBuildingNP.setName('sb' + str(self.block) + ':_landmark__DNARoot')
