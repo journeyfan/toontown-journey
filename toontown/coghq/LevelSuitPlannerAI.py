@@ -87,30 +87,11 @@ class LevelSuitPlannerAI(DirectObject.DirectObject):
         suit.boss = suitDict['boss']
         return suit
 
-    def __genSpecificSuitObject(self, suitDict, reserve):
-        suit = self.cogCtor(simbase.air, self)
-        dna = SuitDNA.SuitDNA()
-        dna.newSuit(suitDict['type'])
-        suit.dna = dna
-        suit.setLevel(suitDict['level'])
-        suit.setSkeleRevives(suitDict.get('revives'))
-        suit.setLevelDoId(self.level.doId)
-        suit.setCogId(suitDict['cogId'])
-        suit.setReserve(reserve)
-        if suitDict['skeleton']:
-            suit.setSkelecog(1)
-        suit.generateWithRequired(suitDict['zoneId'])
-        suit.boss = suitDict['boss']
-        return suit
-
     def genSuits(self):
         suitHandles = {}
         activeSuits = []
         for activeSuitInfo in self.suitInfos['activeSuits']:
-            if activeSuitInfo.get('type', None) and activeSuitInfo.get('forceType', None):
-                suit = self.__genSpecificSuitObject(activeSuitInfo, 0)
-            else:
-                suit = self.__genSuitObject(activeSuitInfo, 0)
+            suit = self.__genSuitObject(activeSuitInfo, 0)
             suit.setBattleCellIndex(activeSuitInfo['battleCell'])
             activeSuits.append(suit)
 

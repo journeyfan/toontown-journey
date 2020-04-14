@@ -56,6 +56,7 @@ def getBattleExperience(numToons, activeToons, toonExp, toonSkillPtsGained, toon
             origExp = toonExp[toonId]
             earnedExp = []
             for i in xrange(len(ToontownBattleGlobals.Tracks)):
+                BattleExperienceAINotify.warning("{}, {} ".format(ToontownBattleGlobals.Tracks, i))
                 earnedExp.append(getSkillGained(toonSkillPtsGained, toonId, i))
 
             p.append(origExp)

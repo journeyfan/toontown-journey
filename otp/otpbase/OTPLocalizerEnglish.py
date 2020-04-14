@@ -884,7 +884,15 @@ SuitFaceoffTaunts = {'b': ['Do you have a donation for me?',
         "It's all uphill from here.",
         "You're going to need some urgent care soon.",
         'This is no laughing matter.',
-        "I'm going to give you the business."]}
+        "I'm going to give you the business."],
+ 'wm': ['This is no laughing matter.'],
+ 'hm': ['This is no laughing matter.'],
+ 'mc': ['This is no laughing matter.'],
+ 'bg': ['This is no laughing matter.'],
+ 'bnc': ['This is no laughing matter.'],
+ 'bb': ['This is no laughing matter.'],
+ 'ssa': ['This is no laughing matter.'],
+ 'w': ['This is no laughing matter.']}
 SpeedChatStaticTextCommon = {1: lYes,
  2: lNo,
  3: lOK,
@@ -2780,7 +2788,16 @@ SCMenuCustomCogIndices = {'bf': (20005, 20014),
  'ls': (20309, 20319),
  'rb': (20320, 20329),
  'sc': (20330, 20331),
- 'sd': (20341, 20350)}
+ 'sd': (20341, 20350),
+ ##NEED TO CHANGE THESE FOR SECBOT
+ 'wm': (20341, 20350),
+ 'hm': (20341, 20350),
+ 'mc': (20341, 20350),
+ 'bg': (20341, 20350),
+ 'bnc': (20341, 20350),
+ 'bb': (20341, 20350),
+ 'ssa': (20341, 20350),
+ 'w': (20341, 20350)}
 PSCMenuExpressions = 'EXPRESSIONS'
 PSCMenuGreetings = 'GREETINGS'
 PSCMenuGoodbyes = 'GOODBYES'

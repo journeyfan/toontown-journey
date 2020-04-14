@@ -218,7 +218,9 @@ def __doBikehorn(sound, delay, toon, targets, level):
     megaphone = globalPropPool.getProp('megaphone')
     megaphone2 = MovieUtil.copyProp(megaphone)
     megaphones = [megaphone, megaphone2]
-    instrument = globalPropPool.getProp('bikehorn')
+    instrument = loader.loadModel('phase_5/models/props/bike_horn.fbx')
+    texture = loader.loadTexture('phase_5/models/props/bike_horn_uvs.jpg')
+    instrument.setTexture(texture, 1)
     instrument2 = MovieUtil.copyProp(instrument)
     instruments = [instrument, instrument2]
 
@@ -270,7 +272,9 @@ def __doWhistle(sound, delay, toon, targets, level):
     megaphone = globalPropPool.getProp('megaphone')
     megaphone2 = MovieUtil.copyProp(megaphone)
     megaphones = [megaphone, megaphone2]
-    instrument = globalPropPool.getProp('whistle')
+    instrument = loader.loadModel('phase_5/models/props/ttj_sound_whistle.fbx')
+    texture = loader.loadTexture('phase_5/models/props/whistle_textures.jpg')
+    instrument.setTexture(texture, 1)
     instrument2 = MovieUtil.copyProp(instrument)
     instruments = [instrument, instrument2]
 

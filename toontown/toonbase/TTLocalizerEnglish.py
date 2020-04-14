@@ -56,7 +56,7 @@ NametagFontNames = (
 )
 NametagLabel = ' Nametag'
 UnpaidNameTag = 'Basic'
-ScreenshotPath = 'TTJScreenshots/'
+ScreenshotPath = 'TTPScreenshots/'
 GM_NAMES = ('TOON COUNCIL',
  'TOON TROOPER',
  'RESISTANCE RANGER',
@@ -1898,22 +1898,27 @@ Bossbot = 'Bossbot'
 Lawbot = 'Lawbot'
 Cashbot = 'Cashbot'
 Sellbot = 'Sellbot'
+Secbot = 'Secbot'
 BossbotS = 'a Bossbot'
 LawbotS = 'a Lawbot'
 CashbotS = 'a Cashbot'
 SellbotS = 'a Sellbot'
+SecbotS = 'a Secbot'
 BossbotP = 'Bossbots'
 LawbotP = 'Lawbots'
 CashbotP = 'Cashbots'
 SellbotP = 'Sellbots'
+SecbotP = 'Secbots'
 BossbotSkelS = 'a Bossbot Skelecog'
 LawbotSkelS = 'a Lawbot Skelecog'
 CashbotSkelS = 'a Cashbot Skelecog'
 SellbotSkelS = 'a Sellbot Skelecog'
+SecbotsSkelS = 'a Secbots Skelecog'
 BossbotSkelP = 'Bossbot Skelecogs'
 LawbotSkelP = 'Lawbot Skelecogs'
 CashbotSkelP = 'Cashbot Skelecogs'
 SellbotSkelP = 'Sellbot Skelecogs'
+SecbotsSkelP = 'Secbots Skelecogs'
 SkeleRevivePostFix = ' v2.0'
 AvatarDetailPanelOK = lOK
 AvatarDetailPanelCancel = lCancel
@@ -2270,7 +2275,8 @@ RewardPanelMeritsMaxed = 'Maxed'
 RewardPanelMeritBarLabels = ['Stock Options',
  'Jury Notices',
  'Cogbucks',
- 'Merits']
+ 'Merits',
+ 'Tech bytes']
 RewardPanelCogPart = 'You gained a Cog disguise part!'
 RewardPanelPromotion = 'Ready for promotion in %s  track!'
 RewardPanelSkip = 'Skip'
@@ -2392,6 +2398,34 @@ SuitBackStabberP = 'Back Stabbers'
 SuitSpinDoctorP = 'Spin Doctors'
 SuitLegalEagleP = 'Legal Eagles'
 SuitBigWigP = 'Big Wigs'
+## New Security Bots
+SuitSecWatchman = 'Watchman'
+SuitSecHenchman = 'Henchman'
+SuitSecMallCop = 'Mall Cop'
+SuitSecBodyGuard = 'Body Guard'
+SuitSecBouncer = 'Bouncer'
+SuitSecBigBrother = 'Big Brother'
+SuitSecSecretServiceAgent = 'Secret Service Agent'
+SuitSecWarden = 'Warden'
+## New Security Bots Singular
+SuitSecWatchmanS = 'a Watchman'
+SuitSecHenchmanS = 'a Henchman'
+SuitSecMallCopS = 'a Mall Cop'
+SuitSecBodyGuardS = 'a Body Guard'
+SuitSecBouncerS = 'a Bouncer'
+SuitSecBigBrotherS = 'a Big Brother'
+SuitSecSecretServiceAgentS = 'a Secret Service Agent'
+SuitSecWardenS = 'a Warden'
+## New Security Plural
+SuitSecWatchmanP = 'Watchmen'
+SuitSecHenchmanP = 'Henchmen'
+SuitSecMallCopP = 'Mall Cops'
+SuitSecBodyGuardP = 'Body Guards'
+SuitSecBouncerP = 'Bouncers'
+SuitSecBigBrotherP = 'Big Brothers'
+SuitSecSecretServiceAgentP = 'Secret Service Agents'
+SuitSecWardenP = 'Wardens'
+
 SuitFaceoffDefaultTaunts = ['Boo!']
 SuitAttackDefaultTaunts = ['Take that!', 'Take a memo on this!']
 SuitAttackNames = {'Audit': 'Audit!',
@@ -4935,7 +4969,8 @@ BattleGlobalTracks = ['toon-up',
  'sound',
  'throw',
  'squirt',
- 'drop']
+ 'drop',
+ 'tech']
 BattleGlobalNPCTracks = ['restock', 'toons hit', 'cogs miss']
 BattleGlobalAvPropStrings = (('Feather',
   'Megaphone',
@@ -4979,6 +5014,13 @@ BattleGlobalAvPropStrings = (('Feather',
   'Fire Hose',
   'Storm Cloud',
   'Geyser'),
+ ('Flower Pot',
+  'Sandbag',
+  'Anvil',
+  'Big Weight',
+  'Safe',
+  'Grand Piano',
+  'Toontanic'),
  ('Flower Pot',
   'Sandbag',
   'Anvil',
@@ -5034,6 +5076,13 @@ BattleGlobalAvPropStringsSingular = (('a Feather',
   'a Big Weight',
   'a Safe',
   'a Grand Piano',
+  'the Toontanic'),
+ ('a Flower Pot',
+  'a Sandbag',
+  'an Anvil',
+  'a Big Weight',
+  'a Safe',
+  'a Grand Piano',
   'the Toontanic'))
 BattleGlobalAvPropStringsPlural = (('Feathers',
   'Megaphones',
@@ -5083,6 +5132,13 @@ BattleGlobalAvPropStringsPlural = (('Feathers',
   'Big Weights',
   'Safes',
   'Grand Pianos',
+  'Oceanliners'),
+ ('Flower Pots',
+  'Sandbags',
+  'Anvils',
+  'Big Weights',
+  'Safes',
+  'Grand Pianos',
   'Oceanliners'))
 BattleGlobalAvTrackAccStrings = ('Medium',
  'Perfect',
@@ -5090,7 +5146,8 @@ BattleGlobalAvTrackAccStrings = ('Medium',
  'High',
  'Medium',
  'High',
- 'Low')
+ 'Low',
+ 'High')
 BattleGlobalLureAccLow = 'Low'
 BattleGlobalLureAccMedium = 'Medium'
 AttackMissed = 'MISSED'

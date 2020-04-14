@@ -20,6 +20,7 @@ import MovieSuitAttacks
 import MovieThrow
 import MovieToonVictory
 import MovieTrap
+import MoviePower
 import MovieUtil
 import PlayByPlayText
 import RewardPanel
@@ -459,6 +460,10 @@ class Movie(DirectObject.DirectObject):
             if ival:
                 track.append(ival)
                 camTrack.append(camIval)
+            ival, camIval = MoviePower.doDrops(self.__findToonAttack(POWER))
+            if ival:
+                track.append(ival)
+                camTrack.append(camIval)
             if len(track) == 0:
                 return (None, None)
             else:
@@ -712,7 +717,7 @@ class Movie(DirectObject.DirectObject):
                             sdict = {}
                             sdict['suit'] = target
                             sdict['hp'] = hps[targetIndex]
-                            if ta[TOON_TRACK_COL] == NPCSOS and track == DROP and hps[targetIndex] == 0:
+                            if ta[TOON_TRACK_COL] == NPCSOS and track == DROP and track == POWER and hps[targetIndex] == 0:
                                 continue
                             sdict['kbbonus'] = kbbonuses[targetIndex]
                             sdict['died'] = ta[SUIT_DIED_COL] & 1 << targetIndex
@@ -762,7 +767,7 @@ class Movie(DirectObject.DirectObject):
                             pass
                         if sdict['died'] != 0:
                             pass
-                        if track == DROP or track == TRAP:
+                        if track == DROP or track == POWER or track == TRAP:
                             adict['target'] = [sdict]
                         else:
                             adict['target'] = sdict

@@ -79,10 +79,6 @@ tbc = (('cigar-smoke', 'cigar-smoke', 8),
  ('glower', 'glower', 5),
  ('song-and-dance', 'song-and-dance', 8),
  ('golf-club-swing', 'golf-club-swing', 5))
-cp = (('cigar-smoke', 'cigar-smoke', 8),
- ('glower', 'glower', 5),
- ('song-and-dance', 'song-and-dance', 8),
- ('golf-club-swing', 'golf-club-swing', 5))
 cc = (('speak', 'speak', 5),
  ('glower', 'glower', 5),
  ('phone', 'phone', 3.5),
@@ -346,7 +342,8 @@ class Suit(Avatar.Avatar):
     medallionColors = {'c': Vec4(0.863, 0.776, 0.769, 1.0),
      's': Vec4(0.843, 0.745, 0.745, 1.0),
      'l': Vec4(0.749, 0.776, 0.824, 1.0),
-     'm': Vec4(0.749, 0.769, 0.749, 1.0)}
+     'm': Vec4(0.749, 0.769, 0.749, 1.0),
+     'y': Vec4(0.749, 0.762, 0.794, 1.0)}
 
     def __init__(self):
         try:
@@ -369,7 +366,6 @@ class Suit(Avatar.Avatar):
         self.isDisguised = 0
         self.isWaiter = 0
         self.isRental = 0
-        self.isVirtuallyVirtual = False
 
     def delete(self):
         try:
@@ -611,6 +607,8 @@ class Suit(Avatar.Avatar):
             type = 'lawbot'
         elif dept == 'm':
             type = 'cashbot'
+        elif dept == 'y':
+            type = 'secbot'
         else:
             type = 'sellbot'
         torsoTex = loader.loadTexture('phase_3.5/maps/tt_t_ene_%sRental_blazer.jpg' % type)
@@ -667,6 +665,10 @@ class Suit(Avatar.Avatar):
             tieTex = loader.loadTexture('phase_5/maps/cog_robot_tie_legal.jpg')
         elif dept == 'm':
             tieTex = loader.loadTexture('phase_5/maps/cog_robot_tie_money.jpg')
+        elif dept == 'y':
+            tieTex = loader.loadTexture('phase_5/maps/cog_robot_tie_money.jpg')
+            ##NEED TO MAKE A TIE, currently uses cashbot
+            #tieTex = loader.loadTexture('phase_5/maps/cog_robot_tie_security.jpg')
         tieTex.setMinfilter(Texture.FTLinearMipmapLinear)
         tieTex.setMagfilter(Texture.FTLinear)
         tie.setTexture(tieTex, 1)
@@ -683,6 +685,10 @@ class Suit(Avatar.Avatar):
             self.corpMedallion = icons.find('**/LegalIcon').copyTo(chestNull)
         elif dept == 'm':
             self.corpMedallion = icons.find('**/MoneyIcon').copyTo(chestNull)
+        elif dept == 'y':
+            self.corpMedallion = icons.find('**/MoneyIcon').copyTo(chestNull)
+            ##NEED TO MAKE A TIE, currently uses cashbot
+            #self.corpMedallion = icons.find('**/SecIcon').copyTo(chestNull)
         self.corpMedallion.setPosHprScale(0.02, 0.05, 0.04, 180.0, 0.0, 0.0, 0.51, 0.51, 0.51)
         self.corpMedallion.setColor(self.medallionColors[dept])
         icons.removeNode()
@@ -793,8 +799,6 @@ class Suit(Avatar.Avatar):
 
                 if self.isWaiter:
                     self.makeWaiter(self.loseActor)
-                elif self.isVirtual:
-                    self.makeStageVirtual(self.loseActor)
                 else:
                     self.setSuitClothes(self.loseActor)
             else:

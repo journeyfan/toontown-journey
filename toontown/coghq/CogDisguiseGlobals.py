@@ -7,11 +7,15 @@ from toontown.battle import SuitBattleGlobals
 PartsPerSuit = (10,
  10,
  10,
- 10)
+ 10,
+ 10
+)
 PartsPerSuitBitmasks = (56411,
  56411,
  56411,
- 56411)
+ 56411,
+ 56411
+)
 AllBits = 56411
 MinPartLoss = 1
 MaxPartLoss = 2
@@ -97,6 +101,23 @@ PartsQueryNames = ({1: PartNameStrings[0],
   1024: PartNameStrings[10],
   2048: PartNameStrings[11],
   4096: PartNameStrings[12],
+  8192: PartNameStrings[13],
+  16384: PartNameStrings[14],
+  32768: PartNameStrings[15],
+  65536: PartNameStrings[16]},
+ {1: PartNameStrings[0],
+  2: PartNameStrings[1],
+  4: PartNameStrings[2],
+  8: PartNameStrings[3],
+  16: PartNameStrings[4],
+  32: PartNameStrings[5],
+  64: SimplePartNameStrings[0],
+  128: SimplePartNameStrings[0],
+  256: SimplePartNameStrings[0],
+  512: SimplePartNameStrings[0],
+  1024: PartNameStrings[10],
+  2048: PartNameStrings[11],
+  4096: PartNameStrings[12],
   8192: PartNameStrings[12],
   16384: PartNameStrings[14],
   32768: PartNameStrings[15],
@@ -136,6 +157,7 @@ def makeMeritHierarchy(baseMerits):
 MeritsPerLevel = makeMeritHierarchy(100)  # Bossbot
 MeritsPerLevel += makeMeritHierarchy(75)  # Lawbot
 MeritsPerLevel += makeMeritHierarchy(50)  # Cashbot
+MeritsPerLevel += makeMeritHierarchy(25)  # Sellbot
 MeritsPerLevel += makeMeritHierarchy(25)  # Sellbot
 
 def getNextPart(parts, partIndex, dept):

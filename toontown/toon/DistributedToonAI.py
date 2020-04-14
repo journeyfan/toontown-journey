@@ -1724,7 +1724,7 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
 
     def fixTrackAccess(self):
         fixed = 0
-        healExp, trapExp, lureExp, soundExp, throwExp, squirtExp, dropExp = self.experience.experience
+        healExp, trapExp, lureExp, soundExp, throwExp, squirtExp, dropExp, powerupExp = self.experience.experience
         numTracks = reduce(lambda a, b: a + b, self.trackArray)
         if self.rewardTier in [0,
          1,
@@ -1799,18 +1799,21 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
              trapExp,
              lureExp,
              soundExp,
-             dropExp]
+             dropExp,
+             powerupExp]
             sortedExp.sort()
             if trapExp == sortedExp[0]:
-                self.b_setTrackAccess([1, 0, 1, 1, 1, 1, 1])
+                self.b_setTrackAccess([1, 0, 1, 1, 1, 1, 1, 1])
             elif lureExp == sortedExp[0]:
-                self.b_setTrackAccess([1, 1, 0, 1, 1, 1, 1])
+                self.b_setTrackAccess([1, 1, 0, 1, 1, 1, 1, 1])
             elif dropExp == sortedExp[0]:
-                self.b_setTrackAccess([1, 1, 1, 1, 1, 1, 0])
+                self.b_setTrackAccess([1, 1, 1, 1, 1, 1, 0, 1])
             elif soundExp == sortedExp[0]:
-                self.b_setTrackAccess([1, 1, 1, 0, 1, 1, 1])
+                self.b_setTrackAccess([1, 1, 1, 0, 1, 1, 1, 1])
             elif healExp == sortedExp[0]:
-                self.b_setTrackAccess([0, 1, 1, 1, 1, 1, 1])
+                self.b_setTrackAccess([0, 1, 1, 1, 1, 1, 1, 1])
+            elif powerupExp == sortedExp[0]:
+                self.b_setTrackAccess([1, 1, 1, 1, 1, 1, 1, 0])
             else:
                 self.notify.warning('invalid exp?!: %s, %s' % (sortedExp, self.trackArray))
                 self.b_setTrackAccess([1, 0, 1, 1, 1, 1, 1])
@@ -4445,7 +4448,7 @@ def SetMax(missingTrack=None):
     invoker = spellbook.getTarget()
 
     # First, unlock the invoker's Gag tracks:
-    gagTracks = [1, 1, 1, 1, 1, 1, 1]
+    gagTracks = [1, 1, 1, 1, 1, 1, 1, 1]
     if missingTrack is not None:
         try:
             index = ('toonup', 'trap', 'lure', 'sound', 'throw',
@@ -4505,8 +4508,8 @@ def SetMax(missingTrack=None):
     invoker.b_setCogCount(list(CogPageGlobals.COG_QUOTAS[1]) * deptCount)
     cogStatus = [CogPageGlobals.COG_COMPLETE2] * SuitDNA.suitsPerDept
     invoker.b_setCogStatus(cogStatus * deptCount)
-    invoker.b_setCogRadar([1, 1, 1, 1])
-    invoker.b_setBuildingRadar([1, 1, 1, 1])
+    invoker.b_setCogRadar([1, 1, 1, 1, 1])
+    invoker.b_setBuildingRadar([1, 1, 1, 1, 1])
 
     # Max out their racing tickets:
     invoker.b_setTickets(99999)

@@ -13,6 +13,7 @@ DeptColors = (
     Vec4(0.647, 0.608, 0.596, 1.0),
     Vec4(0.588, 0.635, 0.671, 1.0),
     Vec4(0.596, 0.714, 0.659, 1.0),
+    Vec4(0.761, 0.678, 0.69, 1.0),
     Vec4(0.761, 0.678, 0.69, 1.0)
 )
 NumParts = max(CogDisguiseGlobals.PartsPerSuit)
@@ -43,6 +44,7 @@ class DisguisePage(ShtikerPage.ShtikerPage):
         self.tabs = []
         self.pageFrame = DirectFrame(parent=self.frame, relief=None)
         for dept in SuitDNA.suitDepts:
+            print(dept)
             if dept == 'c':
                 tabIndex = 1
                 textPos = (1.57, 0.75)
@@ -55,6 +57,9 @@ class DisguisePage(ShtikerPage.ShtikerPage):
             elif dept == 's':
                 tabIndex = 4
                 textPos = (1.57, -1.05)
+            elif dept == 'y':
+                tabIndex = 4
+                textPos = (1.57, -1.15)
             pageGeom = gui.find('**/page%d' % tabIndex)
             tabGeom = gui.find('**/tab%d' % tabIndex)
             tab = DirectButton(
@@ -67,6 +72,7 @@ class DisguisePage(ShtikerPage.ShtikerPage):
                 text2_fg=Vec4(0.5, 0.4, 0.4, 1),
                 text3_fg=Vec4(0.4, 0.4, 0.4, 1), command=self.doTab,
                 extraArgs=[len(self.tabs)], pressEffect=0)
+            print(tab)
             self.tabs.append(tab)
             DirectFrame(parent=tab, relief=None, geom=pageGeom)
 
@@ -96,6 +102,10 @@ class DisguisePage(ShtikerPage.ShtikerPage):
             parent=self.frame, relief=None,
             geom=gui.find('**/text_stock_option_progress'), geom_pos=(0, 0.1, 0))
         self.stockOptionTitle.hide()
+        self.TechbyteTitle = DirectLabel(
+            parent=self.frame, relief=None,
+            geom=gui.find('**/text_stock_option_progress'), geom_pos=(0, 0.1, 0))
+        self.TechbyteTitle.hide()
         self.progressTitle = self.meritTitle
         self.promotionTitle = DirectLabel(
             parent=self.frame, relief=None,
@@ -241,6 +251,7 @@ class DisguisePage(ShtikerPage.ShtikerPage):
         self.tabs[index].reparentTo(self.pageFrame)
         for i in xrange(len(self.tabs)):
             tab = self.tabs[i]
+            print(tab)
             if i == index:
                 tab['text0_fg'] = (1, 0, 0, 1)
                 tab['text2_fg'] = (1, 0, 0, 1)
@@ -259,6 +270,8 @@ class DisguisePage(ShtikerPage.ShtikerPage):
             self.progressTitle = self.juryNoticeTitle
         elif SuitDNA.suitDepts[index] == 'c':
             self.progressTitle = self.stockOptionTitle
+        elif SuitDNA.suitDepts[index] == 'y':
+            self.progressTitle = self.TechbyteTitle
         else:
             self.progressTitle = self.meritTitle
         self.progressTitle.show()
