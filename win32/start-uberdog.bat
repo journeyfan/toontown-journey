@@ -14,7 +14,7 @@ set BASE_CHANNEL=1000000
 echo Starting UberDOG...
 
 :main
-C:/Panda3D-1.11.0-x64-py2/python/python.exe ^
+C:/Panda3D-1.11.0-x64/python/python.exe ^
 	-m toontown.uberdog.ServiceStart ^
 	--base-channel %BASE_CHANNEL% ^
 	--max-channels %MAX_CHANNELS% ^
