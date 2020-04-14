@@ -324,7 +324,7 @@ SuitAttributes = {'f': {'name': TTLocalizer.SuitFlunky, 'singularname': TTLocali
    'tbc': {'name': TTLocalizer.SuitTheBigCheese, 'singularname': TTLocalizer.SuitTheBigCheeseS, 
            'pluralname': TTLocalizer.SuitTheBigCheeseP, 
            'level': 7, 
-           'def': (35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95), 
+           'def': (35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70), 
            'freq': (50, 30, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5), 
            'acc': (35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95), 
            'attacks': (
@@ -585,7 +585,7 @@ SuitAttributes = {'f': {'name': TTLocalizer.SuitFlunky, 'singularname': TTLocali
    'mh': {'name': TTLocalizer.SuitMrHollywood, 'singularname': TTLocalizer.SuitMrHollywoodS, 
           'pluralname': TTLocalizer.SuitMrHollywoodP, 
           'level': 7, 
-          'def': (35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95), 
+          'def': (35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70), 
           'freq': (50, 30, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), 
           'acc': (35, 40, 45, 50, 55, 60, 60, 65, 70, 75, 80, 85, 90, 95), 
           'attacks': (
@@ -788,7 +788,7 @@ SuitAttributes = {'f': {'name': TTLocalizer.SuitFlunky, 'singularname': TTLocali
    'rb': {'name': TTLocalizer.SuitRobberBaron, 'singularname': TTLocalizer.SuitRobberBaronS, 
           'pluralname': TTLocalizer.SuitRobberBaronP, 
           'level': 7, 
-          'def': (35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95), 
+          'def': (35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70), 
           'freq': (50, 30, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), 
           'acc': (35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95), 
           'attacks': (
@@ -1003,7 +1003,7 @@ SuitAttributes = {'f': {'name': TTLocalizer.SuitFlunky, 'singularname': TTLocali
    'bw': {'name': TTLocalizer.SuitBigWig, 'singularname': TTLocalizer.SuitBigWigS, 
           'pluralname': TTLocalizer.SuitBigWigP, 
           'level': 7, 
-          'def': (35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95), 
+          'def': (35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70), 
           'freq': (50, 30, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), 
           'acc': (35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95), 
           'attacks': (
