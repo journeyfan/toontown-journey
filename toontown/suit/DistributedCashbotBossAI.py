@@ -14,7 +14,7 @@ import SuitDNA
 import random
 from otp.ai.MagicWordGlobal import *
 import math
-#from toontown.battle import DistributedBattleVirtualsAI
+from toontown.battle import DistributedBattleVirtualsAI
 
 class DistributedCashbotBossAI(DistributedBossCogAI.DistributedBossCogAI, FSM.FSM):
     notify = DirectNotifyGlobal.directNotify.newCategory('DistributedCashbotBossAI')
@@ -400,27 +400,27 @@ class DistributedCashbotBossAI(DistributedBossCogAI.DistributedBossCogAI, FSM.FS
         self.setBossDamage(bossDamage)
 
     def makeBattle(self, bossCogPosHpr, battlePosHpr, roundCallback, finishCallback, battleNumber, battleSide):
-        #battle = DistributedBattleVirtualsAI.DistributedBattleVirtualsAI(self.air, self, roundCallback, finishCallback, battleSide)
-        #self.setBattlePos(battle, bossCogPosHpr, battlePosHpr)
-        #battle.suitsKilled = self.suitsKilled
-        #battle.battleCalc.toonSkillPtsGained = self.toonSkillPtsGained
-        #battle.toonExp = self.toonExp
-        #battle.toonOrigQuests = self.toonOrigQuests
-        #battle.toonItems = self.toonItems
-        #battle.toonOrigMerits = self.toonOrigMerits
-        #battle.toonMerits = self.toonMerits
-        #battle.toonParts = self.toonParts
-        #battle.helpfulToons = self.helpfulToons
+        battle = DistributedBattleVirtualsAI.DistributedBattleVirtualsAI(self.air, self, roundCallback, finishCallback, battleSide)
+        self.setBattlePos(battle, bossCogPosHpr, battlePosHpr)
+        battle.suitsKilled = self.suitsKilled
+        battle.battleCalc.toonSkillPtsGained = self.toonSkillPtsGained
+        battle.toonExp = self.toonExp
+        battle.toonOrigQuests = self.toonOrigQuests
+        battle.toonItems = self.toonItems
+        battle.toonOrigMerits = self.toonOrigMerits
+        battle.toonMerits = self.toonMerits
+        battle.toonParts = self.toonParts
+        battle.helpfulToons = self.helpfulToons
         mult = ToontownBattleGlobals.getBossBattleCreditMultiplier(battleNumber)
-        #battle.battleCalc.setSkillCreditMultiplier(mult)
+        battle.battleCalc.setSkillCreditMultiplier(mult)
         activeSuits = self.activeSuitsA
         if battleSide:
             activeSuits = self.activeSuitsB
-        #for suit in activeSuits:
-            #battle.addSuit(suit)
+        for suit in activeSuits:
+            battle.addSuit(suit)
 
-        #battle.generateWithRequired(self.zoneId)
-        #return battle
+        battle.generateWithRequired(self.zoneId)
+        return battle
 
     def setBossDamage(self, bossDamage):
         self.reportToonHealth()
