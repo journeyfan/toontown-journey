@@ -2,7 +2,7 @@ from toontown.toonbase import ToontownGlobals
 from direct.interval.IntervalGlobal import Parallel, Sequence, Func, Wait
 from pandac.PandaModules import Vec4, TransformState, NodePath, TransparencyAttrib
 
-class HolidayDecorator:
+class HolidayDecorator(object):
 
     def __init__(self):
         self.dnaStore = base.cr.playGame.dnaStore
