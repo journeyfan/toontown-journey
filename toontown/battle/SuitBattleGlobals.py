@@ -59,7 +59,7 @@ def getSuitVitals(name, level=-1):
     return dict
 
 def calculateHealth(stats, level):
-        return ((stats['level'] + 1 + level) * (stats['level'] + 2 + level))
+        return (stats['level'] + 1 + level) * (stats['level'] + 2 + level)
 
 def pickSuitAttack(attacks, suitLevel):
     attackNum = None
