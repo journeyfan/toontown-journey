@@ -144,9 +144,9 @@ suitTypes = PythonUtil.Enum(('NoSuit', 'NoMerits', 'FullSuit'))
 
 def makeMeritHierarchy(baseMerits):
     meritHierarchy = []
-    for _ in xrange(SuitDNA.suitsPerDept):
+    for _ in range(SuitDNA.suitsPerDept):
         meritTier = []
-        for _ in xrange(SuitDNA.levelsPerSuit):
+        for _ in range(SuitDNA.levelsPerSuit):
             baseMerits += (baseMerits*25) / 100
             meritTier.append(baseMerits)
         meritHierarchy.append(tuple(meritTier))
@@ -180,7 +180,7 @@ def getPartName(partArray):
 
 def isSuitComplete(parts, dept):
     dept = dept2deptIndex(dept)
-    for p in xrange(len(PartsQueryMasks)):
+    for p in range(len(PartsQueryMasks)):
         if getNextPart(parts, p, dept):
             return 0
 
@@ -210,7 +210,7 @@ def getTotalMerits(toon, index):
 
 def getTotalParts(bitString, shiftWidth = 32):
     sum = 0
-    for shift in xrange(0, shiftWidth):
+    for shift in range(0, shiftWidth):
         sum = sum + (bitString >> shift & 1)
 
     return sum
@@ -229,7 +229,7 @@ def asBitstring(number):
         shift += 1
 
     str = ''
-    for i in xrange(0, len(array)):
+    for i in range(0, len(array)):
         str = str + array[i]
 
     return str
@@ -237,7 +237,7 @@ def asBitstring(number):
 
 def asNumber(bitstring):
     num = 0
-    for i in xrange(0, len(bitstring)):
+    for i in range(0, len(bitstring)):
         if bitstring[i] == '1':
             num += pow(2, len(bitstring) - 1 - i)
 
@@ -245,7 +245,7 @@ def asNumber(bitstring):
 
 
 def dept2deptIndex(dept):
-    if type(dept) == types.StringType:
+    if type(dept) == bytes:
         dept = SuitDNA.suitDepts.index(dept)
     return dept
 

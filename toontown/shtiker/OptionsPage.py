@@ -4,8 +4,8 @@ from direct.showbase import PythonUtil
 from direct.task import Task
 from pandac.PandaModules import *
 
-import DisplaySettingsDialog
-import ShtikerPage
+from . import DisplaySettingsDialog
+from . import ShtikerPage
 from otp.speedchat import SCColorScheme
 from otp.speedchat import SCStaticTextTerminal
 from otp.speedchat import SpeedChat

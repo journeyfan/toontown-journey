@@ -9,7 +9,7 @@ import hmac
 import json
 from pandac.PandaModules import *
 import time
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import datetime
 from datetime import datetime
 
@@ -54,19 +54,19 @@ http.setVerifySsl(0)
 
 
 def executeHttpRequest(url, **extras):
-    print "executeHttpRequest: ", accountDBType, url, extras
+    print("executeHttpRequest: ", accountDBType, url, extras)
 
     if accountDBType == 'remote':
         timestamp = str(int(time.time()))
         signature = hmac.new(accountServerSecret, timestamp, hashlib.sha256)
-        request = urllib2.Request(accountServerEndpoint + url)
+        request = urllib.request.Request(accountServerEndpoint + url)
         request.add_header('User-Agent', 'TTI-CSM')
         request.add_header('X-CSM-Timestamp', timestamp)
         request.add_header('X-CSM-Signature', signature.hexdigest())
-        for k, v in extras.items():
+        for k, v in list(extras.items()):
             request.add_header('X-CSM-' + k, v)
         try:
-            return urllib2.urlopen(request).read()
+            return urllib.request.urlopen(request).read()
         except:
             return None
 
@@ -120,7 +120,7 @@ class AccountDB:
         pass  # Inheritors should override this.
 
     def persistMessage(self, category, description, sender, receiver):
-        print ['persistMessage', category, description, sender, receiver]
+        print(['persistMessage', category, description, sender, receiver])
 
     def persistChat(self, sender, message, channel):
         pass
@@ -182,7 +182,7 @@ class LocalAccountDB(AccountDB):
                 'success': True,
                 'userId': username,
                 'accountId': 0,
-                'accessLevel': max((700 if not self.dbm.keys() else 100), minAccessLevel)
+                'accessLevel': max((700 if not list(self.dbm.keys()) else 100), minAccessLevel)
             }
 
             callback(response)
@@ -429,7 +429,7 @@ class MySQLAccountDB(AccountDB):
         try:
             return bcrypt.verify(plain_text_password, hashed_password)
         except:
-            print ("bad hash: ", (plain_text_password, hashed_password))
+            print(("bad hash: ", (plain_text_password, hashed_password)))
             return False
 
     def create_database(self, cursor):
@@ -437,7 +437,7 @@ class MySQLAccountDB(AccountDB):
           cursor.execute(
             "CREATE DATABASE {} DEFAULT CHARACTER SET 'utf8'".format(self.db))
       except mysql.connector.Error as err:
-          print("Failed creating database: {}".format(err))
+          print(("Failed creating database: {}".format(err)))
           exit(1)
 
     def auto_migrate_semidbm(self):
@@ -450,9 +450,9 @@ class MySQLAccountDB(AccountDB):
             'account-bridge-filename', 'account-bridge')
         dbm = semidbm.open(filename, 'c')
 
-        for account in dbm.keys():
+        for account in list(dbm.keys()):
             accountid = dbm[account]
-            print "%s maps to %s"%(account, accountid)
+            print("%s maps to %s"%(account, accountid))
             self.cur.execute(self.add_account, (account,  "", accountid, 0))
         self.cnx.commit()
         dbm.close()
@@ -570,7 +570,7 @@ class MySQLAccountDB(AccountDB):
         self.account = fields
         if self.account:
             self.avList = self.account['ACCOUNT_AV_SET']
-            print self.avList
+            print(self.avList)
             for avId in self.avList:
                 if avId:
                     self.cur.execute(self.insert_avoid, (self.accountid, avId))
@@ -585,7 +585,7 @@ class MySQLAccountDB(AccountDB):
                   'success': False,
                   'reason': "invalid password format"
                 }
-                print response
+                print(response)
                 callback(response)
                 return response
 
@@ -624,7 +624,7 @@ class MySQLAccountDB(AccountDB):
                     'accountId': row[1]
                 }
 
-                print response
+                print(response)
                 callback(response)
                 return response
 
@@ -632,17 +632,17 @@ class MySQLAccountDB(AccountDB):
               'success': False,
               'reason': "unknown user"
             }
-            print response
+            print(response)
             callback(response)
             return response
 
         except mysql.connector.Error as err:
-            print("mysql exception {}".format(err))
+            print(("mysql exception {}".format(err)))
             response = {
                 'success': False,
                 'reason': "Can't decode this token."
             }
-            print response
+            print(response)
             callback(response)
             return response
 #        except:
@@ -665,7 +665,7 @@ class MySQLAccountDB(AccountDB):
             self.cnx.commit()
             callback(True)
         else:
-            print ("storeAccountId", self.update_avid, (aceountId, userId))
+            print(("storeAccountId", self.update_avid, (aceountId, userId)))
             self.notify.warning('Unable to associate user %s with account %d!' % (userId, accountId))
             callback(False)
 
@@ -734,8 +734,8 @@ class RemoteAccountDB(AccountDB):
                 raise ValueError
             if ('accesslevel' not in token) or (not isinstance(token['accesslevel'], int)):
                 raise ValueError
-        except ValueError, e:
-            print e
+        except ValueError as e:
+            print(e)
             self.notify.warning('Invalid token.')
             response = {
                 'success': False,
@@ -1119,7 +1119,7 @@ class GetAvatarsFSM(AvatarOperationFSM):
     def enterSendAvatars(self):
         potentialAvs = []
 
-        for avId, fields in self.avatarFields.items():
+        for avId, fields in list(self.avatarFields.items()):
             index = self.avList.index(avId)
             wishNameState = fields.get('WishNameState', [''])[0]
             name = fields['setName'][0]

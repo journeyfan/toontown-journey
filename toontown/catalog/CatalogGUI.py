@@ -191,7 +191,7 @@ class CatalogGUI(NodePath, DirectObject):
 
     def hangUp(self):
         self.unload()
-        print self.doneEvent
+        print(self.doneEvent)
         messenger.send(self.doneEvent)
 
     def __handlePurchaseRequest(self, item):

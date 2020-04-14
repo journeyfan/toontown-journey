@@ -150,7 +150,7 @@ class TutorialHandler:
         
     def acceptDoorEvent(self, index, map):
         def x():
-            for door, code in map.items():
+            for door, code in list(map.items()):
                 door.setDoorLock(code)
                 
             if index == 2 and self.streetNpc is None:
@@ -249,7 +249,7 @@ class TutorialManagerAI(DistributedObjectAI):
         av.b_setMaxHp(15)
 
         exp = Experience.Experience(av.getExperience(), av)
-        for i in xrange(7):
+        for i in range(7):
             exp.experience[i] = 0
             
         av.b_setExperience(exp.makeNetString())

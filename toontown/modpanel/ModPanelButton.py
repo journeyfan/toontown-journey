@@ -12,7 +12,7 @@ class ModPanelButton:
         self.name = name
         
         self.command = command
-        if type(command) == types.StringType:
+        if type(command) == bytes:
             command = self.call_word
 
         self.button = DirectButton(frameSize=None, text=name, 

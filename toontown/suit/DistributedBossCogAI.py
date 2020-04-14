@@ -9,7 +9,7 @@ from toontown.battle import DistributedBattleFinalAI
 from toontown.building import SuitPlannerInteriorAI
 from toontown.battle import BattleBase
 from pandac.PandaModules import *
-import SuitDNA
+from . import SuitDNA
 import random
 import math
 AllBossCogs = []
@@ -487,7 +487,7 @@ class DistributedBossCogAI(DistributedAvatarAI.DistributedAvatarAI):
         return suits
 
     def generateSuits(self, battleNumber):
-        raise StandardError, 'generateSuits unimplemented'
+        raise Exception('generateSuits unimplemented')
 
     def handleRoundDone(self, battle, suits, activeSuits, toonIds, totalHp, deadSuits):
         totalMaxHp = 0

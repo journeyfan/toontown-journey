@@ -74,7 +74,7 @@ class BanFSM(FSM):
             executeHttpRequest('accounts/ban/', Id=self.accountId, Release=bannedUntil,
                            Reason=self.comment)
         if accountDBType == 'mysqldb':
-            print (self.update_ban, (int(time.time()), bannedUntil, self.comment, self.bannerId, self.accountId))
+            print((self.update_ban, (int(time.time()), bannedUntil, self.comment, self.bannerId, self.accountId)))
             self.cur.execute(self.update_ban, (int(time.time()), int(bannedUntil), self.comment, self.bannerId, self.accountId))
             self.cnx.commit()
 

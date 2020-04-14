@@ -17,8 +17,8 @@ import tempfile
 import time
 import fractions
 
-import ToontownGlobals
-import ToontownLoader
+from . import ToontownGlobals
+from . import ToontownLoader
 from otp.otpbase import OTPBase
 from otp.otpbase import OTPGlobals
 from otp.otpbase import OTPLauncherGlobals
@@ -60,7 +60,7 @@ class ToonBase(OTPBase.OTPBase):
                 resolutions = ToontownGlobals.CommonDisplayResolutions.get(self.nativeRatio, ())
 
                 if len(resolutions) < 2:
-                    ratios = ToontownGlobals.CommonDisplayResolutions.keys()
+                    ratios = list(ToontownGlobals.CommonDisplayResolutions.keys())
                     ratios.sort(key=lambda value: float(value[0]) / float(value[1]))
 
                     while ratios:
