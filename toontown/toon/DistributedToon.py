@@ -1290,6 +1290,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         return self.trackArray
 
     def hasTrackAccess(self, track):
+        print(self.trackArray, track)
         return self.trackArray[track]
 
     def setTrackProgress(self, trackId, progress):

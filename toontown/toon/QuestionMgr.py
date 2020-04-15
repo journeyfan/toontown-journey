@@ -1,5 +1,5 @@
 # Embedded file name: /Users/pierredavidbelanger/Dev/chatter-bot-api/python/chatterbotapi.py
-import md5
+from hashlib import md5
 import urllib.request, urllib.parse, urllib.error
 import urllib.request, urllib.error, urllib.parse
 import uuid

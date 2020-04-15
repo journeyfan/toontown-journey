@@ -3,7 +3,7 @@ from direct.directnotify.DirectNotifyGlobal import *
 from toontown.hood import ZoneUtil
 from toontown.toonbase import ToontownGlobals
 from toontown.building import SuitBuildingGlobals
-from toontown.dna.DNAParser import DNASuitPoint, DNAStorage, loadDNAFileAI
+from lib.libpandadna import DNASuitPoint, DNAStorage, loadDNAFileAI
 
 class SuitPlannerBase:
     notify = directNotify.newCategory('SuitPlannerBase')
@@ -538,7 +538,7 @@ class SuitPlannerBase:
         phase = ToontownGlobals.streetPhaseMap[hoodId]
         if hoodId == zoneId:
             zoneId = 'sz'
-        return 'phase_%s/dna/%s_%s.pdna' % (phase, hood, zoneId)
+        return 'phase_%s/dna/%s_%s.dna' % (phase, hood, zoneId)
 
     def getZoneId(self):
         return self.zoneId

@@ -6,7 +6,7 @@ from direct.distributed import DistributedObject
 from direct.directnotify import DirectNotifyGlobal
 from direct.actor import Actor
 from . import ToonInteriorColors
-from toontown.dna.DNAParser import DNADoor
+from lib.libpandadna import DNADoor
 from toontown.hood import ZoneUtil
 from toontown.toon.DistributedNPCToonBase import DistributedNPCToonBase
 

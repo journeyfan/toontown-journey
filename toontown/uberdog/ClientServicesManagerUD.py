@@ -140,7 +140,7 @@ class DeveloperAccountDB(AccountDB):
 
     def lookup(self, username, callback):
         # Let's check if this user's ID is in your account database bridge:
-        if str(username) not in self.dbm:
+        if str(username).encode() not in self.dbm:
 
             # Nope. Let's associate them with a brand new Account object! We
             # will assign them with 600 access just because they are a
@@ -815,6 +815,7 @@ class LoginAccountFSM(OperationFSM):
         self.demand('QueryAccountDB')
 
     def enterQueryAccountDB(self):
+        self.notify.warning(self.token)
         self.csm.accountDB.lookup(self.token, self.__handleLookup)
 
     def __handleLookup(self, result):
@@ -1055,7 +1056,7 @@ class CreateAvatarFSM(OperationFSM):
             return
 
         # Otherwise, we're done!
-        self.csm.air.writeServerEvent('avatarCreated', self.avId, self.target, self.dna.encode('hex'), self.index)
+        self.csm.air.writeServerEvent('avatarCreated', self.avId, self.target, self.dna.hex(), self.index)
         self.csm.sendUpdateToAccountId(self.target, 'createAvatarResp', [self.avId])
         self.demand('Off')
 
@@ -1435,7 +1436,7 @@ class LoadAvatarFSM(AvatarOperationFSM):
             channel,
             self.csm.air.ourChannel,
             CLIENTAGENT_ADD_POST_REMOVE)
-        datagram.addString(datagramCleanup.getMessage())
+        datagram.addBlob(datagramCleanup.getMessage())
         self.csm.air.send(datagram)
 
         # Activate the avatar on the DBSS:
@@ -1540,7 +1541,7 @@ class ClientServicesManagerUD(DistributedObjectGlobalUD):
         self.nameGenerator = NameGenerator()
 
         # Temporary HMAC key:
-        self.key = 'iQhFqzK9yRDM6DY52m6kJZ6pFJPrE6TE'
+        self.key = b'iQhFqzK9yRDM6DY52m6kJZ6pFJPrE6TE'
 
         # Instantiate our account DB interface:
         if accountDBType == 'developer':
@@ -1608,8 +1609,8 @@ class ClientServicesManagerUD(DistributedObjectGlobalUD):
         sender = self.air.getMsgSender()
 
         # Time to check this login to see if its authentic
-        digest_maker = hmac.new(self.key)
-        digest_maker.update(cookie)
+        digest_maker = hmac.new(self.key, digestmod=hashlib.sha256)
+        digest_maker.update(cookie.encode('utf-8'))
         serverKey = digest_maker.hexdigest()
         if serverKey == authKey:
             # This login is authentic!

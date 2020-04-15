@@ -48,9 +48,9 @@ class NameGenerator:
         input = StreamReader(vfs.openReadFile(filename, 1), 1)
         currentLine = input.readline().strip()
         while currentLine:
-            if currentLine.lstrip()[0:1] != '#':
-                a1 = currentLine.find('*')
-                a2 = currentLine.find('*', a1 + 1)
+            if currentLine.lstrip()[0:1] != b'#':
+                a1 = currentLine.find(b'*')
+                a2 = currentLine.find(b'*', a1 + 1)
                 self.nameDictionary[int(currentLine[0:a1])] = (int(currentLine[a1 + 1:a2]), currentLine[a2 + 1:len(currentLine)])
             currentLine = input.readline().strip()
 
@@ -263,7 +263,7 @@ class NameGenerator:
         lastFlag = 0
         if uberFlag == 'title-last' or uberFlag == 'last' or uberFlag == 'first-last' or uberFlag == 'title-first-last':
             lastFlag = 1
-        retString = ''
+        retString = b''
         uberReturn = [0,
          0,
          0,
@@ -297,11 +297,11 @@ class NameGenerator:
         uberReturn[5] = lastPrefix
         uberReturn[6] = lastSuffix
         if titleFlag:
-            retString += uberReturn[3] + ' '
+            retString += uberReturn[3] + b' '
         if firstFlag:
             retString += uberReturn[4]
             if lastFlag:
-                retString += ' '
+                retString += b' '
         if lastFlag:
             retString += uberReturn[5] + uberReturn[6]
         uberReturn.append(retString)

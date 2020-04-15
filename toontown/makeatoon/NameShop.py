@@ -144,15 +144,15 @@ class NameShop(StateData.StateData):
         if not self.addedGenderSpecific or self.oldBoy != self.boy:
             self.oldBoy = self.boy
             self.listsLoaded = 0
-            self.allTitles = [' '] + [' '] + self.nameGen.boyTitles * self.boy + self.nameGen.girlTitles * self.girl + self.nameGen.neutralTitles
+            self.allTitles = [b' '] + [b' '] + self.nameGen.boyTitles * self.boy + self.nameGen.girlTitles * self.girl + self.nameGen.neutralTitles
             self.allTitles.sort()
-            self.allTitles += [' '] + [' ']
-            self.allFirsts = [' '] + [' '] + self.nameGen.boyFirsts * self.boy + self.nameGen.girlFirsts * self.girl + self.nameGen.neutralFirsts
+            self.allTitles += [b' '] + [b' ']
+            self.allFirsts = [b' '] + [b' '] + self.nameGen.boyFirsts * self.boy + self.nameGen.girlFirsts * self.girl + self.nameGen.neutralFirsts
             self.allFirsts.sort()
-            self.allFirsts += [' '] + [' ']
+            self.allFirsts += [b' '] + [b' ']
             try:
-                k = self.allFirsts.index('Von')
-                self.allFirsts[k] = 'von'
+                k = self.allFirsts.index(b'Von')
+                self.allFirsts[k] = b'von'
             except:
                 print("NameShop: Couldn't find von")
 
@@ -300,6 +300,7 @@ class NameShop(StateData.StateData):
     def makeScrollList(self, gui, ipos, mcolor, nitems, nitemMakeFunction, nitemMakeExtraArgs):
         self.notify.debug('makeScrollList')
         it = nitems[:]
+        it = [i.decode() for i in it if isinstance(i, bytes)]
         ds = DirectScrolledList(items=it, itemMakeFunction=nitemMakeFunction, itemMakeExtraArgs=nitemMakeExtraArgs, parent=aspect2d, relief=None, command=self.__listsChanged, pos=ipos, scale=0.6, incButton_image=(self.arrowUp,
          self.arrowDown,
          self.arrowHover,
@@ -535,7 +536,7 @@ class NameShop(StateData.StateData):
     def _checkNpcNames(self, name):
 
         def match(npcName, name = name):
-            name = TextEncoder().encodeWtext(name)
+            name = TextEncoder().encodeWtext(name).decode()
             name = name.strip()
             return TextEncoder.upper(npcName) == TextEncoder.upper(name)
 
@@ -772,11 +773,11 @@ class NameShop(StateData.StateData):
     def __typedAName(self, *args):
         self.notify.debug('__typedAName')
         self.nameEntry['focus'] = 0
-        name = self.nameEntry.get()
+        name = self.nameEntry.get().encode()
         name = TextEncoder().decodeText(name)
         name = name.strip()
         name = TextEncoder().encodeWtext(name)
-        self.nameEntry.enterText(name)
+        self.nameEntry.enterText(name.decode())
         problem = self.nameIsValid(self.nameEntry.get())
         if problem:
             self.rejectName(problem)

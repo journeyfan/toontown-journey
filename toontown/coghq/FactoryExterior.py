@@ -6,7 +6,8 @@ from toontown.nametag import NametagGlobals
 from pandac.PandaModules import *
 from toontown.battle import BattlePlace
 from toontown.building import Elevator
-from toontown.dna.DNAParser import loadDNAFileAI, DNAStorage
+from toontown.dna.DNAParser import loadDNAFileAI
+from lib.libpandadna import DNAStorage
 from toontown.hood import ZoneUtil
 from toontown.toonbase import ToontownGlobals
 
@@ -67,7 +68,7 @@ class FactoryExterior(BattlePlace.BattlePlace):
         dnaStore = DNAStorage()
         dnaFileName = self.genDNAFileName(self.zoneId)
 
-        if not dnaFileName.endswith('13200.pdna'):
+        if not dnaFileName.endswith('13200.dna'):
 
             loadDNAFileAI(dnaStore, dnaFileName)
 

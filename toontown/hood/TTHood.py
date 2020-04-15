@@ -12,16 +12,16 @@ class TTHood(ToonHood):
     ID = ToontownGlobals.ToontownCentral
     TOWNLOADER_CLASS = TTTownLoader
     SAFEZONELOADER_CLASS = TTSafeZoneLoader
-    STORAGE_DNA = 'phase_4/dna/storage_TT.pdna'
+    STORAGE_DNA = 'phase_4/dna/storage_TT.dna'
     SKY_FILE = 'phase_3.5/models/props/TT_sky'
     SPOOKY_SKY_FILE = 'phase_3.5/models/props/BR_sky'
     TITLE_COLOR = (1.0, 0.5, 0.4, 1.0)
 
     HOLIDAY_DNA = {
-      ToontownGlobals.WINTER_DECORATIONS: ['phase_4/dna/winter_storage_TT.pdna', 'phase_4/dna/winter_storage_TT_sz.pdna'],
-      ToontownGlobals.WACKY_WINTER_DECORATIONS: ['phase_4/dna/winter_storage_TT.pdna', 'phase_4/dna/winter_storage_TT_sz.pdna'],
-      ToontownGlobals.HALLOWEEN_PROPS: ['phase_4/dna/halloween_props_storage_TT.pdna', 'phase_4/dna/halloween_props_storage_TT_sz.pdna'],
-      ToontownGlobals.SPOOKY_PROPS: ['phase_4/dna/halloween_props_storage_TT.pdna', 'phase_4/dna/halloween_props_storage_TT_sz.pdna']}
+      ToontownGlobals.WINTER_DECORATIONS: ['phase_4/dna/winter_storage_TT.dna', 'phase_4/dna/winter_storage_TT_sz.dna'],
+      ToontownGlobals.WACKY_WINTER_DECORATIONS: ['phase_4/dna/winter_storage_TT.dna', 'phase_4/dna/winter_storage_TT_sz.dna'],
+      ToontownGlobals.HALLOWEEN_PROPS: ['phase_4/dna/halloween_props_storage_TT.dna', 'phase_4/dna/halloween_props_storage_TT_sz.dna'],
+      ToontownGlobals.SPOOKY_PROPS: ['phase_4/dna/halloween_props_storage_TT.dna', 'phase_4/dna/halloween_props_storage_TT_sz.dna']}
 
 
 @magicWord(category=CATEGORY_CREATIVE)

@@ -10,7 +10,7 @@ class OZHood(ToonHood):
 
     ID = ToontownGlobals.OutdoorZone
     SAFEZONELOADER_CLASS = OZSafeZoneLoader
-    STORAGE_DNA = 'phase_6/dna/storage_OZ.pdna'
+    STORAGE_DNA = 'phase_6/dna/storage_OZ.dna'
     SKY_FILE = 'phase_3.5/models/props/TT_sky'
     SPOOKY_SKY_FILE = 'phase_3.5/models/props/BR_sky'
     TITLE_COLOR = (1.0, 0.5, 0.4, 1.0)

@@ -324,7 +324,10 @@ class HoodMgr(DirectObject.DirectObject):
         return tunnelOriginList
 
     def extractGroupName(self, groupFullName):
-        return groupFullName.split(':', 1)[0]
+        if isinstance(groupFullName, bytes):
+            return groupFullName.split(b':', 1)[0]
+        else:
+            return groupFullName.split(':', 1)[0]
 
     def makeLinkTunnelName(self, hoodId, currentZone):
         return '**/toph_' + self.getNameFromId(hoodId) + '_' + str(currentZone)
