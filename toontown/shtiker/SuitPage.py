@@ -406,9 +406,9 @@ class SuitPage(ShtikerPage.ShtikerPage):
     def addSuitHead(self, panel, suitName):
         panel.head = Suit.attachSuitHead(panel, suitName)
         panel.head.setPos(0.0,0.0,-0.09)
-        if suitName == 'bs' or suitName == 'bnc' or  suitName == 'ac':
+        if suitName == 'bs'or  suitName == 'ac':
             panel.head.setScale(0.065)
-        elif suitName == 'le' or suitName == 'cr' or suitName == 'tw' or suitName == 'mc' or suitName == 'wm' or suitName == 'f' or suitName == 'bf' or suitName == 'hh':
+        elif suitName == 'le' or suitName == 'cr' or suitName == 'tw' or suitName == 'mc' or suitName == 'wm' or suitName == 'f' or suitName == 'bf' or suitName == 'hh' or suitName == 'bnc':
             panel.head.setScale(0.13)
         elif suitName == 'p' or suitName == 'nd' or  suitName == 'nc' or  suitName == 'dt' or  suitName == 'tm' or suitName == 'ms':
             panel.head.setScale(0.075)
