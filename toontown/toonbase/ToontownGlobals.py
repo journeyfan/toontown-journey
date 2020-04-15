@@ -251,8 +251,8 @@ def dept2cogHQ(dept):
     dept2hq = {'c': BossbotHQ,
      'l': LawbotHQ,
      'm': CashbotHQ,
-     's': SellbotHQ,
-     'y': SecbotHQ}
+     's': SellbotHQ,}
+     #'y': SecbotHQ}
     return dept2hq[dept]
 
 
