@@ -187,9 +187,9 @@ class CatalogItemList:
             if self.__list == None:
                 self.__decodeList()
             if isinstance(index.step, CatalogItemList):
-                self.__list[index.start:index.stop] = index.step.__list
+                self.__list[index.start:index.stop] = item.__list
             else:
-                self.__list[index.start:index.stop] = index.step
+                self.__list[index.start:index.stop] = item
             self.__blob = None
             return
         else:
