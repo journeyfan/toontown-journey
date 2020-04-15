@@ -10,7 +10,7 @@ from direct.directnotify import DirectNotifyGlobal
 from . import BattleParticles
 from toontown.toonbase import ToontownGlobals
 from toontown.toonbase import ToontownBattleGlobals
-import random
+import random, functools
 notify = DirectNotifyGlobal.directNotify.newCategory('MovieSquirt')
 hitSoundFiles = ('AA_squirt_flowersquirt.ogg', 'AA_squirt_glasswater.ogg', 'AA_squirt_neonwatergun.ogg', 'AA_squirt_seltzer.ogg', 'firehose_spray.ogg', 'AA_throw_stormcloud.ogg', 'AA_squirt_Geyser.ogg')
 missSoundFiles = ('AA_squirt_flowersquirt_miss.ogg', 'AA_squirt_glasswater_miss.ogg', 'AA_squirt_neonwatergun_miss.ogg', 'AA_squirt_seltzer_miss.ogg', 'firehose_spray.ogg', 'AA_throw_stormcloud_miss.ogg', 'AA_squirt_Geyser.ogg')
@@ -57,7 +57,7 @@ def doSquirts(squirts):
         elif len(a) < len(b):
             return -1
         return 0
-    suitSquirts.sort(compFunc)
+    suitSquirts.sort(key=functools.cmp_to_key(compFunc))
 
     delay = 0.0
 

@@ -28,9 +28,7 @@ def loadDNAFile(dnaStorage, file):
     else:
         file = '/' + file
     node = libpandadna.loadDNAFile(dnaStorage, file)
-    if node.getNumChildren() > 0:
-        return node
-    return None
+    return node
 
 def loadDNAFileAI(dnaStorage, file):
     if __debug__:

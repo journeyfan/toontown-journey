@@ -6,7 +6,7 @@ from .BattleSounds import *
 from toontown.toon.ToonDNA import *
 from toontown.suit.SuitDNA import *
 from direct.directnotify import DirectNotifyGlobal
-import random
+import random, functools
 from . import MovieCamera
 from . import MovieUtil
 from .MovieUtil import calcAvgSuitPos
@@ -49,7 +49,7 @@ def doThrows(throws):
             return -1
         return 0
 
-    suitThrows.sort(compFunc)
+    suitThrows.sort(key=functools.cmp_to_key(compFunc))
     totalHitDict = {}
     singleHitDict = {}
     groupHitDict = {}
