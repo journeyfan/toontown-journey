@@ -215,7 +215,7 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
         self.trackBars = []
         self.buttons = []
         for track in xrange(0, len(Tracks)):
-            trackFrame = DirectFrame(parent=self.invFrame, image=self.rowModel, scale=(1.0, 1.0, 1.1), pos=(0, 0.3, self.TrackYOffset + track * self.TrackYSpacing), image_color=(TrackColors[track][0],
+            trackFrame = DirectFrame(parent=self.invFrame, image=self.rowModel, scale=(1.2, 1.0, 1.1), pos=(0, 0.3, self.TrackYOffset + track * self.TrackYSpacing), image_color=(TrackColors[track][0],
              TrackColors[track][1],
              TrackColors[track][2],
              1), state=DGG.NORMAL, relief=None)
