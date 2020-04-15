@@ -13,6 +13,7 @@ from . import SuitDNA
 import random
 from otp.ai.MagicWordGlobal import *
 import math
+import functools
 
 class DistributedCashbotBossAI(DistributedBossCogAI.DistributedBossCogAI, FSM.FSM):
     notify = DirectNotifyGlobal.directNotify.newCategory('DistributedCashbotBossAI')
@@ -72,10 +73,13 @@ class DistributedCashbotBossAI(DistributedBossCogAI.DistributedBossCogAI, FSM.FS
             suit = activeSuits.pop()
             reserveSuits.append((suit, 100))
 
+        def cmp(a, b):
+            return (a > b) - (a < b)
+
         def compareJoinChance(a, b):
             return cmp(a[1], b[1])
 
-        reserveSuits.sort(compareJoinChance)
+        reserveSuits.sort(key=functools.cmp_to_key(compareJoinChance))
         return {'activeSuits': activeSuits,
          'reserveSuits': reserveSuits}
 
