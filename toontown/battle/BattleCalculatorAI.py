@@ -26,13 +26,15 @@ class BattleCalculatorAI:
      30,
      40,
      50,
-     60]
+     60,
+     70]
     NumRoundsLured = [2,
      2,
      3,
      3,
      4,
      4,
+     5,
      15]
     TRAP_CONFLICT = -2
     APPLY_HEALTH_ADJUSTMENTS = 1
