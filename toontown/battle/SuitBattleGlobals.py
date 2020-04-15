@@ -40,7 +40,7 @@ def getSuitVitals(name, level=-1):
     dict['level'] = getActualFromRelativeLevel(name, level)
     if dict['level'] == 11:
         level = 0
-    dict['hp'] = data['hp'][level]
+    dict['hp'] =  calculateHealth(data, level)
     dict['def'] = data['def'][level]
     attacks = data['attacks']
     alist = []
@@ -58,6 +58,8 @@ def getSuitVitals(name, level=-1):
     dict['attacks'] = alist
     return dict
 
+def calculateHealth(stats, level):
+        return (stats['level'] + 1 + level) * (stats['level'] + 2 + level)
 
 def pickSuitAttack(attacks, suitLevel):
     attackNum = None
@@ -322,31 +324,58 @@ SuitAttributes = {'f': {'name': TTLocalizer.SuitFlunky, 'singularname': TTLocali
    'tbc': {'name': TTLocalizer.SuitTheBigCheese, 'singularname': TTLocalizer.SuitTheBigCheeseS, 
            'pluralname': TTLocalizer.SuitTheBigCheeseP, 
            'level': 7, 
-           'hp': (90, 110, 132, 156, 200), 
-           'def': (35, 40, 45, 50, 55), 
-           'freq': (50, 30, 10, 5, 5), 
-           'acc': (35, 40, 45, 50, 55), 
+           'def': (35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70), 
+           'freq': (50, 30, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5), 
+           'acc': (35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95), 
            'attacks': (
                      (
                       'CigarSmoke',
-                      (10, 12, 15, 18, 20),
-                      (55, 65, 75, 85, 95),
-                      (20, 20, 20, 20, 20)),
+                      (10, 12, 15, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36),
+                      (55, 65, 75, 85, 90, 95, 95, 95, 95, 95, 95, 95, 95),
+                      (20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20)),
                      (
                       'FloodTheMarket',
-                      (14, 16, 18, 20, 22),
-                      (70, 75, 85, 90, 95),
-                      (10, 10, 10, 10, 10)),
+                      (14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38),
+                      (70, 75, 85, 90, 95, 95, 95, 95, 95, 95, 95, 95, 95),
+                      (10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10)),
                      (
                       'SongAndDance',
-                      (14, 15, 17, 19, 20),
-                      (60, 65, 70, 75, 80),
-                      (20, 20, 20, 20, 20)),
+                      (14, 15, 17, 19, 20, 22, 24, 26, 28, 30, 32, 34, 36),
+                      (60, 65, 70, 75, 80, 85, 90, 95, 95, 95, 95, 95, 95),
+                      (20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20)),
                      (
                       'TeeOff',
-                      (8, 11, 14, 17, 20),
-                      (55, 65, 70, 75, 80),
-                      (50, 50, 50, 50, 50)))}, 
+                      (8, 11, 14, 17, 20, 22, 24, 26, 28, 30, 32, 35, 38),
+                      (55, 65, 70, 75, 80, 85, 90, 95, 95, 95, 95, 95, 95),
+                      (50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50)))},
+   'cp': {'name': 'The Club Pressident', 'singularname': TTLocalizer.SuitTheBigCheeseS,
+           'pluralname': TTLocalizer.SuitTheBigCheeseP,
+           'level': 7,
+           'hp': (90, 110, 132, 156, 200, 225, 250),
+           'def': (35, 40, 45, 50, 55, 55, 60),
+           'freq': (50, 30, 10, 5, 5, 5, 5),
+           'acc': (35, 40, 45, 50, 55, 60, 60),
+           'attacks': (
+                     (
+                      'GlowerPower',
+                      (10, 12, 15, 18, 20, 23, 25),
+                      (55, 65, 75, 85, 95, 95, 95),
+                      (20, 20, 20, 20, 20, 20, 20)),
+                     (
+                      'GlowerPower',
+                      (14, 16, 18, 20, 22, 24, 26),
+                      (70, 75, 85, 90, 95, 95, 95),
+                      (10, 10, 10, 10, 10, 10, 10)),
+                     (
+                      'GlowerPower',
+                      (14, 15, 17, 19, 20, 24, 27),
+                      (60, 65, 70, 75, 80, 80, 80),
+                      (20, 20, 20, 20, 20, 20, 20)),
+                     (
+                      'TeeOff',
+                      (8, 11, 14, 17, 20, 23, 26),
+                      (55, 65, 70, 75, 80, 80, 80),
+                      (50, 50, 50, 50, 50, 50, 50)))},
    'cc': {'name': TTLocalizer.SuitColdCaller, 'singularname': TTLocalizer.SuitColdCallerS, 
           'pluralname': TTLocalizer.SuitColdCallerP, 
           'level': 0, 
@@ -556,20 +585,19 @@ SuitAttributes = {'f': {'name': TTLocalizer.SuitFlunky, 'singularname': TTLocali
    'mh': {'name': TTLocalizer.SuitMrHollywood, 'singularname': TTLocalizer.SuitMrHollywoodS, 
           'pluralname': TTLocalizer.SuitMrHollywoodP, 
           'level': 7, 
-          'hp': (90, 110, 132, 156, 200), 
-          'def': (35, 40, 45, 50, 55), 
-          'freq': (50, 30, 10, 5, 5), 
-          'acc': (35, 40, 45, 50, 55), 
+          'def': (35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70), 
+          'freq': (50, 30, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), 
+          'acc': (35, 40, 45, 50, 55, 60, 60, 65, 70, 75, 80, 85, 90, 95), 
           'attacks': (
                     (
                      'PowerTrip',
-                     (10, 12, 15, 18, 20),
-                     (55, 65, 75, 85, 95),
-                     (50, 50, 50, 50, 50)),
+                     (10, 12, 15, 18, 20, 22, 24, 26, 28, 30, 33, 36, 40),
+                     (55, 65, 75, 85, 95, 95, 95, 95, 95, 95, 95, 95, 95),
+                     (50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50)),
                     ('RazzleDazzle',
-                     (8, 11, 14, 17, 20),
-                     (70, 75, 85, 90, 95),
-                     (50, 50, 50, 50, 50)))}, 
+                     (8, 11, 14, 17, 20, 24, 28, 32, 36, 40, 44, 48, 52),
+                     (70, 75, 85, 90, 95, 95, 95, 95, 95, 95, 95, 95, 95),
+                     (50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50)))}, 
    'sc': {'name': TTLocalizer.SuitShortChange, 'singularname': TTLocalizer.SuitShortChangeS, 
           'pluralname': TTLocalizer.SuitShortChangeP, 
           'level': 0, 
@@ -760,20 +788,19 @@ SuitAttributes = {'f': {'name': TTLocalizer.SuitFlunky, 'singularname': TTLocali
    'rb': {'name': TTLocalizer.SuitRobberBaron, 'singularname': TTLocalizer.SuitRobberBaronS, 
           'pluralname': TTLocalizer.SuitRobberBaronP, 
           'level': 7, 
-          'hp': (90, 110, 132, 156, 200), 
-          'def': (35, 40, 45, 50, 55), 
-          'freq': (50, 30, 10, 5, 5), 
-          'acc': (35, 40, 45, 50, 55), 
+          'def': (35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70), 
+          'freq': (50, 30, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), 
+          'acc': (35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95), 
           'attacks': (
                     (
                      'PowerTrip',
-                     (11, 14, 16, 18, 21),
-                     (60, 65, 70, 75, 80),
-                     (50, 50, 50, 50, 50)),
+                     (11, 14, 16, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45),
+                     (60, 65, 70, 75, 80, 85, 90, 95, 95, 95, 95, 95, 95),
+                     (50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50)),
                     ('TeeOff',
-                     (10, 12, 14, 16, 18),
-                     (60, 65, 75, 85, 90),
-                     (50, 50, 50, 50, 50)))}, 
+                     (10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34),
+                     (60, 65, 75, 85, 90, 95, 95, 95, 95, 95, 95, 95, 95),
+                     (50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50)))}, 
    'bf': {'name': TTLocalizer.SuitBottomFeeder, 'singularname': TTLocalizer.SuitBottomFeederS, 
           'pluralname': TTLocalizer.SuitBottomFeederP, 
           'level': 0, 
@@ -976,16 +1003,15 @@ SuitAttributes = {'f': {'name': TTLocalizer.SuitFlunky, 'singularname': TTLocali
    'bw': {'name': TTLocalizer.SuitBigWig, 'singularname': TTLocalizer.SuitBigWigS, 
           'pluralname': TTLocalizer.SuitBigWigP, 
           'level': 7, 
-          'hp': (90, 110, 132, 156, 200), 
-          'def': (35, 40, 45, 50, 55), 
-          'freq': (50, 30, 10, 5, 5), 
-          'acc': (35, 40, 45, 50, 55), 
+          'def': (35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70), 
+          'freq': (50, 30, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), 
+          'acc': (35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95), 
           'attacks': (
                     (
                      'PowerTrip',
-                     (10, 11, 13, 15, 16),
-                     (75, 80, 85, 90, 95),
-                     (50, 50, 50, 50, 50)),
+                     (10, 11, 13, 15, 16, 18, 20, 22, 24, 26, 28, 30, 32),
+                     (75, 80, 85, 90, 95, 95, 95, 95, 95, 95, 95, 95, 95),
+                     (50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50)),
                     ('ThrowBook',
                      (13, 15, 17, 19, 21),
                      (80, 85, 85, 85, 90),

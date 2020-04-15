@@ -5197,6 +5197,23 @@ def suit(command, suitIndex, cogType=0, flag=0):
     else:
         return 'Invalid command.'
 
+@magicWord(category=CATEGORY_PROGRAMMER, types=[str,int,int])
+def spawncog(suit, level,specialSuit=0):
+    invoker = spellbook.getInvoker()
+    zoneId = invoker.getLocation()[1]
+    maxLevels = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+    if suit not in SuitDNA.suitHeadTypes:
+        return "Suit {} is not valid!".format(suit)
+    if level not in maxLevels:
+        return 'Invalid Cog Level {}'.format(level)
+    
+    sp = simbase.air.suitPlanners.get(zoneId - (zoneId % 100))
+    if not sp:
+        return 'Unable to spawn {} in current zone {}'.format(suit, zoneId)
+    pointmap = sp.streetPointList
+    sp.createNewSuit([], pointmap, suitName=suit, suitLevel=level)
+    return "spawned {} as level {} with special suit {}".format(suit, level, specialSuit)
+
 @magicWord(category=CATEGORY_PROGRAMMER, types=[str, int])
 def achievements(command, achId):
     invoker = spellbook.getInvoker()
