@@ -456,11 +456,11 @@ class Movie(DirectObject.DirectObject):
             if ival:
                 track.append(ival)
                 camTrack.append(camIval)
-            ival, camIval = MovieDrop.doDrops(self.__findToonAttack(DROP))
+            ival, camIval = MoviePower.doDrops(self.__findToonAttack(POWER))
             if ival:
                 track.append(ival)
                 camTrack.append(camIval)
-            ival, camIval = MoviePower.doDrops(self.__findToonAttack(POWER))
+            ival, camIval = MovieDrop.doDrops(self.__findToonAttack(DROP))
             if ival:
                 track.append(ival)
                 camTrack.append(camIval)

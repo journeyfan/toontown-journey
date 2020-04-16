@@ -9,7 +9,6 @@ from direct.directnotify import DirectNotifyGlobal
 from otp.otpbase import OTPLocalizer
 from toontown.toonbase import TTLocalizer
 notify = DirectNotifyGlobal.directNotify.newCategory('SuitBattleGlobals')
-debugAttackSequence = {}
 
 def pickFromFreqList(freqList):
     randNum = random.randint(0, 99)

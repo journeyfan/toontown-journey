@@ -52,6 +52,8 @@ def __doLureLevel(lure, npcs):
         return __lureHypnotize(lure, npcs)
     elif level == 6:
         return __lureSlideshow(lure, npcs)
+    elif level == 7:
+        return __lureSlideshow(lure, npcs)
     return None
 
 
