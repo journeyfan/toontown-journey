@@ -10,7 +10,7 @@ import MovieUtil
 import MovieNPCSOS
 from toontown.toonbase import ToontownBattleGlobals
 notify = DirectNotifyGlobal.directNotify.newCategory('MovieSound')
-soundFiles = ('AA_sound_bikehorn.ogg', 'AA_sound_whistle.ogg', 'AA_sound_bugle.ogg', 'AA_sound_aoogah.ogg', 'AA_sound_elephant.ogg', 'SZ_DD_foghorn.ogg', 'SZ_DD_foghorn.ogg', 'AA_sound_Opera_Singer.ogg')
+soundFiles = ('AA_sound_bikehorn.ogg', 'AA_sound_whistle.ogg', 'AA_sound_bugle.ogg', 'AA_sound_aoogah.ogg',  'AA_sound_elephant.ogg', 'AA_sound_elephant.ogg', 'SZ_DD_foghorn.ogg', 'AA_sound_Opera_Singer.ogg')
 appearSoundFiles = ('MG_tag_1.ogg', 'LB_receive_evidence.ogg', 'm_match_trumpet.ogg', 'TL_step_on_rake.ogg', 'toonbldg_grow.ogg', 'mailbox_full_wobble.ogg', 'mailbox_full_wobble.ogg', 'mailbox_full_wobble.ogg')
 hitSoundFiles = ('AA_sound_Opera_Singer_Cog_Glass.ogg',)
 tSound = 2.45
@@ -533,6 +533,10 @@ def __doFoghorn(sound, delay, toon, targets, level):
         tracks.append(soundTrack)
     return tracks
 
+def __doAmplifier(sound, delay, toon, targets, level):
+    #TODO actually make the code for sound effect of amplifier
+
+    __doElephant(sound, delay, toon, targets, level)
 
 def __doOpera(sound, delay, toon, targets, level):
     tracks = Parallel()
@@ -618,8 +622,8 @@ soundfn_array = (__doBikehorn,
  __doBugle,
  __doAoogah,
  __doElephant,
+ __doAmplifier,
  __doFoghorn,
- __doOpera,
  __doOpera)
 
 def __getPartTrack(particleEffect, startDelay, durationDelay, partExtraArgs, softStop = 0):
