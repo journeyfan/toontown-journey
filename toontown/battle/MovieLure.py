@@ -51,7 +51,7 @@ def __doLureLevel(lure, npcs):
     elif level == 5:
         return __lureHypnotize(lure, npcs)
     elif level == 6:
-        return __lureSlideshow(lure, npcs)
+        return __lureOneHundredDollar(lure, npcs)
     elif level == 7:
         return __lureSlideshow(lure, npcs)
     return None
@@ -274,7 +274,11 @@ def __lureTenDollar(lure):
     dollarProp = '10dollar'
     dollar = globalPropPool.getProp(dollarProp)
     return __createFishingPoleMultiTrack(lure, dollar, dollarProp)
-
+def __lureOneHundredDollar(lure):
+    #TODO change dollarprop to 100dollar
+    dollarProp = '10dollar'
+    dollar = globalPropPool.getProp(dollarProp)
+    return __createFishingPoleMultiTrack(lure, dollar, dollarProp)
 
 def __lureHypnotize(lure, npcs = []):
     return __createHypnoGogglesMultiTrack(lure, npcs)
