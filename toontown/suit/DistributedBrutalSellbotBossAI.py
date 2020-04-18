@@ -103,7 +103,7 @@ class DistributedBrutalSellbotBossAI(DistributedSellbotBossAI):
 
     def _DistributedSellbotBossAI__makeDoobers(self):
         self._DistributedSellbotBossAI__resetDoobers()
-        for i in xrange(8):
+        for i in range(8):
             suit = DistributedSuitAI(self.air, None)
             level = random.randrange(len(SuitDNA.suitsPerLevel))
             suit.dna = SuitDNA.SuitDNA()

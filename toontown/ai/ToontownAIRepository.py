@@ -213,7 +213,7 @@ class ToontownAIRepository(ToontownInternalRepository):
             phaseNum = ToontownGlobals.phaseMap[hoodId]
         else:
             phaseNum = ToontownGlobals.streetPhaseMap[hoodId]
-        return 'phase_%s/dna/%s_%s.pdna' % (phaseNum, hood, zoneId)
+        return 'phase_%s/dna/%s_%s.dna' % (phaseNum, hood, zoneId)
 
     def loadDNAFileAI(self, dnastore, filename):
         return loadDNAFileAI(dnastore, filename)

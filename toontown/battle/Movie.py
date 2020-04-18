@@ -2,28 +2,29 @@ import copy
 from direct.directnotify import DirectNotifyGlobal
 from direct.interval.IntervalGlobal import *
 from direct.showbase import DirectObject
-import random
+import random, functools
 
-from BattleBase import *
-import BattleExperience
-import BattleParticles
-import MovieDrop
-import MovieFire
-import MovieHeal
-import MovieLure
-import MovieNPCSOS
-import MoviePetSOS
-import MovieSOS
-import MovieSound
-import MovieSquirt
-import MovieSuitAttacks
-import MovieThrow
-import MovieToonVictory
-import MovieTrap
-import MovieUtil
-import PlayByPlayText
-import RewardPanel
-from SuitBattleGlobals import *
+from .BattleBase import *
+from . import BattleExperience
+from . import BattleParticles
+from . import MovieDrop
+from . import MovieFire
+from . import MovieHeal
+from . import MovieLure
+from . import MovieNPCSOS
+from . import MoviePetSOS
+from . import MovieSOS
+from . import MovieSound
+from . import MovieSquirt
+from . import MovieSuitAttacks
+from . import MovieThrow
+from . import MovieToonVictory
+from . import MovieTrap
+from . import MoviePower
+from . import MovieUtil
+from . import PlayByPlayText
+from . import RewardPanel
+from .SuitBattleGlobals import *
 from toontown.chat.ChatGlobals import *
 from toontown.distributed import DelayDelete
 from toontown.toon import NPCToons
@@ -127,14 +128,14 @@ class Movie(DirectObject.DirectObject):
                 legsParts = toon.getLegsParts()
                 partsList = [headParts, torsoParts, legsParts]
                 for parts in partsList:
-                    for partNum in xrange(0, parts.getNumPaths()):
+                    for partNum in range(0, parts.getNumPaths()):
                         nextPart = parts.getPath(partNum)
                         nextPart.clearColorScale()
                         nextPart.clearTransparency()
 
             if self.restoreHips == 1:
                 parts = toon.getHipsParts()
-                for partNum in xrange(0, parts.getNumPaths()):
+                for partNum in range(0, parts.getNumPaths()):
                     nextPart = parts.getPath(partNum)
                     props = nextPart.getChildren()
                     for prop in props:
@@ -149,7 +150,7 @@ class Movie(DirectObject.DirectObject):
             if self.restoreToonScale == 1:
                 toon.setScale(1)
             headParts = toon.getHeadParts()
-            for partNum in xrange(0, headParts.getNumPaths()):
+            for partNum in range(0, headParts.getNumPaths()):
                 part = headParts.getPath(partNum)
                 part.setHpr(0, 0, 0)
                 part.setPos(0, 0, 0)
@@ -157,7 +158,7 @@ class Movie(DirectObject.DirectObject):
             arms = toon.findAllMatches('**/arms')
             sleeves = toon.findAllMatches('**/sleeves')
             hands = toon.findAllMatches('**/hands')
-            for partNum in xrange(0, arms.getNumPaths()):
+            for partNum in range(0, arms.getNumPaths()):
                 armPart = arms.getPath(partNum)
                 sleevePart = sleeves.getPath(partNum)
                 handsPart = hands.getPath(partNum)
@@ -302,12 +303,13 @@ class Movie(DirectObject.DirectObject):
         self.questList = self.rewardPanel.getQuestIntervalList(base.localAvatar, [0,
          1,
          1,
+         0,
          0], [base.localAvatar], base.localAvatar.quests[0], [], [base.localAvatar.getDoId()])
         camera.setPosHpr(0, 8, base.localAvatar.getHeight() * 0.66, 179, 15, 0)
         self.playTutorialReward_1()
 
     def playTutorialReward_1(self):
-        self.tutRewardDialog_1 = TTDialog.TTDialog(text=TTLocalizer.MovieTutorialReward1 % TTLocalizer.BattleGlobalTracks[base.localAvatar.getFirstTrackPicked()].capitalize(),
+        self.tutRewardDialog_1 = TTDialog.TTDialog(text=TTLocalizer.MovieTutorialReward1,
          command=self.playTutorialReward_2, style=TTDialog.Acknowledge, fadeScreen=None, pos=(0.65, 0, 0.5), scale=0.8)
         self.tutRewardDialog_1.hide()
         self._deleteTrack()
@@ -318,24 +320,26 @@ class Movie(DirectObject.DirectObject):
          0,
          0,
          0,
+         0,
          0], [0,
          0,
          0,
+         0,
          0], noSkip=True))
-        self.track += self.rewardPanel.getTrackIntervalList(base.localAvatar, base.localAvatar.getFirstTrackPicked(), 0, 1, 0)
+        self.track += self.rewardPanel.getTrackIntervalList(base.localAvatar, 4, 0, 1, 0)
         self.track.append(Func(self.tutRewardDialog_1.show))
         self.track.start()
         return
 
     def playTutorialReward_2(self, value):
         self.tutRewardDialog_1.cleanup()
-        self.tutRewardDialog_2 = TTDialog.TTDialog(text=TTLocalizer.MovieTutorialReward1 % TTLocalizer.BattleGlobalTracks[base.localAvatar.getSecondTrackPicked()].capitalize(),
+        self.tutRewardDialog_2 = TTDialog.TTDialog(text=TTLocalizer.MovieTutorialReward2,
          command=self.playTutorialReward_3, style=TTDialog.Acknowledge, fadeScreen=None, pos=(0.65, 0, 0.5), scale=0.8)
         self.tutRewardDialog_2.hide()
         self._deleteTrack()
         self.track = Sequence(name='tutorial-reward-2')
         self.track.append(Wait(1.0))
-        self.track += self.rewardPanel.getTrackIntervalList(base.localAvatar,  base.localAvatar.getSecondTrackPicked(), 0, 1, 0)
+        self.track += self.rewardPanel.getTrackIntervalList(base.localAvatar, 5, 0, 1, 0)
         self.track.append(Func(self.tutRewardDialog_2.show))
         self.track.start()
         return
@@ -456,6 +460,10 @@ class Movie(DirectObject.DirectObject):
                 track.append(ival)
                 camTrack.append(camIval)
             ival, camIval = MovieDrop.doDrops(self.__findToonAttack(DROP))
+            if ival:
+                track.append(ival)
+                camTrack.append(camIval)
+            ival, camIval = MoviePower.doDrops(self.__findToonAttack(POWER))
             if ival:
                 track.append(ival)
                 camTrack.append(camIval)
@@ -712,7 +720,7 @@ class Movie(DirectObject.DirectObject):
                             sdict = {}
                             sdict['suit'] = target
                             sdict['hp'] = hps[targetIndex]
-                            if ta[TOON_TRACK_COL] == NPCSOS and track == DROP and hps[targetIndex] == 0:
+                            if ta[TOON_TRACK_COL] == NPCSOS and track == DROP and track == POWER and hps[targetIndex] == 0:
                                 continue
                             sdict['kbbonus'] = kbbonuses[targetIndex]
                             sdict['died'] = ta[SUIT_DIED_COL] & 1 << targetIndex
@@ -739,7 +747,7 @@ class Movie(DirectObject.DirectObject):
                         else:
                             suitIndex = self.battle.activeSuits.index(target)
                         leftSuits = []
-                        for si in xrange(0, suitIndex):
+                        for si in range(0, suitIndex):
                             asuit = self.battle.activeSuits[si]
                             if self.battle.isSuitLured(asuit) == 0:
                                 leftSuits.append(asuit)
@@ -747,7 +755,7 @@ class Movie(DirectObject.DirectObject):
                         lenSuits = len(self.battle.activeSuits)
                         rightSuits = []
                         if lenSuits > suitIndex + 1:
-                            for si in xrange(suitIndex + 1, lenSuits):
+                            for si in range(suitIndex + 1, lenSuits):
                                 asuit = self.battle.activeSuits[si]
                                 if self.battle.isSuitLured(asuit) == 0:
                                     rightSuits.append(asuit)
@@ -762,7 +770,7 @@ class Movie(DirectObject.DirectObject):
                             pass
                         if sdict['died'] != 0:
                             pass
-                        if track == DROP or track == TRAP:
+                        if track == DROP or track == POWER or track == TRAP:
                             adict['target'] = [sdict]
                         else:
                             adict['target'] = sdict
@@ -786,7 +794,7 @@ class Movie(DirectObject.DirectObject):
                 return -1
             return 0
 
-        self.toonAttackDicts.sort(compFunc)
+        self.toonAttackDicts.sort(key=functools.cmp_to_key(compFunc))
         return
 
     def __findToonAttack(self, track):
@@ -865,13 +873,13 @@ class Movie(DirectObject.DirectObject):
                     tdict['died'] = toonDied
                     toonIndex = self.battle.activeToons.index(target)
                     rightToons = []
-                    for ti in xrange(0, toonIndex):
+                    for ti in range(0, toonIndex):
                         rightToons.append(self.battle.activeToons[ti])
 
                     lenToons = len(self.battle.activeToons)
                     leftToons = []
                     if lenToons > toonIndex + 1:
-                        for ti in xrange(toonIndex + 1, lenToons):
+                        for ti in range(toonIndex + 1, lenToons):
                             leftToons.append(self.battle.activeToons[ti])
 
                     tdict['leftToons'] = leftToons

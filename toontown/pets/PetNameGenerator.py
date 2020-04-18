@@ -30,14 +30,14 @@ class PetNameGenerator:
         input = StreamReader(vfs.openReadFile(filename, 1), 1)
         currentLine = input.readline()
         while currentLine:
-            if currentLine.lstrip()[0:1] != '#':
-                a1 = currentLine.find('*')
-                a2 = currentLine.find('*', a1 + 1)
+            if currentLine.lstrip()[0:1] != b'#':
+                a1 = currentLine.find(b'*')
+                a2 = currentLine.find(b'*', a1 + 1)
                 self.nameDictionary[int(currentLine[0:a1])] = (int(currentLine[a1 + 1:a2]), currentLine[a2 + 1:len(currentLine) - 1].strip())
             currentLine = input.readline()
 
         masterList = [self.boyFirsts, self.girlFirsts, self.neutralFirsts]
-        for tu in self.nameDictionary.values():
+        for tu in list(self.nameDictionary.values()):
             masterList[tu[0]].append(tu[1])
 
         return 1
@@ -53,7 +53,7 @@ class PetNameGenerator:
         newtu[0] = (0, name)
         newtu[1] = (1, name)
         newtu[2] = (2, name)
-        for tu in self.nameDictionary.items():
+        for tu in list(self.nameDictionary.items()):
             for g in newtu:
                 if tu[1] == g:
                     return tu[0]

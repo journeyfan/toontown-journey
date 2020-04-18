@@ -32,11 +32,11 @@ class ChatAgentUD(DistributedObjectGlobalUD):
         self.muted = {}
 
     def muteAccount(self, account, howLong):
-        print ['muteAccount', account, howLong]
+        print(['muteAccount', account, howLong])
         self.muted[account] = int(time.time()/60) + howLong
 
     def unmuteAccount(self, account):
-        print ['unmuteAccount', account]
+        print(['unmuteAccount', account])
         if account in self.muted:
             del self.muted[account]        
     # Open chat
@@ -153,11 +153,11 @@ class ChatAgentUD(DistributedObjectGlobalUD):
         modifications = []
         offset = 0
         words = message.split()
-        for wordit in xrange(len(words)):
+        for wordit in range(len(words)):
             word = words[wordit].lower()
             seqlist = self.sequenceList.getList(word)
             if len(seqlist) > 0:
-                for seqit in xrange(len(seqlist)):
+                for seqit in range(len(seqlist)):
                     sequence = seqlist[seqit]
                     splitseq = sequence.split()
                     if len(words) - (wordit + 1) >= len(splitseq):

@@ -1,6 +1,6 @@
 from direct.directnotify.DirectNotifyGlobal import *
 from toontown.building import DistributedBuildingMgrAI
-from toontown.dna.DNAParser import DNAStorage, DNAGroup, DNAVisGroup
+from lib.libpandadna import DNAStorage, DNAGroup, DNAVisGroup
 from toontown.fishing.DistributedFishingPondAI import DistributedFishingPondAI
 from toontown.hood import ZoneUtil
 from toontown.safezone import TreasureGlobals
@@ -76,7 +76,7 @@ class HoodAI:
             del self.air.buildingManagers[buildingManager.branchId]
         self.buildingManagers = []
         del self.fishingPonds
-        for distObj in self.doId2do.values():
+        for distObj in list(self.doId2do.values()):
             distObj.requestDelete()
 
     def findFishingPonds(self, dnaGroup, zoneId, area):
@@ -93,7 +93,7 @@ class HoodAI:
             fishingPonds.append(fishingPond)
         elif isinstance(dnaGroup, DNAVisGroup):
             zoneId = ZoneUtil.getTrueZoneId(int(dnaGroup.getName().split(':')[0]), zoneId)
-        for i in xrange(dnaGroup.getNumChildren()):
+        for i in range(dnaGroup.getNumChildren()):
             (foundFishingPonds, foundFishingPondGroups) = self.findFishingPonds(dnaGroup.at(i), zoneId, area)
             fishingPonds.extend(foundFishingPonds)
             fishingPondGroups.extend(foundFishingPondGroups)
@@ -110,7 +110,7 @@ class HoodAI:
             fishingSpot.generateWithRequired(fishingPond.zoneId)
 
             fishingSpots.append(fishingSpot)
-        for i in xrange(dnaGroup.getNumChildren()):
+        for i in range(dnaGroup.getNumChildren()):
             foundFishingSpots = self.findFishingSpots(dnaGroup.at(i), fishingPond)
             fishingSpots.extend(foundFishingSpots)
         return fishingSpots
@@ -140,7 +140,7 @@ class HoodAI:
             partyGate.generateWithRequired(zoneId)
 
             partyGates.append(partyGates)
-        for i in xrange(dnaGroup.getNumChildren()):
+        for i in range(dnaGroup.getNumChildren()):
             foundPartyGates = self.findPartyGates(dnaGroup.at(i), zoneId)
             partyGates.extend(foundPartyGates)
         return partyGates

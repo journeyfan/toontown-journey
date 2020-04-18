@@ -1,23 +1,23 @@
-from CatalogFurnitureItem import CatalogFurnitureItem # Furniture
-from CatalogChatItem import CatalogChatItem # Phrase
-from CatalogClothingItem import CatalogClothingItem # Clothing
-from CatalogEmoteItem import CatalogEmoteItem # Emotion
-from CatalogWallpaperItem import CatalogWallpaperItem # Furniture
-from CatalogWindowItem import CatalogWindowItem # Furniture
-from CatalogFlooringItem import CatalogFlooringItem # Furniture
-from CatalogMouldingItem import CatalogMouldingItem # Furniture
-from CatalogWainscotingItem import CatalogWainscotingItem # Furniture
-from CatalogPoleItem import CatalogPoleItem # Special
-from CatalogPetTrickItem import CatalogPetTrickItem # Special
-from CatalogBeanItem import CatalogBeanItem # Furniture
-from CatalogGardenItem import CatalogGardenItem # Special
-from CatalogRentalItem import CatalogRentalItem # Special
-from CatalogGardenStarterItem import CatalogGardenStarterItem # Special
-from CatalogNametagItem import CatalogNametagItem # Nametag
-from CatalogToonStatueItem import CatalogToonStatueItem # Special
-from CatalogAnimatedFurnitureItem import CatalogAnimatedFurnitureItem # Furniture
-from CatalogAccessoryItem import CatalogAccessoryItem # Clothing
-from CatalogHouseItem import CatalogHouseItem # Special
+from .CatalogFurnitureItem import CatalogFurnitureItem # Furniture
+from .CatalogChatItem import CatalogChatItem # Phrase
+from .CatalogClothingItem import CatalogClothingItem # Clothing
+from .CatalogEmoteItem import CatalogEmoteItem # Emotion
+from .CatalogWallpaperItem import CatalogWallpaperItem # Furniture
+from .CatalogWindowItem import CatalogWindowItem # Furniture
+from .CatalogFlooringItem import CatalogFlooringItem # Furniture
+from .CatalogMouldingItem import CatalogMouldingItem # Furniture
+from .CatalogWainscotingItem import CatalogWainscotingItem # Furniture
+from .CatalogPoleItem import CatalogPoleItem # Special
+from .CatalogPetTrickItem import CatalogPetTrickItem # Special
+from .CatalogBeanItem import CatalogBeanItem # Furniture
+from .CatalogGardenItem import CatalogGardenItem # Special
+from .CatalogRentalItem import CatalogRentalItem # Special
+from .CatalogGardenStarterItem import CatalogGardenStarterItem # Special
+from .CatalogNametagItem import CatalogNametagItem # Nametag
+from .CatalogToonStatueItem import CatalogToonStatueItem # Special
+from .CatalogAnimatedFurnitureItem import CatalogAnimatedFurnitureItem # Furniture
+from .CatalogAccessoryItem import CatalogAccessoryItem # Clothing
+from .CatalogHouseItem import CatalogHouseItem # Special
 
 
 class CatalogItemSorter:

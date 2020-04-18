@@ -1,13 +1,13 @@
 from direct.interval.IntervalGlobal import *
-from BattleBase import *
-from BattleProps import *
-from BattleSounds import *
-import BattleParticles
-from RewardPanel import *
-import MovieCamera
+from .BattleBase import *
+from .BattleProps import *
+from .BattleSounds import *
+from . import BattleParticles
+from .RewardPanel import *
+from . import MovieCamera
 from direct.directnotify import DirectNotifyGlobal
-import MovieUtil
-import MovieNPCSOS
+from . import MovieUtil
+from . import MovieNPCSOS
 from toontown.toonbase import ToontownBattleGlobals
 notify = DirectNotifyGlobal.directNotify.newCategory('MovieSound')
 soundFiles = ('AA_sound_bikehorn.ogg', 'AA_sound_whistle.ogg', 'AA_sound_bugle.ogg', 'AA_sound_aoogah.ogg', 'AA_sound_elephant.ogg', 'SZ_DD_foghorn.ogg', 'AA_sound_Opera_Singer.ogg')
@@ -218,7 +218,9 @@ def __doBikehorn(sound, delay, toon, targets, level):
     megaphone = globalPropPool.getProp('megaphone')
     megaphone2 = MovieUtil.copyProp(megaphone)
     megaphones = [megaphone, megaphone2]
-    instrument = globalPropPool.getProp('bikehorn')
+    instrument = loader.loadModel('phase_5/models/props/bike_horn.fbx')
+    texture = loader.loadTexture('phase_5/models/props/bike_horn_uvs.jpg')
+    instrument.setTexture(texture, 1)
     instrument2 = MovieUtil.copyProp(instrument)
     instruments = [instrument, instrument2]
 
@@ -270,7 +272,9 @@ def __doWhistle(sound, delay, toon, targets, level):
     megaphone = globalPropPool.getProp('megaphone')
     megaphone2 = MovieUtil.copyProp(megaphone)
     megaphones = [megaphone, megaphone2]
-    instrument = globalPropPool.getProp('whistle')
+    instrument = loader.loadModel('phase_5/models/props/ttj_sound_whistle.fbx')
+    texture = loader.loadTexture('phase_5/models/props/whistle_textures.jpg')
+    instrument.setTexture(texture, 1)
     instrument2 = MovieUtil.copyProp(instrument)
     instruments = [instrument, instrument2]
 

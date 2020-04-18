@@ -4,11 +4,12 @@ from direct.interval.IntervalGlobal import *
 from direct.distributed.ClockDelta import *
 from toontown.toonbase import ToontownGlobals
 from toontown.dna.DNAParser import *
-import ToonInterior
+from lib.libpandadna import DNAStorage, DNADoor
+from . import ToonInterior
 from direct.directnotify import DirectNotifyGlobal
-from direct.distributed import DistributedObject
-import random
-import ToonInteriorColors
+from direct.distributed import DistributedObject, DistributedSmoothNode
+import random, threading
+from . import ToonInteriorColors
 from toontown.hood import ZoneUtil
 from toontown.char import Char
 from toontown.suit import SuitDNA
@@ -20,6 +21,7 @@ from toontown.chat.ChatGlobals import CFSpeech
 
 
 class DistributedTutorialInterior(DistributedObject.DistributedObject):
+
     def announceGenerate(self):
         DistributedObject.DistributedObject.announceGenerate(self)
 
@@ -52,7 +54,7 @@ class DistributedTutorialInterior(DistributedObject.DistributedObject):
     def replaceRandomInModel(self, model):
         baseTag = 'random_'
         npc = model.findAllMatches('**/' + baseTag + '???_*')
-        for i in xrange(npc.getNumPaths()):
+        for i in range(npc.getNumPaths()):
             np = npc.getPath(i)
             name = np.getName()
             b = len(baseTag)
@@ -84,7 +86,7 @@ class DistributedTutorialInterior(DistributedObject.DistributedObject):
         self.interior = loader.loadModel('phase_3.5/models/modules/toon_interior_tutorial')
         self.interior.reparentTo(render)
         dnaStore = DNAStorage()
-        node = loader.loadDNAFile(self.cr.playGame.hood.dnaStore, 'phase_3.5/dna/tutorial_street.pdna')
+        node = loader.loadDNAFile(self.cr.playGame.hood.dnaStore, 'phase_3.5/dna/tutorial_street.dna')
         self.street = render.attachNewNode(node)
         self.street.flattenMedium()
         self.street.setPosHpr(-17, 42, -0.5, 180, 0, 0)
@@ -121,12 +123,14 @@ class DistributedTutorialInterior(DistributedObject.DistributedObject):
         del self.dnaStore
         del self.randomGenerator
         self.interior.flattenMedium()
-        npcOrigin = self.interior.find('**/npc_origin_' + `(self.cr.doId2do[self.npcId].posIndex)`)
+        npcOrigin = self.interior.find('**/npc_origin_' + repr((self.cr.doId2do[self.npcId].posIndex)))
         if not npcOrigin.isEmpty():
             self.cr.doId2do[self.npcId].reparentTo(npcOrigin)
             self.cr.doId2do[self.npcId].clearMat()
         self.createSuit()
         base.localAvatar.setPosHpr(-2, 12, 0, -10, 0, 0)
+        base.localAvatar.startPosHprBroadcast()
+        base.localAvatar.b_setParent(ToontownGlobals.SPRender)
         self.cr.doId2do[self.npcId].setChatAbsolute(TTLocalizer.QuestScriptTutorialMickey_4, CFSpeech)
         place = base.cr.playGame.getPlace()
         if place and hasattr(place, 'fsm') and place.fsm.getCurrentState().getName():

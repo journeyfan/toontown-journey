@@ -1,6 +1,6 @@
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from direct.distributed.DistributedObjectGlobal import DistributedObjectGlobal
-import hmac
+import hmac, hashlib
 from pandac.PandaModules import *
 
 from otp.distributed.PotentialAvatar import PotentialAvatar
@@ -20,9 +20,9 @@ class ClientServicesManager(DistributedObjectGlobal):
 
         token = self.cr.playToken or 'dev'
 
-        key = 'iQhFqzK9yRDM6DY52m6kJZ6pFJPrE6TE'
-        digest_maker = hmac.new(key)
-        digest_maker.update(token)
+        key = b'iQhFqzK9yRDM6DY52m6kJZ6pFJPrE6TE'
+        digest_maker = hmac.new(key, digestmod=hashlib.sha256)
+        digest_maker.update(token.encode('utf-8'))
         clientKey = digest_maker.hexdigest()
 
         self.sendUpdate('login', [token, clientKey])

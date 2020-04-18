@@ -16,7 +16,7 @@ set BASE_CHANNEL=401000000
 echo Starting AI...
 
 :main
-C:/Panda3D-1.11.0-x64-py2/python/python.exe ^
+C:/Panda3D-1.11.0-x64/python/python.exe ^
 	-m toontown.ai.ServiceStart ^
 	--base-channel %BASE_CHANNEL% ^
 	--max-channels %MAX_CHANNELS% ^

@@ -108,7 +108,7 @@ class CustomStatePanel(DirectFrame):
             b4 = None
                           
         self.__trackButtons = [b1, b2, b3, b4]
-        for i in xrange(len(self.__trackButtons)):
+        for i in range(len(self.__trackButtons)):
             b = self.__trackButtons[i]
             if b:
                 b['command'] = self.__trackChosen

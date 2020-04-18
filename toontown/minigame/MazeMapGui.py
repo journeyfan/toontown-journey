@@ -1,6 +1,6 @@
 from direct.showbase.PythonUtil import Enum
 from direct.gui.DirectGui import DirectFrame, DGG
-from pandac.PandaModules import Vec2, VBase4D
+from pandac.PandaModules import Vec2, LVecBase4f
 from pandac.PandaModules import CardMaker, NodePath
 from pandac.PandaModules import Texture, PNMImage
 DEFAULT_MASK_RESOLUTION = 32
@@ -26,9 +26,9 @@ class MazeMapGui(DirectFrame):
         else:
             self._radius = self._maskResolution * radiusRatio
         self._revealedCells = []
-        for y in xrange(self._mazeHeight):
+        for y in range(self._mazeHeight):
             self._revealedCells.append([])
-            for u in xrange(self._mazeWidth):
+            for u in range(self._mazeWidth):
                 self._revealedCells[y].append(False)
 
         self._revealFunctions = {MazeRevealType.SmoothCircle: self._revealSmoothCircle,
@@ -48,9 +48,9 @@ class MazeMapGui(DirectFrame):
     def _createMapTextureCard(self):
         mapImage = PNMImage(MAP_RESOLUTION, MAP_RESOLUTION)
         mapImage.fill(*self._bgColor)
-        fgColor = VBase4D(*self._fgColor)
-        for x in xrange(self._mazeHeight):
-            for y in xrange(self._mazeWidth):
+        fgColor = LVecBase4f(*self._fgColor)
+        for x in range(self._mazeHeight):
+            for y in range(self._mazeWidth):
                 if self._mazeCollTable[y][x] == 1:
                     ax = float(x) / self._mazeWidth * MAP_RESOLUTION
                     invertedY = self._mazeHeight - 1 - y
@@ -73,8 +73,8 @@ class MazeMapGui(DirectFrame):
 
     def _createMaskTextureCard(self):
         self._maskImage = PNMImage(self._maskResolution, self._maskResolution, 4)
-        for x in xrange(self._maskResolution):
-            for y in xrange(self._maskResolution):
+        for x in range(self._maskResolution):
+            for y in range(self._maskResolution):
                 self._maskImage.setXelA(x, y, 0, 0, 0, 1)
 
         self.maskTexture = Texture('maskTexture')
@@ -128,15 +128,15 @@ class MazeMapGui(DirectFrame):
     def _revealSmoothCircle(self, x, y, center):
         length = (Vec2(x, y) - center).length()
         goalAlpha = max(0.0, length / float(self._radius) - 0.5)
-        self._maskImage.setXelA(x, y, VBase4D(0.0, 0.0, 0.0, min(self._maskImage.getAlpha(x, y), goalAlpha * 2.0)))
+        self._maskImage.setXelA(x, y, LVecBase4f(0.0, 0.0, 0.0, min(self._maskImage.getAlpha(x, y), goalAlpha * 2.0)))
 
     def _revealHardCircle(self, x, y, center):
         length = (Vec2(x, y) - center).length()
         if length <= self._radius:
-            self._maskImage.setXelA(x, y, VBase4D(0, 0, 0, 0))
+            self._maskImage.setXelA(x, y, LVecBase4f(0, 0, 0, 0))
 
     def _revealSquare(self, x, y, center):
-        self._maskImage.setXelA(x, y, VBase4D(0, 0, 0, 0))
+        self._maskImage.setXelA(x, y, LVecBase4f(0, 0, 0, 0))
 
     def _drawHole(self, x, y):
         center = Vec2(x, y)
@@ -233,13 +233,13 @@ class MazeMapGui(DirectFrame):
             self._revealedCells[y][x] = True
 
     def revealAll(self):
-        for x in xrange(self._maskResolution):
-            for y in xrange(self._maskResolution):
+        for x in range(self._maskResolution):
+            for y in range(self._maskResolution):
                 self._maskImage.setXelA(x, y, 0, 0, 0, 0)
 
         self.revealCell(0, 0)
 
     def reset(self):
-        for x in xrange(self._maskResolution):
-            for y in xrange(self._maskResolution):
+        for x in range(self._maskResolution):
+            for y in range(self._maskResolution):
                 self._maskImage.setXelA(x, y, 0, 0, 0, 1)

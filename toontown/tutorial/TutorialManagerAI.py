@@ -11,6 +11,7 @@ from toontown.suit.DistributedTutorialSuitAI import DistributedTutorialSuitAI
 from toontown.toon import NPCToons
 from toontown.toonbase import ToontownBattleGlobals
 from toontown.toonbase import ToontownGlobals
+from toontown.toonbase import TTLocalizer
 
 
 class TutorialFSM(FSM):
@@ -132,7 +133,7 @@ class TutorialManagerAI(DistributedObjectAI):
             av.b_setQuests([[110, 1, 1000, 100, 1]])
             av.b_setQuestHistory([101])
             av.b_setRewardHistory(1, [])
-            av.b_setTrackAccess([0, 0, 0, 0, 1, 1, 0])
+            av.b_setTrackAccess([0, 0, 0, 0, 1, 1, 0, 0])
 
 
         # We must wait for the avatar to be generated:
@@ -179,8 +180,18 @@ class TutorialManagerAI(DistributedObjectAI):
 
         av.experience.zeroOutExp()
         av.d_setExperience(av.experience.makeNetString())
+
+        # Add a cupcake and a squirt flower.
+        av.inventory.addItem(4, 0)
+        av.inventory.addItem(5, 0)
+        av.d_setInventory(av.inventory.makeNetString())
+
+        # Give the toon a temporary name. TODO: Only do this for Type A Name pickers.
+        colorString = TTLocalizer.NumToColor[av.dna.headColor]
+        animalType = TTLocalizer.AnimalToSpecies[av.dna.getAnimal()]
+        av.b_setName('{} {}'.format(colorString, animalType))
         
-        av.b_setTrackAccess([0 for x in xrange(7)])
+        #av.b_setTrackAccess([0 for x in range(8)])
 
     def __handleUnexpectedExit(self, avId):
         fsm = self.avId2fsm.get(avId)

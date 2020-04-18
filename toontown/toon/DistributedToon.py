@@ -13,10 +13,10 @@ import operator
 from pandac.PandaModules import *
 import random
 import time
-import Experience
-import InventoryNew
-import TTEmote
-import Toon
+from . import Experience
+from . import InventoryNew
+from . import TTEmote
+from . import Toon
 from otp.ai.MagicWordGlobal import *
 from otp.avatar import Avatar, DistributedAvatar
 from otp.avatar import DistributedPlayer
@@ -24,6 +24,8 @@ from otp.chat import TalkAssistant
 from otp.otpbase import OTPGlobals
 from otp.otpbase import OTPLocalizer
 from otp.speedchat import SCDecoders
+from toontown.ai import DistributedBlackCatMgr
+from toontown.ai.DistributedBlackCatMgr import *
 from toontown.catalog import CatalogItem
 from toontown.catalog import CatalogItemList
 from toontown.chat import ResistanceChat
@@ -100,10 +102,10 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         self.disguisePage = None
         self.sosPage = None
         self.gardenPage = None
-        self.cogTypes = [0, 0, 0, 0]
-        self.cogLevels = [0, 0, 0, 0]
-        self.cogParts = [0, 0, 0, 0]
-        self.cogMerits = [0, 0, 0, 0]
+        self.cogTypes = [0, 0, 0, 0, 0]
+        self.cogLevels = [0, 0, 0, 0, 0]
+        self.cogParts = [0, 0, 0, 0, 0]
+        self.cogMerits = [0, 0, 0, 0, 0]
         self.savedCheesyEffect = ToontownGlobals.CENormal
         self.savedCheesyHoodId = 0
         self.savedCheesyExpireTime = 0
@@ -408,7 +410,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
     def getNearbyPlayers(self, radius, includeSelf = True):
         nearbyToons = []
         toonIds = self.cr.getObjectsOfExactClass(DistributedToon)
-        for toonId, toon in toonIds.items():
+        for toonId, toon in list(toonIds.items()):
             if toon is not self:
                 dist = toon.getDistance(self)
                 if dist < radius:
@@ -486,7 +488,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
 
     def updateGMNameTag(self, tagString, color, state):
         try:
-            unicode(tagString, 'utf-8')
+            str(tagString, 'utf-8')
         except UnicodeDecodeError:
             self.sendUpdate('logSuspiciousEvent', ['invalid GM name tag: %s from %s' % (tagString, self.doId)])
             return
@@ -523,9 +525,9 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
     def setTalk(self, fromAV, fromAC, avatarName, chat, mods, flags):
         timestamp = time.strftime('%m-%d-%Y %H:%M:%S', time.localtime())
         if fromAV == 0:
-            print ':%s: setTalk: %r, %r, %r' % (timestamp, self.doId, self.name, chat)
+            print(':%s: setTalk: %r, %r, %r' % (timestamp, self.doId, self.name, chat))
         else:
-            print ':%s: setTalk: %r, %r, %r' % (timestamp, fromAV, avatarName, chat)
+            print(':%s: setTalk: %r, %r, %r' % (timestamp, fromAV, avatarName, chat))
 
         if base.cr.avatarFriendsManager.checkIgnored(fromAV):
             self.d_setWhisperIgnored(fromAV)
@@ -561,7 +563,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         newText, scrubbed = self.scrubTalk(chat, mods)
         self.displayTalkWhisper(fromAV, avatarName, chat, mods)
         timestamp = time.strftime('%m-%d-%Y %H:%M:%S', time.localtime())
-        print ':%s: receiveWhisperTalk: %r, %r, %r, %r, %r, %r, %r' % (timestamp, fromAV, avatarName, fromAC, None, self.doId, self.getName(), newText)
+        print(':%s: receiveWhisperTalk: %r, %r, %r, %r, %r, %r, %r' % (timestamp, fromAV, avatarName, fromAC, None, self.doId, self.getName(), newText))
         base.talkAssistant.receiveWhisperTalk(fromAV, avatarName, fromAC, None, self.doId, self.getName(), newText)
 
     def setSleepAutoReply(self, fromId):
@@ -1066,7 +1068,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
     def setQuests(self, flattenedQuests):
         questList = []
         questLen = 5
-        for i in xrange(0, len(flattenedQuests), questLen):
+        for i in range(0, len(flattenedQuests), questLen):
             questList.append(flattenedQuests[i:i + questLen])
 
         self.quests = questList
@@ -1176,7 +1178,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
 
     def getResistanceMessageCharges(self, textId):
         msgs = self.resistanceMessages
-        for i in xrange(len(msgs)):
+        for i in range(len(msgs)):
             if msgs[i][0] == textId:
                 return msgs[i][1]
 
@@ -1288,6 +1290,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         return self.trackArray
 
     def hasTrackAccess(self, track):
+        print(self.trackArray, track)
         return self.trackArray[track]
 
     def setTrackProgress(self, trackId, progress):
@@ -1300,8 +1303,8 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         return [self.trackProgressId, self.trackProgress]
 
     def getTrackProgressAsArray(self, maxLength = 15):
-        shifts = map(operator.rshift, maxLength * [self.trackProgress], range(maxLength - 1, -1, -1))
-        digits = map(operator.mod, shifts, maxLength * [2])
+        shifts = list(map(operator.rshift, maxLength * [self.trackProgress], list(range(maxLength - 1, -1, -1))))
+        digits = list(map(operator.mod, shifts, maxLength * [2]))
         digits.reverse()
         return digits
 
@@ -1546,11 +1549,11 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         splat.start(startTime)
 
     def cleanupPies(self):
-        for track in self.pieTracks.values():
+        for track in list(self.pieTracks.values()):
             track.finish()
 
         self.pieTracks = {}
-        for track in self.splatTracks.values():
+        for track in list(self.splatTracks.values()):
             track.finish()
 
         self.splatTracks = {}
@@ -2006,7 +2009,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
     def getMyTrees(self):
         treeDict = self.cr.getObjectsOfClass(DistributedGagTree.DistributedGagTree)
         trees = []
-        for tree in treeDict.values():
+        for tree in list(treeDict.values()):
             if tree.getOwnerId() == self.doId:
                 trees.append(tree)
 
@@ -2029,7 +2032,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
             trackAndLevelList.append((tree.gagTrack, tree.gagLevel))
 
         haveRequired = True
-        for curLevel in xrange(level):
+        for curLevel in range(level):
             testTuple = (track, curLevel)
             if testTuple not in trackAndLevelList:
                 haveRequired = False
@@ -2304,7 +2307,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
     def setMail(self, mail):
         DistributedToon.partyNotify.debug('setMail called with %d mail items' % len(mail))
         self.mail = []
-        for i in xrange(len(mail)):
+        for i in range(len(mail)):
             oneMailItem = mail[i]
             newMail = SimpleMailBase(*oneMailItem)
             self.mail.append(newMail)
@@ -2326,7 +2329,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
     def setInvites(self, invites):
         DistributedToon.partyNotify.debug('setInvites called passing in %d invites.' % len(invites))
         self.invites = []
-        for i in xrange(len(invites)):
+        for i in range(len(invites)):
             oneInvite = invites[i]
             newInvite = InviteInfo(*oneInvite)
             self.invites.append(newInvite)
@@ -2382,7 +2385,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
     def setHostedParties(self, hostedParties):
         DistributedToon.partyNotify.debug('setHostedParties called passing in %d parties.' % len(hostedParties))
         self.hostedParties = []
-        for i in xrange(len(hostedParties)):
+        for i in range(len(hostedParties)):
             hostedInfo = hostedParties[i]
             newParty = PartyInfo(*hostedInfo)
             self.hostedParties.append(newParty)
@@ -2390,7 +2393,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
     def setPartiesInvitedTo(self, partiesInvitedTo):
         DistributedToon.partyNotify.debug('setPartiesInvitedTo called passing in %d parties.' % len(partiesInvitedTo))
         self.partiesInvitedTo = []
-        for i in xrange(len(partiesInvitedTo)):
+        for i in range(len(partiesInvitedTo)):
             partyInfo = partiesInvitedTo[i]
             newParty = PartyInfo(*partyInfo)
             self.partiesInvitedTo.append(newParty)
@@ -2399,7 +2402,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
 
     def getOnePartyInvitedTo(self, partyId):
         result = None
-        for i in xrange(len(self.partiesInvitedTo)):
+        for i in range(len(self.partiesInvitedTo)):
             partyInfo = self.partiesInvitedTo[i]
             if partyInfo.partyId == partyId:
                 result = partyInfo
@@ -2419,7 +2422,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
     def setPartyReplies(self, replies):
         DistributedToon.partyNotify.debug('setPartyReplies called passing in %d parties.' % len(replies))
         self.partyReplyInfoBases = []
-        for i in xrange(len(replies)):
+        for i in range(len(replies)):
             partyReply = replies[i]
             repliesForOneParty = PartyReplyInfoBase(*partyReply)
             self.partyReplyInfoBases.append(repliesForOneParty)
@@ -2782,7 +2785,7 @@ def unmute():
     target = MagicWordManager.lastClickedNametag
     if spellbook.getInvokerAccess() <= target.getAdminAccess():
         return "Must be of a higher access level then target"
-    print ['unmute', target.doId]
+    print(['unmute', target.doId])
     base.cr.chatAgent.sendUnmuteAccount(target.doId)
     return 'Unmute request sent'
     
@@ -2940,8 +2943,6 @@ def SkipTutorial():
 	
 @magicWord(category=CATEGORY_MODERATOR, types=[int])
 def BlackToon():
-    from toontown.ai import DistributedBlackCatMgr
-    from toontown.ai.DistributedBlackCatMgr import *
     messenger.send('DistributedBlackCatMgr-activate')
 
 @magicWord(category=CATEGORY_MODERATOR, types=[int])	
@@ -3056,7 +3057,7 @@ def damage():
 @magicWord(category=CATEGORY_MODERATOR, types=[int])
 def meter():
     meter = base.cr.doFindAll("Interior")[0]
-    print meter.sillyFSM.request('Phase10', force=1)
+    print(meter.sillyFSM.request('Phase10', force=1))
 	
 @magicWord(category=CATEGORY_MODERATOR, types=[int])
 def ghostMickey():

@@ -1,7 +1,7 @@
 from direct.directnotify import DirectNotifyGlobal
 from direct.distributed.DistributedObjectAI import DistributedObjectAI
 from toontown.toonbase import ToontownGlobals
-import HouseGlobals
+from . import HouseGlobals
 import time
 
 from toontown.fishing.DistributedFishingPondAI import DistributedFishingPondAI
@@ -41,7 +41,7 @@ class DistributedEstateAI(DistributedObjectAI):
         self.pond.setArea(ToontownGlobals.MyEstate)
         self.pond.generateWithRequired(self.zoneId)
             
-        for i in xrange(FishingTargetGlobals.getNumTargets(ToontownGlobals.MyEstate)):
+        for i in range(FishingTargetGlobals.getNumTargets(ToontownGlobals.MyEstate)):
             target = DistributedFishingTargetAI(self.air)
             target.setPondDoId(self.pond.getDoId())
             target.generateWithRequired(self.zoneId)
@@ -348,7 +348,7 @@ class DistributedEstateAI(DistributedObjectAI):
         return self.items[5]
 
     def setIdList(self, idList):
-        for i in xrange(len(idList)):
+        for i in range(len(idList)):
             if i >= 6:
                 return
             self.toons[i] = idList[i]

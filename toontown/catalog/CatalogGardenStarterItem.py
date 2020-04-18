@@ -1,4 +1,4 @@
-import CatalogItem
+from . import CatalogItem
 import time
 from toontown.toonbase import ToontownGlobals
 from toontown.toonbase import TTLocalizer
@@ -35,7 +35,7 @@ class CatalogGardenStarterItem(CatalogItem.CatalogItem):
             if estate:
                 estate.placeStarterGarden(avatar.doId)
             else:
-                print 'starter garden-- something not there'
+                print('starter garden-- something not there')
         return ToontownGlobals.P_ItemAvailable
 
     def getPicture(self, avatar):

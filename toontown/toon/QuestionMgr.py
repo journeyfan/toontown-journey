@@ -1,7 +1,7 @@
 # Embedded file name: /Users/pierredavidbelanger/Dev/chatter-bot-api/python/chatterbotapi.py
-import md5
-import urllib
-import urllib2
+from hashlib import md5
+import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.error, urllib.parse
 import uuid
 import xml.dom.minidom
 
@@ -71,11 +71,11 @@ class _CleverbotSession(ChatterBotSession):
 
     def think_thought(self, thought):
         self.vars['stimulus'] = thought.text
-        data = urllib.urlencode(self.vars)
+        data = urllib.parse.urlencode(self.vars)
         data_to_digest = data[9:self.bot.endIndex]
         data_digest = md5.new(data_to_digest).hexdigest()
         data = data + '&icognocheck=' + data_digest
-        url_response = urllib2.urlopen(self.bot.url, data)
+        url_response = urllib.request.urlopen(self.bot.url, data)
         response = url_response.read()
         response_values = response.split('\r')
         self.vars['sessionid'] = _utils_string_at_index(response_values, 1)
@@ -123,8 +123,8 @@ class _PandorabotsSession(ChatterBotSession):
 
     def think_thought(self, thought):
         self.vars['input'] = thought.text
-        data = urllib.urlencode(self.vars)
-        url_response = urllib2.urlopen('http://www.pandorabots.com/pandora/talk-xml', data)
+        data = urllib.parse.urlencode(self.vars)
+        url_response = urllib.request.urlopen('http://www.pandorabots.com/pandora/talk-xml', data)
         response = url_response.read()
         response_dom = xml.dom.minidom.parseString(response)
         response_thought = ChatterBotThought()

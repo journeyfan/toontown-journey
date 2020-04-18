@@ -53,7 +53,7 @@ class MultiTrackChoiceGui(DirectFrame):
         self.trackChoicePosters = []
         i = 0
         for trackId in tracks:
-            print 'at track '+str(trackId)
+            print('at track '+str(trackId))
             tp = TrackPoster(trackId, self.chooseTrack)
             tp.reparentTo(self)
             self.trackChoicePosters.append(tp)

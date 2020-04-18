@@ -1,12 +1,12 @@
 #!/usr/bin/env python2
-import __builtin__
+import builtins
 
 
-__builtin__.process = 'client'
+builtins.process = 'client'
 
 
 # Temporary hack patch:
-__builtin__.__dict__.update(__import__('pandac.PandaModules', fromlist=['*']).__dict__)
+builtins.__dict__.update(__import__('pandac.PandaModules', fromlist=['*']).__dict__)
 from direct.extensions_native import HTTPChannel_extensions
 from direct.extensions_native import Mat3_extensions
 from direct.extensions_native import VBase3_extensions
@@ -33,13 +33,13 @@ notify.setInfo(True)
 from otp.settings.Settings import Settings
 
 from direct.gui.DirectGuiGlobals import NO_FADE_SORT_INDEX, FADE_SORT_INDEX
-__builtin__.NO_FADE_SORT_INDEX = NO_FADE_SORT_INDEX
-__builtin__.FADE_SORT_INDEX = FADE_SORT_INDEX
+builtins.NO_FADE_SORT_INDEX = NO_FADE_SORT_INDEX
+builtins.FADE_SORT_INDEX = FADE_SORT_INDEX
 
 preferencesFilename = ConfigVariableString(
     'preferences-filename', 'preferences.json').getValue()
 notify.info('Reading %s...' % preferencesFilename)
-__builtin__.settings = Settings(preferencesFilename)
+builtins.settings = Settings(preferencesFilename)
 if 'fullscreen' not in settings:
     settings['fullscreen'] = False
 if 'music' not in settings:
@@ -76,8 +76,8 @@ contentPacksSortFilename = ConfigVariableString(
     'content-packs-sort-filename', 'sort.yaml').getValue()
 if not os.path.exists(contentPacksFilepath):
     os.makedirs(contentPacksFilepath)
-__builtin__.ContentPackError = ContentPackError
-__builtin__.contentPacksMgr = ContentPacksManager(
+builtins.ContentPackError = ContentPackError
+builtins.contentPacksMgr = ContentPacksManager(
     filepath=contentPacksFilepath, sortFilename=contentPacksSortFilename)
 contentPacksMgr.applyAll()
 
@@ -85,13 +85,13 @@ contentPacksMgr.applyAll()
 import time
 import sys
 import random
-import __builtin__
+import builtins
 try:
     launcher
 except:
     from toontown.launcher.TTILauncher import TTILauncher
     launcher = TTILauncher()
-    __builtin__.launcher = launcher
+    builtins.launcher = launcher
 
 
 notify.info('Starting the game...')
@@ -104,10 +104,10 @@ backgroundNode = tempLoader.loadSync(Filename('phase_3/models/gui/loading-backgr
 from direct.gui import DirectGuiGlobals
 from direct.gui.DirectGui import *
 notify.info('Setting the default font...')
-import ToontownGlobals
+from . import ToontownGlobals
 DirectGuiGlobals.setDefaultFontFunc(ToontownGlobals.getInterfaceFont)
 launcher.setPandaErrorCode(7)
-import ToonBase
+from . import ToonBase
 ToonBase.ToonBase()
 from pandac.PandaModules import *
 if base.win is None:
@@ -132,7 +132,7 @@ base.graphicsEngine.renderFrame()
 DirectGuiGlobals.setDefaultRolloverSound(base.loadSfx('phase_3/audio/sfx/GUI_rollover.ogg'))
 DirectGuiGlobals.setDefaultClickSound(base.loadSfx('phase_3/audio/sfx/GUI_create_toon_fwd.ogg'))
 DirectGuiGlobals.setDefaultDialogGeom(loader.loadModel('phase_3/models/gui/dialog_box_gui'))
-import TTLocalizer
+from . import TTLocalizer
 from otp.otpbase import OTPGlobals
 OTPGlobals.setDefaultProductPrefix(TTLocalizer.ProductPrefix)
 if base.musicManagerIsValid:
@@ -146,7 +146,7 @@ if base.musicManagerIsValid:
     DirectGuiGlobals.setDefaultClickSound(base.loadSfx('phase_3/audio/sfx/GUI_create_toon_fwd.ogg'))
 else:
     music = None
-import ToontownLoader
+from . import ToontownLoader
 from direct.gui.DirectGui import *
 serverVersion = base.config.GetString('server-version', 'no_version_set')
 version = OnscreenText(serverVersion, pos=(-1.3, -0.975), scale=0.06, fg=Vec4(0, 0, 0, 1), align=TextNode.ALeft)
@@ -155,7 +155,7 @@ version.reparentTo(base.a2dBottomLeft)
 from toontown.suit import Suit
 Suit.loadModels()
 loader.beginBulkLoad('init', TTLocalizer.LoaderLabel, 138, 0, TTLocalizer.TIP_NONE, 0)
-from ToonBaseGlobal import *
+from .ToonBaseGlobal import *
 from direct.showbase.MessengerGlobal import *
 from toontown.distributed import ToontownClientRepository
 cr = ToontownClientRepository.ToontownClientRepository(serverVersion, launcher)
@@ -179,7 +179,7 @@ del tempLoader
 version.cleanup()
 del version
 base.loader = base.loader
-__builtin__.loader = base.loader
+builtins.loader = base.loader
 autoRun = ConfigVariableBool('toontown-auto-run', 1)
 if autoRun:
     try:
@@ -188,5 +188,5 @@ if autoRun:
         raise
     except:
         from toontown.toonbase import PythonUtil
-        print PythonUtil.describeException()
+        print(PythonUtil.describeException())
         raise

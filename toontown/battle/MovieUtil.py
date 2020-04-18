@@ -1,11 +1,11 @@
 from direct.interval.IntervalGlobal import *
-from BattleBase import *
-from BattleProps import *
+from .BattleBase import *
+from .BattleProps import *
 from direct.directnotify import DirectNotifyGlobal
 import random
 from direct.particles import ParticleEffect
-import BattleParticles
-import BattleProps
+from . import BattleParticles
+from . import BattleProps
 from toontown.toonbase import TTLocalizer
 notify = DirectNotifyGlobal.directNotify.newCategory('MovieUtil')
 SUIT_LOSE_DURATION = 6.0
@@ -213,7 +213,7 @@ def virtualize(deathsuit):
     actorNode = deathsuit.find('**/__Actor_modelRoot')
     actorCollection = actorNode.findAllMatches('*')
     parts = ()
-    for thingIndex in xrange(0, actorCollection.getNumPaths()):
+    for thingIndex in range(0, actorCollection.getNumPaths()):
         thing = actorCollection[thingIndex]
         if thing.getName() not in ('joint_attachMeter', 'joint_nameTag', 'def_nameTag', 'nametag3d'):
             thing.setColorScale(1.0, 0.1, 0.1, 0.95)
@@ -288,7 +288,6 @@ def createSuitReviveTrack(suit, toon, battle, npcs = []):
     if hasattr(suit, 'battleTrapProp') and suit.battleTrapProp and suit.battleTrapProp.getName() == 'traintrack' and not suit.battleTrapProp.isHidden():
         suitTrack.append(createTrainTrackAppearTrack(suit, toon, battle, npcs))
     deathSuit = suit.getLoseActor()
-    deathSuit.setBlend(frameBlend=True)
     suitTrack.append(Func(notify.debug, 'before insertDeathSuit'))
     suitTrack.append(Func(insertReviveSuit, suit, deathSuit, battle, suitPos, suitHpr))
     suitTrack.append(Func(notify.debug, 'before actorInterval lose'))
@@ -335,7 +334,6 @@ def createSuitDeathTrack(suit, toon, battle, npcs = []):
     if hasattr(suit, 'battleTrapProp') and suit.battleTrapProp and suit.battleTrapProp.getName() == 'traintrack' and not suit.battleTrapProp.isHidden():
         suitTrack.append(createTrainTrackAppearTrack(suit, toon, battle, npcs))
     deathSuit = suit.getLoseActor()
-    deathSuit.setBlend(frameBlend=True)
     suitTrack.append(Func(notify.debug, 'before insertDeathSuit'))
     suitTrack.append(Func(insertDeathSuit, suit, deathSuit, battle, suitPos, suitHpr))
     suitTrack.append(Func(notify.debug, 'before actorInterval lose'))
@@ -631,7 +629,7 @@ def calcAvgSuitPos(throw):
     battle = throw['battle']
     avgSuitPos = Point3(0, 0, 0)
     numTargets = len(throw['target'])
-    for i in xrange(numTargets):
+    for i in range(numTargets):
         suit = throw['target'][i]['suit']
         avgSuitPos += suit.getPos(battle)
 

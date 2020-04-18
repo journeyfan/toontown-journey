@@ -23,8 +23,6 @@ suitProperties = {'f': (4.0 / cSize, SuitDNA.corpPolyColor, ['flunky', 'glasses'
                   'hh': (6.5 / aSize, SuitDNA.corpPolyColor, ['headhunter'], '', 7.45),
                   'cr': (6.75 / cSize, VBase4(0.85, 0.55, 0.55, 1.0), ['flunky'], 'corporate-raider.jpg', 8.23),
                   'tbc': (7.0 / aSize, VBase4(0.75, 0.95, 0.75, 1.0), ['bigcheese'], '', 9.34),
-
-                  'cp': (7.0 / aSize, SuitDNA.corpPolyColor, ['headhunter'], '', 9.34),
                   # Lawbots
                   'bf': (4.0 / cSize, SuitDNA.legalPolyColor, ['tightwad'], 'bottom-feeder.jpg', 4.81),
                   'b': (4.375 / bSize, VBase4(0.95, 0.95, 1.0, 1.0), ['movershaker'], 'blood-sucker.jpg', 6.17),
@@ -52,5 +50,15 @@ suitProperties = {'f': (4.0 / cSize, SuitDNA.corpPolyColor, ['flunky', 'glasses'
                   'tf': (5.25 / aSize, SuitDNA.salesPolyColor, ['twoface'], '', 6.95),
                   'm': (5.75 / aSize, SuitDNA.salesPolyColor, ['twoface'], 'mingler.jpg', 7.61),
                   'mh': (7.0 / aSize, SuitDNA.salesPolyColor, ['yesman'], '', 8.95),
+
+                  #Secbots
+                  'wm': (4.0 / cSize, SuitDNA.securityPolyColor, ['flunky', 'glasses'], '', 4.88),
+                  'hm': (3.75 / bSize, SuitDNA.securityPolyColor, ['telemarketer'], '', 5.24),
+                  'mc': (4.5 / cSize, SuitDNA.securityPolyColor, ['tightwad'], '', 5.41),
+                  'bg': (4.125 / aSize, SuitDNA.securityPolyColor, ['yesman'], '', 5.28),
+                  'bnc': (4.5 / aSize, SuitDNA.securityPolyColor, ['backstabber'], '', 6.71),
+                  'bb': (4.75 / bSize, SuitDNA.securityPolyColor, ['movershaker'], '', 6.7),
+                  'ssa': (5.3/ cSize, SuitDNA.securityPolyColor, ['moneybags'], '', 6.97),
+                  'w': (7.0 / aSize, SuitDNA.securityPolyColor, ['yesman'], 'robber-baron.jpg', 8.95),
                   }
 

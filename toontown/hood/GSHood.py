@@ -8,13 +8,13 @@ class GSHood(ToonHood):
 
     ID = ToontownGlobals.GoofySpeedway
     SAFEZONELOADER_CLASS = GSSafeZoneLoader
-    STORAGE_DNA = 'phase_6/dna/storage_GS.pdna'
+    STORAGE_DNA = 'phase_6/dna/storage_GS.dna'
     SKY_FILE = 'phase_3.5/models/props/TT_sky'
     SPOOKY_SKY_FILE = 'phase_3.5/models/props/BR_sky'
     TITLE_COLOR = (1.0, 0.5, 0.4, 1.0)
 
     HOLIDAY_DNA = {
-      ToontownGlobals.CRASHED_LEADERBOARD: ['phase_6/dna/crashed_leaderboard_storage_GS.pdna']}
+      ToontownGlobals.CRASHED_LEADERBOARD: ['phase_6/dna/crashed_leaderboard_storage_GS.dna']}
 
     def enter(self, requestStatus):
         ToonHood.enter(self, requestStatus)

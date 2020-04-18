@@ -2,7 +2,7 @@ from pandac.PandaModules import *
 from direct.showbase import DirectObject
 from toontown.suit import SuitDNA
 from direct.directnotify import DirectNotifyGlobal
-import LevelBattleManagerAI
+from . import LevelBattleManagerAI
 import types
 import random
 
@@ -22,7 +22,7 @@ class LevelSuitPlannerAI(DirectObject.DirectObject):
         self.__genSuitInfos(self.level.getCogLevel(), self.level.getCogTrack())
         self.battleMgr = LevelBattleManagerAI.LevelBattleManagerAI(self.air, self.level, battleCtor, battleExpAggreg)
         self.battleCellId2suits = {}
-        for id in self.battleCellSpecs.keys():
+        for id in list(self.battleCellSpecs.keys()):
             self.battleCellId2suits[id] = []
 
     def destroy(self):
@@ -37,10 +37,10 @@ class LevelSuitPlannerAI(DirectObject.DirectObject):
 
     def __genJoinChances(self, num):
         joinChances = []
-        for currChance in xrange(num):
+        for currChance in range(num):
             joinChances.append(random.randint(1, 100))
 
-        joinChances.sort(cmp)
+        joinChances.sort()
         return joinChances
 
     def __genSuitInfos(self, level, track):
@@ -58,14 +58,14 @@ class LevelSuitPlannerAI(DirectObject.DirectObject):
 
         self.suitInfos = {}
         self.suitInfos['activeSuits'] = []
-        for i in xrange(len(self.cogSpecs)):
+        for i in range(len(self.cogSpecs)):
             spec = self.cogSpecs[i]
             self.suitInfos['activeSuits'].append(getSuitDict(spec, i))
 
         numReserve = len(self.reserveCogSpecs)
         joinChances = self.__genJoinChances(numReserve)
         self.suitInfos['reserveSuits'] = []
-        for i in xrange(len(self.reserveCogSpecs)):
+        for i in range(len(self.reserveCogSpecs)):
             spec = self.reserveCogSpecs[i]
             suitDict = getSuitDict(spec, i)
             suitDict['joinChance'] = joinChances[i]
@@ -87,30 +87,11 @@ class LevelSuitPlannerAI(DirectObject.DirectObject):
         suit.boss = suitDict['boss']
         return suit
 
-    def __genSpecificSuitObject(self, suitDict, reserve):
-        suit = self.cogCtor(simbase.air, self)
-        dna = SuitDNA.SuitDNA()
-        dna.newSuit(suitDict['type'])
-        suit.dna = dna
-        suit.setLevel(suitDict['level'])
-        suit.setSkeleRevives(suitDict.get('revives'))
-        suit.setLevelDoId(self.level.doId)
-        suit.setCogId(suitDict['cogId'])
-        suit.setReserve(reserve)
-        if suitDict['skeleton']:
-            suit.setSkelecog(1)
-        suit.generateWithRequired(suitDict['zoneId'])
-        suit.boss = suitDict['boss']
-        return suit
-
     def genSuits(self):
         suitHandles = {}
         activeSuits = []
         for activeSuitInfo in self.suitInfos['activeSuits']:
-            if activeSuitInfo.get('type', None) and activeSuitInfo.get('forceType', None):
-                suit = self.__genSpecificSuitObject(activeSuitInfo, 0)
-            else:
-                suit = self.__genSuitObject(activeSuitInfo, 0)
+            suit = self.__genSuitObject(activeSuitInfo, 0)
             suit.setBattleCellIndex(activeSuitInfo['battleCell'])
             activeSuits.append(suit)
 
@@ -219,7 +200,7 @@ class LevelSuitPlannerAI(DirectObject.DirectObject):
             if oldCell in self.battleCellId2suits:
                 self.battleCellId2suits[oldCell].remove(suit)
             else:
-                self.notify.warning('FIXME crash bandaid suitBattleCellChange suit.doId =%s, oldCell=%s not in battleCellId2Suits.keys %s' % (suit.doId, oldCell, self.battleCellId2suits.keys()))
+                self.notify.warning('FIXME crash bandaid suitBattleCellChange suit.doId =%s, oldCell=%s not in battleCellId2Suits.keys %s' % (suit.doId, oldCell, list(self.battleCellId2suits.keys())))
             blocker = self.battleMgr.battleBlockers.get(oldCell)
             if blocker:
                 blocker.removeSuit(suit)
