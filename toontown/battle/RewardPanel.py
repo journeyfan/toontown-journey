@@ -578,7 +578,7 @@ class RewardPanel(DirectFrame):
                 toonShortList.append(t)
 
         cogList = []
-        for i in range(0, len(deathList), 4):
+        for i in range(0, len(deathList), 5):
             cogIndex = deathList[i]
             cogLevel = deathList[i + 1]
             activeToonBits = deathList[i + 2]

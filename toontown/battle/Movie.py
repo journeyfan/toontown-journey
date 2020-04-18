@@ -303,12 +303,13 @@ class Movie(DirectObject.DirectObject):
         self.questList = self.rewardPanel.getQuestIntervalList(base.localAvatar, [0,
          1,
          1,
+         0,
          0], [base.localAvatar], base.localAvatar.quests[0], [], [base.localAvatar.getDoId()])
         camera.setPosHpr(0, 8, base.localAvatar.getHeight() * 0.66, 179, 15, 0)
         self.playTutorialReward_1()
 
     def playTutorialReward_1(self):
-        self.tutRewardDialog_1 = TTDialog.TTDialog(text=TTLocalizer.MovieTutorialReward1 % TTLocalizer.BattleGlobalTracks[base.localAvatar.getFirstTrackPicked()].capitalize(),
+        self.tutRewardDialog_1 = TTDialog.TTDialog(text=TTLocalizer.MovieTutorialReward1,
          command=self.playTutorialReward_2, style=TTDialog.Acknowledge, fadeScreen=None, pos=(0.65, 0, 0.5), scale=0.8)
         self.tutRewardDialog_1.hide()
         self._deleteTrack()
@@ -319,24 +320,26 @@ class Movie(DirectObject.DirectObject):
          0,
          0,
          0,
+         0,
          0], [0,
          0,
          0,
+         0,
          0], noSkip=True))
-        self.track += self.rewardPanel.getTrackIntervalList(base.localAvatar, base.localAvatar.getFirstTrackPicked(), 0, 1, 0)
+        self.track += self.rewardPanel.getTrackIntervalList(base.localAvatar, 4, 0, 1, 0)
         self.track.append(Func(self.tutRewardDialog_1.show))
         self.track.start()
         return
 
     def playTutorialReward_2(self, value):
         self.tutRewardDialog_1.cleanup()
-        self.tutRewardDialog_2 = TTDialog.TTDialog(text=TTLocalizer.MovieTutorialReward1 % TTLocalizer.BattleGlobalTracks[base.localAvatar.getSecondTrackPicked()].capitalize(),
+        self.tutRewardDialog_2 = TTDialog.TTDialog(text=TTLocalizer.MovieTutorialReward2,
          command=self.playTutorialReward_3, style=TTDialog.Acknowledge, fadeScreen=None, pos=(0.65, 0, 0.5), scale=0.8)
         self.tutRewardDialog_2.hide()
         self._deleteTrack()
         self.track = Sequence(name='tutorial-reward-2')
         self.track.append(Wait(1.0))
-        self.track += self.rewardPanel.getTrackIntervalList(base.localAvatar,  base.localAvatar.getSecondTrackPicked(), 0, 1, 0)
+        self.track += self.rewardPanel.getTrackIntervalList(base.localAvatar, 5, 0, 1, 0)
         self.track.append(Func(self.tutRewardDialog_2.show))
         self.track.start()
         return

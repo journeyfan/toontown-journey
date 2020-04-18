@@ -1158,6 +1158,8 @@ class DistributedTargetGame(DistributedMinigame):
                 self.ticker = 0.0
                 powerDiv = 0.05
                 self.power -= 1.0 + 0.2 * (self.power * powerDiv * (self.power * powerDiv))
+            if timeDiff == None:
+                timeDiff = 0
             if timeDiff > 0.5:
                 self.power = self.powerBar['value']
                 self.signalLaunch = 0

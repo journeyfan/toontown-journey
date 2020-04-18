@@ -451,32 +451,41 @@ class DistributedDoor(DistributedObject.DistributedObject, DelayDeletable):
             )
         )
         track.append(Func(avatar.setParent, ToontownGlobals.SPRender))
-        if avatar.doId == base.localAvatar.doId:
+        if not "tutorial/tb2:toon_landmark_TT_A1_DNARoot" in str(self.building):
+            tutorialHack = False
+            if avatar.doId == base.localAvatar.doId:
+                track.append(
+                    PosHprInterval(
+                        camera, VBase3(-self.doorX, 5, avatar.getHeight()),
+                        VBase3(180, 0, 0), other=otherNP
+                    )
+                )
+            if avatar.doId == base.localAvatar.doId:
+                finalPos = render.getRelativePoint(
+                    otherNP, Point3(-self.doorX, -6, ToontownGlobals.FloorOffset)
+                )
+            else:
+                finalPos = render.getRelativePoint(
+                    otherNP, Point3(-self.doorX, -3, ToontownGlobals.FloorOffset)
+                )
             track.append(
-                PosHprInterval(
-                    camera, VBase3(-self.doorX, 5, avatar.getHeight()),
-                    VBase3(180, 0, 0), other=otherNP
+                LerpPosInterval(
+                    nodePath=avatar, duration=duration, pos=finalPos,
+                    blendType='easeInOut'
                 )
             )
-        if avatar.doId == base.localAvatar.doId:
-            finalPos = render.getRelativePoint(
-                otherNP, Point3(-self.doorX, -6, ToontownGlobals.FloorOffset)
-            )
         else:
-            finalPos = render.getRelativePoint(
-                otherNP, Point3(-self.doorX, -3, ToontownGlobals.FloorOffset)
-            )
-        track.append(
-            LerpPosInterval(
-                nodePath=avatar, duration=duration, pos=finalPos,
-                blendType='easeInOut'
-            )
-        )
+            # For some reason, the tutorial does not like it when we exit Tutorial Tom's building,
+            # so we do this following hack. Hope that Tutorial Tom does not mind!
+            tutorialHack = True
         if avatar.doId == base.localAvatar.doId:
             track.append(Func(self.exitCompleted))
             track.append(Func(base.transitions.irisIn))
         if hasattr(avatar, 'startSmooth'):
             track.append(Func(avatar.startSmooth))
+        if tutorialHack:
+            # Extension of above hack.
+            track.append(Func(avatar.setXYZH, self.doorX + 3, 16, ToontownGlobals.FloorOffset, -90))
         track.delayDelete = DelayDelete.DelayDelete(avatar, 'DistributedDoor.avatarExitTrack')
         return track
 

@@ -353,6 +353,14 @@ class DistributedVineGame(DistributedMinigame):
         if not (newFacingRight == 0 or newFacingRight == 1):
             self.notify.warning('invalid facingRight for %d, forcing to 1' % avId)
             newFacingRight = 1
+        if newPosX == None:
+            newPosX = 0
+        if newPosZ == None:
+            newPosZ = 0
+        if newVelX == None:
+            newVelX = 0
+        if newVelZ == None:
+            newVelZ = 0
         if newPosX < -1000 or newPosX > 2000:
             self.notify.warning('invalid posX for %d, forcing to 0' % avId)
             newPosX = 0

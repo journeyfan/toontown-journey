@@ -3,6 +3,7 @@ from direct.fsm import ClassicFSM, State
 from direct.fsm import State
 from . import TravelGameGlobals
 from toontown.toonbase import ToontownGlobals
+import functools
 
 class DistributedTravelGameAI(DistributedMinigameAI):
     notify = directNotify.newCategory('DistributedTravelGameAI')
@@ -107,7 +108,7 @@ class DistributedTravelGameAI(DistributedMinigameAI):
             else:
                 return 1
 
-        self.directionVotes.sort(voteCompare, reverse=True)
+        self.directionVotes.sort(key=functools.cmp_to_key(voteCompare), reverse=True)
         winningVotes = self.directionVotes[0][1]
         self.winningDirections = []
         self.notify.debug('self.directionVotes = %s' % self.directionVotes)
@@ -257,13 +258,13 @@ class DistributedTravelGameAI(DistributedMinigameAI):
         numPlayers = len(self.avIdList)
         allowedGames = list(ToontownGlobals.MinigamePlayerMatrix[numPlayers])
         from toontown.minigame import MinigameCreatorAI
-        allowedGames = MinigameCreatorAI.removeUnreleasedMinigames(allowedGames)
+        #allowedGames = MinigameCreatorAI.removeUnreleasedMinigames(allowedGames)
         self.switchToMinigameDict = {}
         for switch in list(TravelGameGlobals.BoardLayouts[self.boardIndex].keys()):
             if self.isLeaf(switch):
                 if len(allowedGames) == 0:
                     allowedGames = list(ToontownGlobals.MinigamePlayerMatrix[numPlayers])
-                    allowedGames = MinigameCreatorAI.removeUnreleasedMinigames(allowedGames)
+                    #allowedGames = MinigameCreatorAI.removeUnreleasedMinigames(allowedGames)
                 minigame = random.choice(allowedGames)
                 self.switchToMinigameDict[switch] = minigame
                 allowedGames.remove(minigame)

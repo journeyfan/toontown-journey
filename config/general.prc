@@ -115,7 +115,7 @@ want-cogbuildings #t
 # Optional:
 show-total-population #t
 want-mat-all-tailors #t
-want-long-pattern-game #t
+want-long-pattern-game #f
 want-talkative-tyler #f
 want-yin-yang #f
 

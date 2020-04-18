@@ -120,14 +120,14 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
         self.glasses = (0, 0, 0)
         self.backpack = (0, 0, 0)
         self.shoes = (0, 0, 0)
-        self.cogTypes = [0, 0, 0, 0]
-        self.cogLevel = [0, 0, 0, 0]
-        self.cogParts = [0, 0, 0, 0]
-        self.cogRadar = [0, 0, 0, 0]
+        self.cogTypes = [0, 0, 0, 0, 0]
+        self.cogLevel = [0, 0, 0, 0, 0]
+        self.cogParts = [0, 0, 0, 0, 0]
+        self.cogRadar = [0, 0, 0, 0, 0]
         self.cogIndex = -1
         self.disguisePageFlag = 0
         self.sosPageFlag = 0
-        self.buildingRadar = [0, 0, 0, 0]
+        self.buildingRadar = [0, 0, 0, 0, 0]
         self.fishingRod = 0
         self.fishingTrophies = []
         self.trackArray = []
@@ -471,6 +471,7 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
         emptyInv = InventoryBase.InventoryBase(self)
         emptyString = emptyInv.makeNetString()
         lengthMatch = len(inventoryNetString) - len(emptyString)
+        self.notify.warning("len: {}".format(len(inventoryNetString)))
         if lengthMatch != 0:
             if len(inventoryNetString) == 42:
                 oldTracks = 7
@@ -1210,8 +1211,9 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
 
     def setCogLevels(self, levels):
         if not levels:
-            self.notify.warning('cogLevels set to bad value: %s. Resetting to [0,0,0,0]' % levels)
+            self.notify.warning('cogLevels set to bad value: %s. Resetting to [0,0,0,0,0]' % levels)
             self.cogLevels = [0,
+                              0,
                               0,
                               0,
                               0]

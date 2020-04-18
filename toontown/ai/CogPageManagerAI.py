@@ -40,7 +40,10 @@ class CogPageManagerAI:
         newCogRadar = toon.cogRadar
         newBuildingRadar = toon.buildingRadar
         for dept in range(len(SuitDNA.suitDepts)):
-            if newBuildingRadar[dept] == 1:
+            try:
+                if newBuildingRadar[dept] == 1:
+                    continue
+            except:
                 continue
             cogRadar = 1
             buildingRadar = 1

@@ -244,12 +244,12 @@ class TutorialManagerAI(DistributedObjectAI):
         inventory.addItem(4, 0)
         inventory.addItem(5, 0)
         av.b_setInventory(inventory.makeNetString())
-        
+
         av.b_setHp(15)
         av.b_setMaxHp(15)
 
         exp = Experience.Experience(av.getExperience(), av)
-        for i in range(7):
+        for i in range(8):
             exp.experience[i] = 0
             
         av.b_setExperience(exp.makeNetString())

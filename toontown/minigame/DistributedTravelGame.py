@@ -394,6 +394,7 @@ class DistributedTravelGame(DistributedMinigame):
         NametagGlobals.setForceOnscreenChat(True)
         DistributedMinigame.onstage(self)
         self.gameBoard.reparentTo(render)
+        self.sky.setZ(2)
         self.sky.reparentTo(render)
         self.moveCameraToTop()
         self.trolleyCar.reparentTo(render)
@@ -407,7 +408,7 @@ class DistributedTravelGame(DistributedMinigame):
             trainTrack.reparentTo(render)
 
         base.transitions.irisIn(0.4)
-        base.setBackgroundColor(0.1875, 0.7929, 0)
+        base.setBackgroundColor(0, 0.717, 1.0)
         base.playMusic(self.music, looping=1, volume=0.9)
         self.introMovie.start()
 

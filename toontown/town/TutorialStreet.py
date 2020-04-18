@@ -1,4 +1,5 @@
 from . import TTStreet
+from toontown.toonbase import ToontownGlobals
 
 class TutorialStreet(TTStreet.TTStreet):
 

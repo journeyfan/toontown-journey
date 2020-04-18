@@ -4,10 +4,11 @@ from direct.interval.IntervalGlobal import *
 from direct.distributed.ClockDelta import *
 from toontown.toonbase import ToontownGlobals
 from toontown.dna.DNAParser import *
+from lib.libpandadna import DNAStorage, DNADoor
 from . import ToonInterior
 from direct.directnotify import DirectNotifyGlobal
-from direct.distributed import DistributedObject
-import random
+from direct.distributed import DistributedObject, DistributedSmoothNode
+import random, threading
 from . import ToonInteriorColors
 from toontown.hood import ZoneUtil
 from toontown.char import Char
@@ -20,6 +21,7 @@ from toontown.chat.ChatGlobals import CFSpeech
 
 
 class DistributedTutorialInterior(DistributedObject.DistributedObject):
+
     def announceGenerate(self):
         DistributedObject.DistributedObject.announceGenerate(self)
 
@@ -127,6 +129,8 @@ class DistributedTutorialInterior(DistributedObject.DistributedObject):
             self.cr.doId2do[self.npcId].clearMat()
         self.createSuit()
         base.localAvatar.setPosHpr(-2, 12, 0, -10, 0, 0)
+        base.localAvatar.startPosHprBroadcast()
+        base.localAvatar.b_setParent(ToontownGlobals.SPRender)
         self.cr.doId2do[self.npcId].setChatAbsolute(TTLocalizer.QuestScriptTutorialMickey_4, CFSpeech)
         place = base.cr.playGame.getPlace()
         if place and hasattr(place, 'fsm') and place.fsm.getCurrentState().getName():

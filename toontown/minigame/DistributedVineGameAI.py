@@ -249,6 +249,14 @@ class DistributedVineGameAI(DistributedMinigameAI):
             pass
         if not newFacingRight == 0 and not newFacingRight == 1:
             newFacingRight = 1
+        if newPosX == None:
+            newPosX = 0
+        if newPosZ == None:
+            newPosZ = 0
+        if newVelX == None:
+            newVelX = 0
+        if newVelZ == None:
+            newVelZ = 0
         if newPosX < -1000 or newPosX > 2000:
             newPosX = 0
         if newPosZ < -100 or newPosZ > 1000:

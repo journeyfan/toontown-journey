@@ -134,7 +134,8 @@ class MinigamePhysicsWorldBase:
                     pandaNodePathGeom.setPos(0.0, 0.0, -100.0)
 
     def simulate(self):
-        self.colCount = self.space.autoCollide()
+        self.space.autoCollide()
+        self.colCount = 0
         if self.maxColCount < self.colCount:
             self.maxColCount = self.colCount
             self.notify.debug('New Max Collision Count %s' % self.maxColCount)
