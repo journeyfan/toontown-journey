@@ -2265,11 +2265,9 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
                 nextTime = nextGiftTime
             if nextGiftTime == None:
                 nextGiftTime = nextTime
-            try:
+            if nextTime:
                 if nextGiftTime < nextTime:
                     nextTime = nextGiftTime
-            except:
-                nextTime = now + 5 # Hack for Python 3
             existingDuration = None
             checkTaskList = taskMgr.getTasksNamed(taskName)
             if checkTaskList:
