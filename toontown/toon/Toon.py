@@ -6,6 +6,7 @@ from direct.task.Task import Task
 from pandac.PandaModules import *
 import random
 import types
+import functools
 
 from . import AccessoryGlobals
 from . import Motion
@@ -1250,8 +1251,11 @@ class Toon(Avatar.Avatar, ToonHead):
                 if node.getY(self) > 0.0:
                     nodePathList.append((node, offset))
 
+        def cmp(a, b):
+            return (a > b) - (a < b)
+
         if nodePathList:
-            nodePathList.sort()
+            nodePathList.sort(key=functools.cmp_to_key((lambda x, y: cmp(x[0].getDistance(self), y[0].getDistance(self)))))
             if len(nodePathList) >= 2:
                 if self.randGen.random() < 0.9:
                     chosenNodePath = nodePathList[0]

@@ -50,7 +50,6 @@ class InventoryBase(DirectObject.DirectObject):
         datagram = PyDatagram()
         for track in range(0, len(Tracks)):
             for level in range(0, len(Levels[track])):
-                self.notify.warning("Amount of {}, {}: {}".format(track, level, dataList[track][level]))
                 datagram.addUint8(dataList[track][level])
 
         dgi = PyDatagramIterator(datagram)

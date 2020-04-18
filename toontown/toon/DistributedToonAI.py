@@ -471,7 +471,6 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
         emptyInv = InventoryBase.InventoryBase(self)
         emptyString = emptyInv.makeNetString()
         lengthMatch = len(inventoryNetString) - len(emptyString)
-        self.notify.warning("len: {}".format(len(inventoryNetString)))
         if lengthMatch != 0:
             if len(inventoryNetString) == 42:
                 oldTracks = 7
@@ -2256,7 +2255,6 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
             if self.onGiftOrder:
                 nextGiftTime = self.onGiftOrder.getNextDeliveryDate()
                 nextGiftItem = self.onGiftOrder.getNextDeliveryItem()
-            self.notify.warning((self.onOrder, self.onGiftOrder))
             if nextItem:
                 pass
             if nextGiftItem:

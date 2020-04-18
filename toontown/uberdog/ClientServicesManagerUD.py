@@ -815,7 +815,6 @@ class LoginAccountFSM(OperationFSM):
         self.demand('QueryAccountDB')
 
     def enterQueryAccountDB(self):
-        self.notify.warning(self.token)
         self.csm.accountDB.lookup(self.token, self.__handleLookup)
 
     def __handleLookup(self, result):
