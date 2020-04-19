@@ -238,7 +238,7 @@ class HoodMgr(DirectObject.DirectObject):
 
     def getZonesInPhase(self, phase):
         p = []
-        for i in ToontownGlobals.phaseMap.items():
+        for i in list(ToontownGlobals.phaseMap.items()):
             if i[1] == phase:
                 p.append(i[0])
         return p
@@ -277,7 +277,7 @@ class HoodMgr(DirectObject.DirectObject):
         tunnelOriginList = []
         for i in nodeList:
             linkTunnelNPC = i.findAllMatches('**/linktunnel*')
-            for p in xrange(linkTunnelNPC.getNumPaths()):
+            for p in range(linkTunnelNPC.getNumPaths()):
                 linkTunnel = linkTunnelNPC.getPath(p)
                 name = linkTunnel.getName()
                 nameParts = name.split('_')
@@ -324,7 +324,10 @@ class HoodMgr(DirectObject.DirectObject):
         return tunnelOriginList
 
     def extractGroupName(self, groupFullName):
-        return groupFullName.split(':', 1)[0]
+        if isinstance(groupFullName, bytes):
+            return groupFullName.split(b':', 1)[0]
+        else:
+            return groupFullName.split(':', 1)[0]
 
     def makeLinkTunnelName(self, hoodId, currentZone):
         return '**/toph_' + self.getNameFromId(hoodId) + '_' + str(currentZone)

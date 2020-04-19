@@ -253,6 +253,8 @@ class NametagGroup:
 
     def setText(self, text):
         self.text = text
+        if isinstance(self.text, bytes):
+            self.text = self.text.decode()
         for nametag in self.nametags:
             nametag.setText(self.text)
             nametag.update()

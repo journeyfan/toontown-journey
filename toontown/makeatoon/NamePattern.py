@@ -456,7 +456,7 @@ class NamePattern:
     def __init__(self, *a, **kw):
         names = (
             line.strip().split('*')
-            for line in filter(None, lines.replace('\r', '\n').split('\n'))
+            for line in [_f for _f in lines.replace('\r', '\n').split('\n') if _f]
             if not line.startswith('#')
         )
         self.nameDict = {}
@@ -518,7 +518,7 @@ class NamePattern:
             lastSuffixPart = ''
         name = (titlePart + ' ' + firstPart + ' ' +
                 lastPrefixPart + lastSuffixPart)
-        return unicode(name.decode('latin-1').strip()).replace('\n', '')
+        return str(name.decode('latin-1').strip()).replace('\n', '')
 
     def getStringParts(self, gender, nameParts):
         (titlePart, firstPart, lastPrefixPart, lastSuffixPart) = nameParts
@@ -577,7 +577,8 @@ class NamePattern:
                 
         return -1
         
-    def getStringFromIndexes(self, gender, (title, first, lastPrefix, lastSuffix)):
+    def getStringFromIndexes(self, gender, xxx_todo_changeme):
+        (title, first, lastPrefix, lastSuffix) = xxx_todo_changeme
         titles = [self.getPartId('title', x, gender) for x in self.fetchAll(gender, 'title')]
         firsts = [self.getPartId('first', x, gender) for x in self.fetchAll(gender, 'first')]
         lastPrefixes = [self.getPartId('last-prefix', x, gender) for x in self.fetchAll(gender, 'last-prefix')]
@@ -601,19 +602,19 @@ class NamePattern:
             
 if __name__ == '__main__':
     namePattern = NamePattern()
-    for i in xrange(2):
+    for i in range(2):
         gender = random.choice(('m', 'f'))
         nameParts = list(namePattern.generateRandomToonName(gender))
         if 1:
-            print 'Gender:', 'Male' if gender == 'm' else 'Female'
-            print 'Name Parts:', nameParts
-            print 'Name String:', namePattern.getNameString(gender, nameParts)
+            print('Gender:', 'Male' if gender == 'm' else 'Female')
+            print('Name Parts:', nameParts)
+            print('Name String:', namePattern.getNameString(gender, nameParts))
             
             stringParts = namePattern.getStringParts(gender, nameParts)
             ids = []
             for part, name in zip(PART_LIST, stringParts):
                 ids.append(namePattern.getPartId(part, name, gender))
-            print 'Parts ID:', ids
-            print 'str from IDs:', namePattern.getStringFromIndexes(gender, ids)
+            print('Parts ID:', ids)
+            print('str from IDs:', namePattern.getStringFromIndexes(gender, ids))
    
     assert namePattern.getStringFromIndexes(gender, (-1, -1, -1, -1)) == ""

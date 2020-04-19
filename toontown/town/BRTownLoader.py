@@ -10,16 +10,16 @@ class BRTownLoader(TownLoader.TownLoader):
         self.streetClass = BRStreet.BRStreet
         self.musicFile = 'phase_8/audio/bgm/TB_SZ.ogg'
         self.activityMusicFile = 'phase_8/audio/bgm/TB_SZ_activity.ogg'
-        self.townStorageDNAFile = 'phase_8/dna/storage_BR_town.pdna'
+        self.townStorageDNAFile = 'phase_8/dna/storage_BR_town.dna'
 
     def load(self, zoneId):
         TownLoader.TownLoader.load(self, zoneId)
         Suit.loadSuits(3)
-        dnaFile = 'phase_8/dna/the_burrrgh_' + str(self.canonicalBranchZone) + '.pdna'
+        dnaFile = 'phase_8/dna/the_burrrgh_' + str(self.canonicalBranchZone) + '.dna'
         self.createHood(dnaFile)
-        self.windSound = map(base.loadSfx, ['phase_8/audio/sfx/SZ_TB_wind_1.ogg',
+        self.windSound = list(map(base.loadSfx, ['phase_8/audio/sfx/SZ_TB_wind_1.ogg',
                                             'phase_8/audio/sfx/SZ_TB_wind_2.ogg',
-                                            'phase_8/audio/sfx/SZ_TB_wind_3.ogg'])
+                                            'phase_8/audio/sfx/SZ_TB_wind_3.ogg']))
         self.snow = BattleParticles.loadParticleFile('snowdisk.ptf')
         self.snow.setPos(0, 0, 5)
         self.snowRender = self.geom.attachNewNode('snowRender')

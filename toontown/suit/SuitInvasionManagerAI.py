@@ -4,8 +4,8 @@ from direct.directnotify import DirectNotifyGlobal
 from direct.task import Task
 from toontown.battle import SuitBattleGlobals
 from toontown.toonbase.ToontownGlobals import IDES_OF_MARCH
-import SuitDNA
-from SuitInvasionGlobals import *
+from . import SuitDNA
+from .SuitInvasionGlobals import *
 from otp.ai.MagicWordGlobal import *
 
 
@@ -224,7 +224,7 @@ class SuitInvasionManagerAI:
             [msgType, self.getSuitName(), self.remaining, self.flags])
 
     def flySuits(self):
-        for suitPlanner in self.air.suitPlanners.values():
+        for suitPlanner in list(self.air.suitPlanners.values()):
             suitPlanner.flySuits()
 
     def handleSuitDefeated(self):
@@ -302,8 +302,8 @@ def invasion(cmd='start', dept=0, suit=0, flag=0):
     Starts/stops an invasion.
     """
     if cmd == 'start':
-        if dept < 0 or dept > 3:
-            return 'Invalid suit department. Must be 0-3.'
+        if dept < 0 or dept > 4:
+            return 'Invalid suit department. Must be 0-4.'
         elif suit < 0 or suit > 7:
             return 'Invalid suit. Must be 0-7.'
         elif flag < 0 or flag > 4:

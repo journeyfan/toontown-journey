@@ -15,12 +15,12 @@ for filename in args.filenames:
     dcFile.read(Filename.fromOsSpecific(filename))
 
 dcImports = {}
-for n in xrange(dcFile.getNumImportModules()):
+for n in range(dcFile.getNumImportModules()):
     moduleName = dcFile.getImportModule(n)[:].split('/', 1)[0]
     if moduleName not in dcImports:
         dcImports[moduleName] = []
     importSymbols = []
-    for i in xrange(dcFile.getNumImportSymbols(n)):
+    for i in range(dcFile.getNumImportSymbols(n)):
         symbolName = dcFile.getImportSymbol(n, i).split('/', 1)[0]
         importSymbols.append(symbolName)
     dcImports[moduleName].extend(importSymbols)
@@ -43,8 +43,8 @@ data += '''
 dcImports = locals().copy()
 '''
 
-print 'Writing %s...' % args.output
+print('Writing %s...' % args.output)
 with open(args.output, 'w') as f:
     f.write(data)
 
-print 'Done writing %s.' % args.output
+print('Done writing %s.' % args.output)

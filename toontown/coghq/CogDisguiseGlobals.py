@@ -7,11 +7,15 @@ from toontown.battle import SuitBattleGlobals
 PartsPerSuit = (10,
  10,
  10,
- 10)
+ 10,
+ 10
+)
 PartsPerSuitBitmasks = (56411,
  56411,
  56411,
- 56411)
+ 56411,
+ 56411
+)
 AllBits = 56411
 MinPartLoss = 1
 MaxPartLoss = 2
@@ -97,6 +101,23 @@ PartsQueryNames = ({1: PartNameStrings[0],
   1024: PartNameStrings[10],
   2048: PartNameStrings[11],
   4096: PartNameStrings[12],
+  8192: PartNameStrings[13],
+  16384: PartNameStrings[14],
+  32768: PartNameStrings[15],
+  65536: PartNameStrings[16]},
+ {1: PartNameStrings[0],
+  2: PartNameStrings[1],
+  4: PartNameStrings[2],
+  8: PartNameStrings[3],
+  16: PartNameStrings[4],
+  32: PartNameStrings[5],
+  64: SimplePartNameStrings[0],
+  128: SimplePartNameStrings[0],
+  256: SimplePartNameStrings[0],
+  512: SimplePartNameStrings[0],
+  1024: PartNameStrings[10],
+  2048: PartNameStrings[11],
+  4096: PartNameStrings[12],
   8192: PartNameStrings[12],
   16384: PartNameStrings[14],
   32768: PartNameStrings[15],
@@ -123,9 +144,9 @@ suitTypes = PythonUtil.Enum(('NoSuit', 'NoMerits', 'FullSuit'))
 
 def makeMeritHierarchy(baseMerits):
     meritHierarchy = []
-    for _ in xrange(SuitDNA.suitsPerDept):
+    for _ in range(SuitDNA.suitsPerDept):
         meritTier = []
-        for _ in xrange(SuitDNA.levelsPerSuit):
+        for _ in range(SuitDNA.levelsPerSuit):
             baseMerits += (baseMerits*25) / 100
             meritTier.append(baseMerits)
         meritHierarchy.append(tuple(meritTier))
@@ -136,6 +157,7 @@ def makeMeritHierarchy(baseMerits):
 MeritsPerLevel = makeMeritHierarchy(100)  # Bossbot
 MeritsPerLevel += makeMeritHierarchy(75)  # Lawbot
 MeritsPerLevel += makeMeritHierarchy(50)  # Cashbot
+MeritsPerLevel += makeMeritHierarchy(25)  # Sellbot
 MeritsPerLevel += makeMeritHierarchy(25)  # Sellbot
 
 def getNextPart(parts, partIndex, dept):
@@ -158,7 +180,7 @@ def getPartName(partArray):
 
 def isSuitComplete(parts, dept):
     dept = dept2deptIndex(dept)
-    for p in xrange(len(PartsQueryMasks)):
+    for p in range(len(PartsQueryMasks)):
         if getNextPart(parts, p, dept):
             return 0
 
@@ -188,7 +210,7 @@ def getTotalMerits(toon, index):
 
 def getTotalParts(bitString, shiftWidth = 32):
     sum = 0
-    for shift in xrange(0, shiftWidth):
+    for shift in range(0, shiftWidth):
         sum = sum + (bitString >> shift & 1)
 
     return sum
@@ -207,7 +229,7 @@ def asBitstring(number):
         shift += 1
 
     str = ''
-    for i in xrange(0, len(array)):
+    for i in range(0, len(array)):
         str = str + array[i]
 
     return str
@@ -215,7 +237,7 @@ def asBitstring(number):
 
 def asNumber(bitstring):
     num = 0
-    for i in xrange(0, len(bitstring)):
+    for i in range(0, len(bitstring)):
         if bitstring[i] == '1':
             num += pow(2, len(bitstring) - 1 - i)
 
@@ -223,7 +245,7 @@ def asNumber(bitstring):
 
 
 def dept2deptIndex(dept):
-    if type(dept) == types.StringType:
+    if type(dept) == str:
         dept = SuitDNA.suitDepts.index(dept)
     return dept
 

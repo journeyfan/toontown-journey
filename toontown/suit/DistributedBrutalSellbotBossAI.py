@@ -46,13 +46,13 @@ class DistributedBrutalSellbotBossAI(DistributedSellbotBossAI):
             self.damageToon(toon, damage)
 
             currState = self.getCurrentOrNextState()
-
-            if attackCode == ToontownGlobals.BossCogElectricFence and (currState == 'RollToBattleTwo' or currState == 'BattleThree'):
-                if bpy < 0 and abs(bpx / bpy) > 0.5:
-                    if bpx < 0:
-                        self.b_setAttackCode(ToontownGlobals.BossCogSwatRight)
-                    else:
-                        self.b_setAttackCode(ToontownGlobals.BossCogSwatLeft)
+            if self.attackCode != ToontownGlobals.BossCogDizzyNow and self.attackCode != ToontownGlobals.BossCogAreaAttack:
+                if attackCode == ToontownGlobals.BossCogElectricFence and (currState == 'RollToBattleTwo' or currState == 'BattleThree'):
+                    if bpy < 0 and abs(bpx / bpy) > 0.5:
+                        if bpx < 0:
+                            self.b_setAttackCode(ToontownGlobals.BossCogSwatRight)
+                        else:
+                            self.b_setAttackCode(ToontownGlobals.BossCogSwatLeft)
 
     def generateSuits(self, battleNumber):
         if battleNumber == 1:
@@ -103,7 +103,7 @@ class DistributedBrutalSellbotBossAI(DistributedSellbotBossAI):
 
     def _DistributedSellbotBossAI__makeDoobers(self):
         self._DistributedSellbotBossAI__resetDoobers()
-        for i in xrange(8):
+        for i in range(8):
             suit = DistributedSuitAI(self.air, None)
             level = random.randrange(len(SuitDNA.suitsPerLevel))
             suit.dna = SuitDNA.SuitDNA()

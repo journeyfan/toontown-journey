@@ -1,7 +1,7 @@
 from direct.fsm.FSM import FSM
-import PetUtil, PetDNA, PetNameGenerator
+from . import PetUtil, PetDNA, PetNameGenerator
 from toontown.toonbase import ToontownGlobals
-import cPickle, time, random, os
+import pickle, time, random, os
 
 MINUTE = 60
 HOUR = 60 * MINUTE
@@ -21,7 +21,7 @@ class PetManagerAI:
             with open(self.cacheFile, 'rb') as f:
                 data = f.read()
                 
-            self.seeds = cPickle.loads(data)
+            self.seeds = pickle.loads(data)
             if self.seeds.get('day', -1) != getDayId() or len(self.seeds.get(ToontownGlobals.ToontownCentral, [])) != self.NUM_DAILY_PETS:
                 self.generateSeeds()
             
@@ -31,19 +31,19 @@ class PetManagerAI:
         self.nameGen = PetNameGenerator.PetNameGenerator()
 
     def generateSeeds(self):
-        seeds = range(0, 255)
+        seeds = list(range(0, 255))
         random.shuffle(seeds)
         
         self.seeds = {}
         for hood in (ToontownGlobals.ToontownCentral, ToontownGlobals.DonaldsDock, ToontownGlobals.DaisyGardens,
                      ToontownGlobals.MinniesMelodyland, ToontownGlobals.TheBrrrgh, ToontownGlobals.DonaldsDreamland,
                      ToontownGlobals.FunnyFarm):
-            self.seeds[hood] = [seeds.pop() for _ in xrange(self.NUM_DAILY_PETS)]
+            self.seeds[hood] = [seeds.pop() for _ in range(self.NUM_DAILY_PETS)]
             
         self.seeds['day'] = getDayId()
             
         with open(self.cacheFile, 'wb') as f:
-            f.write(cPickle.dumps(self.seeds))
+            f.write(pickle.dumps(self.seeds))
 
     def getAvailablePets(self, seed, safezoneId):
         if self.seeds.get('day', -1) != getDayId():
@@ -73,7 +73,7 @@ class PetManagerAI:
             av.b_setPetId(doId)
             
         self.air.dbInterface.createObject(self.air.dbId, self.air.dclassesByName['DistributedPetAI'],
-                                          {k: (v,) for k,v in fields.items()}, response)
+                                          {k: (v,) for k,v in list(fields.items())}, response)
         
     def deleteToonsPet(self, avId):
         av = self.air.doId2do[avId]

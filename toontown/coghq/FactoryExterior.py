@@ -6,7 +6,8 @@ from toontown.nametag import NametagGlobals
 from pandac.PandaModules import *
 from toontown.battle import BattlePlace
 from toontown.building import Elevator
-from toontown.dna.DNAParser import loadDNAFileAI, DNAStorage
+from toontown.dna.DNAParser import loadDNAFileAI
+from lib.libpandadna import DNAStorage
 from toontown.hood import ZoneUtil
 from toontown.toonbase import ToontownGlobals
 
@@ -67,25 +68,25 @@ class FactoryExterior(BattlePlace.BattlePlace):
         dnaStore = DNAStorage()
         dnaFileName = self.genDNAFileName(self.zoneId)
 
-        if not dnaFileName.endswith('13200.pdna'):
+        if not dnaFileName.endswith('13200.dna'):
 
             loadDNAFileAI(dnaStore, dnaFileName)
 
             # Collect all of the vis group zone IDs:
             self.zoneVisDict = {}
-            for i in xrange(dnaStore.getNumDNAVisGroupsAI()):
+            for i in range(dnaStore.getNumDNAVisGroupsAI()):
                 groupFullName = dnaStore.getDNAVisGroupName(i)
                 visGroup = dnaStore.getDNAVisGroupAI(i)
                 visZoneId = int(base.cr.hoodMgr.extractGroupName(groupFullName))
                 visZoneId = ZoneUtil.getTrueZoneId(visZoneId, self.zoneId)
                 visibles = []
-                for i in xrange(visGroup.getNumVisibles()):
-                    visibles.append(int(visGroup.visibles[i]))
+                for i in range(visGroup.getNumVisibles()):
+                    visibles.append(int(visGroup.getVisible(i)))
                 visibles.append(ZoneUtil.getBranchZone(visZoneId))
                 self.zoneVisDict[visZoneId] = visibles
 
             # Next, we want interest in all vis groups due to this being a Cog HQ:
-            base.cr.sendSetZoneMsg(self.zoneId, self.zoneVisDict.values()[0])
+            base.cr.sendSetZoneMsg(self.zoneId, list(self.zoneVisDict.values())[0])
 
         BattlePlace.BattlePlace.enter(self)
         self.fsm.enterInitialState()

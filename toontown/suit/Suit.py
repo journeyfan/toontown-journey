@@ -1,6 +1,6 @@
 from direct.actor import Actor
 from otp.avatar import Avatar
-import SuitDNA
+from . import SuitDNA
 from toontown.toonbase import ToontownGlobals
 from pandac.PandaModules import *
 from toontown.battle import SuitBattleGlobals
@@ -76,10 +76,6 @@ hh = (('pen-squirt', 'fountain-pen', 7),
  ('roll-o-dex', 'roll-o-dex', 5))
 cr = (('pickpocket', 'pickpocket', 5), ('throw-paper', 'throw-paper', 3.5), ('glower', 'glower', 5))
 tbc = (('cigar-smoke', 'cigar-smoke', 8),
- ('glower', 'glower', 5),
- ('song-and-dance', 'song-and-dance', 8),
- ('golf-club-swing', 'golf-club-swing', 5))
-cp = (('cigar-smoke', 'cigar-smoke', 8),
  ('glower', 'glower', 5),
  ('song-and-dance', 'song-and-dance', 8),
  ('golf-club-swing', 'golf-club-swing', 5))
@@ -189,7 +185,7 @@ Preloaded = {}
 def loadModels():
     global Preloaded
     if not Preloaded:
-        print 'Preloading suits...'
+        print('Preloading suits...')
         for filepath in SuitParts:
             Preloaded[filepath] = loader.loadModel(filepath)
             if filepath != 'phase_3.5/models/char/suitA-mod':
@@ -207,7 +203,7 @@ def unloadSuits(level):
     unloadDialog(level)
 
 def loadSuitModelsAndAnims(level, flag = 0):
-    for key in ModelDict.keys():
+    for key in list(ModelDict.keys()):
         model, phase = ModelDict[key]
         if flag:
             filepath = 'phase_3.5' + model + 'mod'
@@ -238,7 +234,7 @@ def loadSuitAnims(suit, flag = 1):
             animList = ()
 
     else:
-        print 'Invalid suit name: ', suit
+        print('Invalid suit name: ', suit)
         return -1
     for anim in animList:
         phase = 'phase_' + str(anim[2])
@@ -346,7 +342,8 @@ class Suit(Avatar.Avatar):
     medallionColors = {'c': Vec4(0.863, 0.776, 0.769, 1.0),
      's': Vec4(0.843, 0.745, 0.745, 1.0),
      'l': Vec4(0.749, 0.776, 0.824, 1.0),
-     'm': Vec4(0.749, 0.769, 0.749, 1.0)}
+     'm': Vec4(0.749, 0.769, 0.749, 1.0),
+     'y': Vec4(0.749, 0.762, 0.794, 1.0)}
 
     def __init__(self):
         try:
@@ -369,7 +366,6 @@ class Suit(Avatar.Avatar):
         self.isDisguised = 0
         self.isWaiter = 0
         self.isRental = 0
-        self.isVirtuallyVirtual = False
 
     def delete(self):
         try:
@@ -564,7 +560,7 @@ class Suit(Avatar.Avatar):
             modelRoot = self
         self.isVirtual = 1
         parts = self.findAllMatches('*')           
-        for thingIndex in xrange(0, parts.getNumPaths()):
+        for thingIndex in range(0, parts.getNumPaths()):
             thing = parts[thingIndex]
             if thing.getName() not in ('joint_attachMeter', 'joint_nameTag', 'def_nameTag', 'nametag3d'):
                 thing.setColorScale(1.0, 0.1, 0.1, 0.95)
@@ -577,7 +573,7 @@ class Suit(Avatar.Avatar):
             modelRoot = self
         self.isVirtual = 1
         parts = self.findAllMatches('*')           
-        for thingIndex in xrange(0, parts.getNumPaths()):
+        for thingIndex in range(0, parts.getNumPaths()):
             thing = parts[thingIndex]
             if thing.getName() not in ('joint_attachMeter', 'joint_nameTag', 'def_nameTag', 'nametag3d'):
                 self.notify.warning('Virtualizing %s' % thing.getName())
@@ -591,7 +587,7 @@ class Suit(Avatar.Avatar):
             modelRoot = self
         self.isVirtual = 1
         parts = self.findAllMatches('*')           
-        for thingIndex in xrange(0, parts.getNumPaths()):
+        for thingIndex in range(0, parts.getNumPaths()):
             thing = parts[thingIndex]
             if thing.getName() not in ('joint_attachMeter', 'joint_nameTag', 'def_nameTag', 'nametag3d'):
                 self.notify.warning('Virtualizing %s' % thing.getName())
@@ -611,6 +607,8 @@ class Suit(Avatar.Avatar):
             type = 'lawbot'
         elif dept == 'm':
             type = 'cashbot'
+        elif dept == 'y':
+            type = 'secbot'
         else:
             type = 'sellbot'
         torsoTex = loader.loadTexture('phase_3.5/maps/tt_t_ene_%sRental_blazer.jpg' % type)
@@ -638,7 +636,7 @@ class Suit(Avatar.Avatar):
         headModel = NodePath('cog_head')
         Preloaded[filepath].copyTo(headModel)
         headReferences = headModel.findAllMatches('**/' + headType)
-        for i in xrange(0, headReferences.getNumPaths()):
+        for i in range(0, headReferences.getNumPaths()):
             headPart = self.instance(headReferences.getPath(i), 'modelRoot', 'joint_head')
             if self.headTexture:
                 headTex = loader.loadTexture('phase_' + str(phase) + '/maps/' + self.headTexture)
@@ -667,6 +665,10 @@ class Suit(Avatar.Avatar):
             tieTex = loader.loadTexture('phase_5/maps/cog_robot_tie_legal.jpg')
         elif dept == 'm':
             tieTex = loader.loadTexture('phase_5/maps/cog_robot_tie_money.jpg')
+        elif dept == 'y':
+            tieTex = loader.loadTexture('phase_5/maps/cog_robot_tie_money.jpg')
+            ##NEED TO MAKE A TIE, currently uses cashbot
+            #tieTex = loader.loadTexture('phase_5/maps/cog_robot_tie_security.jpg')
         tieTex.setMinfilter(Texture.FTLinearMipmapLinear)
         tieTex.setMagfilter(Texture.FTLinear)
         tie.setTexture(tieTex, 1)
@@ -683,6 +685,10 @@ class Suit(Avatar.Avatar):
             self.corpMedallion = icons.find('**/LegalIcon').copyTo(chestNull)
         elif dept == 'm':
             self.corpMedallion = icons.find('**/MoneyIcon').copyTo(chestNull)
+        elif dept == 'y':
+            self.corpMedallion = icons.find('**/MoneyIcon').copyTo(chestNull)
+            ##NEED TO MAKE A TIE, currently uses cashbot
+            #self.corpMedallion = icons.find('**/SecIcon').copyTo(chestNull)
         self.corpMedallion.setPosHprScale(0.02, 0.05, 0.04, 180.0, 0.0, 0.0, 0.51, 0.51, 0.51)
         self.corpMedallion.setColor(self.medallionColors[dept])
         icons.removeNode()
@@ -793,12 +799,10 @@ class Suit(Avatar.Avatar):
 
                 if self.isWaiter:
                     self.makeWaiter(self.loseActor)
-                elif self.isVirtual:
-                    self.makeStageVirtual(self.loseActor)
                 else:
                     self.setSuitClothes(self.loseActor)
             else:
-                loseModel = 'phase_5/models/char/cog' + string.upper(self.style.body) + '_robot-lose-mod'
+                loseModel = 'phase_5/models/char/cog' + self.style.body.upper() + '_robot-lose-mod'
                 filePrefix, phase = TutorialModelDict[self.style.body]
                 loseAnim = 'phase_' + str(phase) + filePrefix + 'lose'
                 self.loseActor = Actor.Actor(loseModel, {'lose': loseAnim})
@@ -822,7 +826,7 @@ class Suit(Avatar.Avatar):
         return
 
     def makeSkeleton(self):
-        model = 'phase_5/models/char/cog' + string.upper(self.style.body) + '_robot-zero'
+        model = 'phase_5/models/char/cog' + self.style.body.upper() + '_robot-zero'
         anims = self.generateAnimDict()
         anim = self.getCurrentAnim()
         dropShadow = self.dropShadow
@@ -837,7 +841,7 @@ class Suit(Avatar.Avatar):
         self.generateCorporateTie()
         self.setHeight(self.height)
         parts = self.findAllMatches('**/pPlane*')
-        for partNum in xrange(0, parts.getNumPaths()):
+        for partNum in range(0, parts.getNumPaths()):
             bb = parts.getPath(partNum)
             bb.setTwoSided(1)
 

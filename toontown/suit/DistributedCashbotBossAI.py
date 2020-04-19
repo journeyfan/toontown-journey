@@ -6,15 +6,14 @@ from toontown.coghq import DistributedCashbotBossSafeAI
 from toontown.suit import DistributedCashbotBossGoonAI
 #from toontown.coghq import DistributedCashbotBossTreasureAI
 from toontown.battle import BattleExperienceAI
-from toontown.toonbase import ToontownBattleGlobals
 from toontown.chat import ResistanceChat
 from direct.fsm import FSM
-import DistributedBossCogAI
-import SuitDNA
+from . import DistributedBossCogAI
+from . import SuitDNA
 import random
 from otp.ai.MagicWordGlobal import *
 import math
-from toontown.battle import DistributedBattleVirtualsAI
+import functools
 
 class DistributedCashbotBossAI(DistributedBossCogAI.DistributedBossCogAI, FSM.FSM):
     notify = DirectNotifyGlobal.directNotify.newCategory('DistributedCashbotBossAI')
@@ -74,10 +73,13 @@ class DistributedCashbotBossAI(DistributedBossCogAI.DistributedBossCogAI, FSM.FS
             suit = activeSuits.pop()
             reserveSuits.append((suit, 100))
 
+        def cmp(a, b):
+            return (a > b) - (a < b)
+
         def compareJoinChance(a, b):
             return cmp(a[1], b[1])
 
-        reserveSuits.sort(compareJoinChance)
+        reserveSuits.sort(key=functools.cmp_to_key(compareJoinChance))
         return {'activeSuits': activeSuits,
          'reserveSuits': reserveSuits}
 
@@ -100,7 +102,7 @@ class DistributedCashbotBossAI(DistributedBossCogAI.DistributedBossCogAI, FSM.FS
     def __makeBattleThreeObjects(self):
         if self.cranes == None:
             self.cranes = []
-            for index in xrange(len(ToontownGlobals.CashbotBossCranePosHprs)):
+            for index in range(len(ToontownGlobals.CashbotBossCranePosHprs)):
                 crane = DistributedCashbotBossCraneAI.DistributedCashbotBossCraneAI(self.air, self, index)
                 crane.generateWithRequired(self.zoneId)
                 self.cranes.append(crane)
@@ -108,7 +110,7 @@ class DistributedCashbotBossAI(DistributedBossCogAI.DistributedBossCogAI, FSM.FS
         if self.WANT_SAFES:
             if self.safes == None:
                 self.safes = []
-                for index in xrange(len(ToontownGlobals.CashbotBossSafePosHprs)):
+                for index in range(len(ToontownGlobals.CashbotBossSafePosHprs)):
                     safe = DistributedCashbotBossSafeAI.DistributedCashbotBossSafeAI(self.air, self, index)
                     safe.generateWithRequired(self.zoneId)
                     self.safes.append(safe)
@@ -230,11 +232,11 @@ class DistributedCashbotBossAI(DistributedBossCogAI.DistributedBossCogAI, FSM.FS
             self.recycledTreasures.append(treasure)
 
     def deleteAllTreasures(self):
-        for treasure in self.treasures.values():
+        for treasure in list(self.treasures.values()):
             treasure.requestDelete()
 
         self.treasures = {}
-        for treasure in self.grabbingTreasures.values():
+        for treasure in list(self.grabbingTreasures.values()):
             taskMgr.remove(treasure.uniqueName('recycleTreasure'))
             treasure.requestDelete()
 
@@ -399,29 +401,6 @@ class DistributedCashbotBossAI(DistributedBossCogAI.DistributedBossCogAI, FSM.FS
         self.d_setBossDamage(bossDamage)
         self.setBossDamage(bossDamage)
 
-    def makeBattle(self, bossCogPosHpr, battlePosHpr, roundCallback, finishCallback, battleNumber, battleSide):
-        battle = DistributedBattleVirtualsAI.DistributedBattleVirtualsAI(self.air, self, roundCallback, finishCallback, battleSide)
-        self.setBattlePos(battle, bossCogPosHpr, battlePosHpr)
-        battle.suitsKilled = self.suitsKilled
-        battle.battleCalc.toonSkillPtsGained = self.toonSkillPtsGained
-        battle.toonExp = self.toonExp
-        battle.toonOrigQuests = self.toonOrigQuests
-        battle.toonItems = self.toonItems
-        battle.toonOrigMerits = self.toonOrigMerits
-        battle.toonMerits = self.toonMerits
-        battle.toonParts = self.toonParts
-        battle.helpfulToons = self.helpfulToons
-        mult = ToontownBattleGlobals.getBossBattleCreditMultiplier(battleNumber)
-        battle.battleCalc.setSkillCreditMultiplier(mult)
-        activeSuits = self.activeSuitsA
-        if battleSide:
-            activeSuits = self.activeSuitsB
-        for suit in activeSuits:
-            battle.addSuit(suit)
-
-        battle.generateWithRequired(self.zoneId)
-        return battle
-
     def setBossDamage(self, bossDamage):
         self.reportToonHealth()
         self.bossDamage = bossDamage
@@ -567,7 +546,7 @@ def restartCraneRound():
     """
     invoker = spellbook.getInvoker()
     boss = None
-    for do in simbase.air.doId2do.values():
+    for do in list(simbase.air.doId2do.values()):
         if isinstance(do, DistributedCashbotBossAI):
             if invoker.doId in do.involvedToons:
                 boss = do
@@ -587,7 +566,7 @@ def skipCFO():
     """
     invoker = spellbook.getInvoker()
     boss = None
-    for do in simbase.air.doId2do.values():
+    for do in list(simbase.air.doId2do.values()):
         if isinstance(do, DistributedCashbotBossAI):
             if invoker.doId in do.involvedToons:
                 boss = do
@@ -608,7 +587,7 @@ def killCFO():
     """
     invoker = spellbook.getInvoker()
     boss = None
-    for do in simbase.air.doId2do.values():
+    for do in list(simbase.air.doId2do.values()):
         if isinstance(do, DistributedCashbotBossAI):
             if invoker.doId in do.involvedToons:
                 boss = do

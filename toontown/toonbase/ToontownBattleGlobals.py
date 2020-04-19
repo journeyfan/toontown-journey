@@ -1,6 +1,6 @@
-from ToontownGlobals import *
+from .ToontownGlobals import *
 import math
-import TTLocalizer
+from . import TTLocalizer
 BattleCamFaceOffFov = 30.0
 BattleCamFaceOffPos = Point3(0, -10, 4)
 BattleCamDefaultPos = Point3(0, -8.6, 16.5)
@@ -19,7 +19,8 @@ TrackColors = ((211 / 255.0, 148 / 255.0, 255 / 255.0),
  (93 / 255.0, 108 / 255.0, 239 / 255.0),
  (255 / 255.0, 145 / 255.0, 66 / 255.0),
  (255 / 255.0, 65 / 255.0, 199 / 255.0),
- (67 / 255.0, 243 / 255.0, 255 / 255.0))
+ (67 / 255.0, 243 / 255.0, 255 / 255.0),
+ (1 / 255.0, 1 / 255.0, 1 / 255.0))
 HEAL_TRACK = 0
 TRAP_TRACK = 1
 LURE_TRACK = 2
@@ -27,6 +28,7 @@ SOUND_TRACK = 3
 THROW_TRACK = 4
 SQUIRT_TRACK = 5
 DROP_TRACK = 6
+POWER_TRACK = 7
 NPC_RESTOCK_GAGS = 7
 NPC_TOONS_HIT = 8
 NPC_COGS_MISS = 9
@@ -37,7 +39,7 @@ MAX_LEVEL_INDEX = 7
 MAX_UNPAID_LEVEL_INDEX = 4
 LAST_REGULAR_GAG_LEVEL = 5
 UBER_GAG_LEVEL_INDEX = 6
-NUM_GAG_TRACKS = 7
+NUM_GAG_TRACKS = 8
 PropTypeToTrackBonus = {AnimPropTypes.Hydrant: SQUIRT_TRACK,
  AnimPropTypes.Mailbox: THROW_TRACK,
  AnimPropTypes.Trashcan: HEAL_TRACK}
@@ -89,6 +91,13 @@ Levels = [[0,
   500,
   2000,
   6000,
+  10000],
+  [0,
+  20,
+  100,
+  500,
+  2000,
+  6000,
   10000]]
 regMaxSkill = 10000
 UberSkill = 500
@@ -99,7 +108,8 @@ UnpaidMaxSkills = [Levels[0][1] - 1,
  Levels[3][1] - 1,
  Levels[4][4] - 1,
  Levels[5][4] - 1,
- Levels[6][1] - 1]
+ Levels[6][1] - 1,
+ Levels[7][1] - 1]
 ExperienceCap = 300
 
 def gagIsPaidOnly(track, level):
@@ -460,6 +470,55 @@ CarryLimits = (((10,
    15,
    7,
    3,
+   1)),
+ ((10,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0),
+  (10,
+   5,
+   0,
+   0,
+   0,
+   0,
+   0),
+  (15,
+   10,
+   5,
+   0,
+   0,
+   0,
+   0),
+  (20,
+   15,
+   10,
+   5,
+   0,
+   0,
+   0),
+  (25,
+   20,
+   15,
+   10,
+   3,
+   0,
+   0),
+  (30,
+   25,
+   20,
+   15,
+   7,
+   3,
+   0),
+  (30,
+   25,
+   20,
+   15,
+   7,
+   3,
    1)))
 MaxProps = ((15, 40), (30, 60), (75, 80))
 DLF_SKELECOG = 1
@@ -574,6 +633,13 @@ AvPropsNew = (('inventory_feather',
   'inventory_weight',
   'inventory_safe_box',
   'inventory_piano',
+  'inventory_ship'),
+  ('inventory_flower_pot',
+  'inventory_sandbag',
+  'inventory_anvil',
+  'inventory_weight',
+  'inventory_safe_box',
+  'inventory_piano',
   'inventory_ship'))
 AvPropStrings = TTLocalizer.BattleGlobalAvPropStrings
 AvPropStringsSingular = TTLocalizer.BattleGlobalAvPropStringsSingular
@@ -626,7 +692,14 @@ AvPropAccuracy = ((70,
   50,
   50,
   50,
-  50))
+  50),
+ (95,
+  95,
+  95,
+  95,
+  95,
+  95,
+  95))
 AvLureBonusAccuracy = (60,
  60,
  70,
@@ -683,7 +756,14 @@ AvPropDamage = ((((8, 10), (Levels[0][0], Levels[0][1])),
   ((45, 45), (Levels[6][3], Levels[6][4])),
   ((60, 60), (Levels[6][4], Levels[6][5])),
   ((85, 170), (Levels[6][5], Levels[6][6])),
-  ((180, 180), (Levels[6][6], MaxSkill))))
+  ((180, 180), (Levels[6][6], MaxSkill))),
+ (((0, 0), (0, 0)),
+  ((0, 0), (0, 0)),
+  ((0, 0), (0, 0)),
+  ((0, 0), (0, 0)),
+  ((0, 0), (0, 0)),
+  ((0, 0), (0, 0)),
+  ((0, 0), (0, 0))))
 ATK_SINGLE_TARGET = 0
 ATK_GROUP_TARGET = 1
 AvPropTargetCat = ((ATK_SINGLE_TARGET,
@@ -720,7 +800,8 @@ AvPropTarget = (0,
  2,
  3,
  3,
- 3)
+ 3,
+ 1)
 
 def getAvPropDamage(attackTrack, attackLevel, exp, organicBonus = False, propBonus = False, propAndOrganicBonusStack = False):
     minD = AvPropDamage[attackTrack][attackLevel][0][0]
@@ -798,7 +879,7 @@ def getMoreXpHolidayMultiplier():
 
 def encodeUber(trackList):
     bitField = 0
-    for trackIndex in xrange(len(trackList)):
+    for trackIndex in range(len(trackList)):
         if trackList[trackIndex] > 0:
             bitField += pow(2, trackIndex)
 

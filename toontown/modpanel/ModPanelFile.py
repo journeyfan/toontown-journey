@@ -32,7 +32,7 @@ class ModPanelFile:
         dg = PyDatagram(data)
         data = PyDatagramIterator(dg)
         
-        for _ in xrange(data.get_uint8()):
+        for _ in range(data.get_uint8()):
             self.load_button(data)
             
         self.is_loading = False

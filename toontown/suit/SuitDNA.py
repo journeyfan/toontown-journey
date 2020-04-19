@@ -39,7 +39,16 @@ suitHeadTypes = ['f',
  'tf',
  'm',
  'mh',
- 'cp']
+ ##adding the new Securty cogs
+ 'wm',
+ 'hm',
+ 'mc',
+ 'bg',
+ 'bnc',
+ 'bb',
+ 'ssa',
+ 'w'
+ ]
 suitATypes = ['ym',
  'hh',
  'tbc',
@@ -54,7 +63,10 @@ suitATypes = ['ym',
  'tf',
  'm',
  'mh',
- 'cp']
+ ##Adding new Security Cogs
+ 'bg',
+ 'bnc',
+ 'w']
 suitBTypes = ['p',
  'ds',
  'b',
@@ -63,7 +75,10 @@ suitBTypes = ['p',
  'bc',
  'ls',
  'tm',
- 'ms']
+ 'ms',
+  ##Adding new Security Cogs
+ 'hm',
+ 'bb']
 suitCTypes = ['f',
  'mm',
  'cr',
@@ -72,23 +87,32 @@ suitCTypes = ['f',
  'tw',
  'mb',
  'cc',
- 'gh']
+ 'gh',
+  ##Adding new Security Cogs
+ 'wm',
+ 'mc',
+ 'ssa']
 suitDepts = ['c',
  'l',
  'm',
- 's']
+ 's',
+ ##Security Cog Dept
+ 'y']
 suitDeptFullnames = {'c': TTLocalizer.Bossbot,
  'l': TTLocalizer.Lawbot,
  'm': TTLocalizer.Cashbot,
- 's': TTLocalizer.Sellbot}
+ 's': TTLocalizer.Sellbot,
+ 'y': TTLocalizer.Secbot}
 suitDeptFullnamesP = {'c': TTLocalizer.BossbotP,
  'l': TTLocalizer.LawbotP,
  'm': TTLocalizer.CashbotP,
- 's': TTLocalizer.SellbotP}
+ 's': TTLocalizer.SellbotP,
+ 'y': TTLocalizer.SecbotP}
 corpPolyColor = VBase4(0.95, 0.75, 0.75, 1.0)
 legalPolyColor = VBase4(0.75, 0.75, 0.95, 1.0)
 moneyPolyColor = VBase4(0.65, 0.95, 0.85, 1.0)
 salesPolyColor = VBase4(0.95, 0.75, 0.95, 1.0)
+securityPolyColor = VBase4(0.80,0.90,0.70,1.0)
 suitsPerLevel = [1,
  1,
  1,
@@ -99,9 +123,6 @@ suitsPerLevel = [1,
  1]
 suitsPerDept = 8
 levelsPerSuit = 5
-customSuitDepts = {
-    'cp': 'c'
-}
 goonTypes = ['pg', 'sg']
 
 def getSuitBodyType(name):
@@ -112,7 +133,7 @@ def getSuitBodyType(name):
     elif name in suitCTypes:
         return 'c'
     else:
-        print 'Unknown body type for suit name: ', name
+        print('Unknown body type for suit name: ', name)
 
 
 def getSuitDept(name):
@@ -125,10 +146,10 @@ def getSuitDept(name):
         return suitDepts[2]
     elif index < suitsPerDept * 4:
         return suitDepts[3]
-    elif name in customSuitDepts.keys():
-        return customSuitDepts.get(name)
+    elif index < suitsPerDept *5:
+        return suitDepts[4]
     else:
-        print 'Unknown dept for suit name: ', name
+        print('Unknown dept for suit name: ', name)
         return None
     return None
 
@@ -155,12 +176,8 @@ def getSuitName(deptIndex, typeIndex):
 
 
 def getRandomSuitType(level, rng = random):
-    try:
-        returnval = random.randint(max(level - 4, 1), min(level, 8))
-    except:
-        returnval = 8
+    return random.randint(max(level - 4, 1), min(level, 8))
 
-    return returnval
 
 def getRandomSuitByDept(dept):
     deptNumber = suitDepts.index(dept)
@@ -249,7 +266,7 @@ class SuitDNA(AvatarDNA.AvatarDNA):
     def newSuitRandom(self, level = None, dept = None):
         self.type = 's'
         if level == None:
-            level = random.choice(range(1, len(suitsPerLevel)))
+            level = random.choice(list(range(1, len(suitsPerLevel))))
         elif level < 0 or level > len(suitsPerLevel):
             notify.error('Invalid suit level: %d' % level)
         if dept == None:
@@ -259,12 +276,12 @@ class SuitDNA(AvatarDNA.AvatarDNA):
         base = index * suitsPerDept
         offset = 0
         if level > 1:
-            for i in xrange(1, level):
+            for i in range(1, level):
                 offset = offset + suitsPerLevel[i - 1]
 
         bottom = base + offset
         top = bottom + suitsPerLevel[level - 1]
-        self.name = suitHeadTypes[random.choice(range(bottom, top))]
+        self.name = suitHeadTypes[random.choice(list(range(bottom, top)))]
         self.body = getSuitBodyType(self.name)
         return
 

@@ -1,6 +1,6 @@
 #this is a TTLocalizer (English)
 #lets inform the player 
-print 'TTLocalizerEnglish.py is loaded' 
+print('TTLocalizerEnglish.py is loaded') 
 
 
 from toontown.toonbase.TTLocalizerEnglishProperty import *
@@ -8,7 +8,7 @@ from toontown.catalog import CatalogAccessoryItemGlobals
 from otp.otpbase import OTPLocalizer as OL
 from toontown.estate import HouseGlobals
 OL.SpeedChatStaticText = OL.SpeedChatStaticTextToontown.copy()
-for key in OL.SpeedChatStaticTextCommon.iterkeys():
+for key in OL.SpeedChatStaticTextCommon.keys():
     OL.SpeedChatStaticText[key] = OL.SpeedChatStaticTextCommon[key]
 
 commitmantst = 'kptmptest - removable'
@@ -56,7 +56,7 @@ NametagFontNames = (
 )
 NametagLabel = ' Nametag'
 UnpaidNameTag = 'Basic'
-ScreenshotPath = 'TTJScreenshots/'
+ScreenshotPath = 'TTPScreenshots/'
 GM_NAMES = ('TOON COUNCIL',
  'TOON TROOPER',
  'RESISTANCE RANGER',
@@ -1898,22 +1898,27 @@ Bossbot = 'Bossbot'
 Lawbot = 'Lawbot'
 Cashbot = 'Cashbot'
 Sellbot = 'Sellbot'
+Secbot = 'Secbot'
 BossbotS = 'a Bossbot'
 LawbotS = 'a Lawbot'
 CashbotS = 'a Cashbot'
 SellbotS = 'a Sellbot'
+SecbotS = 'a Secbot'
 BossbotP = 'Bossbots'
 LawbotP = 'Lawbots'
 CashbotP = 'Cashbots'
 SellbotP = 'Sellbots'
+SecbotP = 'Secbots'
 BossbotSkelS = 'a Bossbot Skelecog'
 LawbotSkelS = 'a Lawbot Skelecog'
 CashbotSkelS = 'a Cashbot Skelecog'
 SellbotSkelS = 'a Sellbot Skelecog'
+SecbotsSkelS = 'a Secbots Skelecog'
 BossbotSkelP = 'Bossbot Skelecogs'
 LawbotSkelP = 'Lawbot Skelecogs'
 CashbotSkelP = 'Cashbot Skelecogs'
 SellbotSkelP = 'Sellbot Skelecogs'
+SecbotsSkelP = 'Secbots Skelecogs'
 SkeleRevivePostFix = ' v2.0'
 AvatarDetailPanelOK = lOK
 AvatarDetailPanelCancel = lCancel
@@ -2270,7 +2275,8 @@ RewardPanelMeritsMaxed = 'Maxed'
 RewardPanelMeritBarLabels = ['Stock Options',
  'Jury Notices',
  'Cogbucks',
- 'Merits']
+ 'Merits',
+ 'Tech bytes']
 RewardPanelCogPart = 'You gained a Cog disguise part!'
 RewardPanelPromotion = 'Ready for promotion in %s  track!'
 RewardPanelSkip = 'Skip'
@@ -2392,6 +2398,34 @@ SuitBackStabberP = 'Back Stabbers'
 SuitSpinDoctorP = 'Spin Doctors'
 SuitLegalEagleP = 'Legal Eagles'
 SuitBigWigP = 'Big Wigs'
+## New Security Bots
+SuitSecWatchman = 'Watchman'
+SuitSecHenchman = 'Henchman'
+SuitSecMallCop = 'Mall Cop'
+SuitSecBodyGuard = 'Body Guard'
+SuitSecBouncer = 'Bouncer'
+SuitSecBigBrother = 'Big Brother'
+SuitSecSecretServiceAgent = 'Secret Service Agent'
+SuitSecWarden = 'Warden'
+## New Security Bots Singular
+SuitSecWatchmanS = 'a Watchman'
+SuitSecHenchmanS = 'a Henchman'
+SuitSecMallCopS = 'a Mall Cop'
+SuitSecBodyGuardS = 'a Body Guard'
+SuitSecBouncerS = 'a Bouncer'
+SuitSecBigBrotherS = 'a Big Brother'
+SuitSecSecretServiceAgentS = 'a Secret Service Agent'
+SuitSecWardenS = 'a Warden'
+## New Security Plural
+SuitSecWatchmanP = 'Watchmen'
+SuitSecHenchmanP = 'Henchmen'
+SuitSecMallCopP = 'Mall Cops'
+SuitSecBodyGuardP = 'Body Guards'
+SuitSecBouncerP = 'Bouncers'
+SuitSecBigBrotherP = 'Big Brothers'
+SuitSecSecretServiceAgentP = 'Secret Service Agents'
+SuitSecWardenP = 'Wardens'
+
 SuitFaceoffDefaultTaunts = ['Boo!']
 SuitAttackDefaultTaunts = ['Take that!', 'Take a memo on this!']
 SuitAttackNames = {'Audit': 'Audit!',
@@ -4169,7 +4203,7 @@ PhotoPageTutorial = 'You haven\'t taken any snapshots yet! Press TAB to change y
 AchievePageTitle = 'Achievements\n(Coming Soon)'
 BuildingPageTitle = 'Buildings\n(Coming Soon)'
 InventoryPageTitle = 'Gags'
-InventoryPageDeleteTitle = 'DELETE GAGS'
+InventoryPageDeleteTitle = 'Delete Gags'
 InventoryPageTrackFull = 'You have all the gags in the %s track.'
 InventoryPagePluralPoints = 'You will get a new\n%(trackName)s gag when you\nget %(numPoints)s more %(trackName)s points.'
 InventoryPageSinglePoint = 'You will get a new\n%(trackName)s gag when you\nget %(numPoints)s more %(trackName)s point.'
@@ -4935,7 +4969,8 @@ BattleGlobalTracks = ['toon-up',
  'sound',
  'throw',
  'squirt',
- 'drop']
+ 'drop',
+ 'tech']
 BattleGlobalNPCTracks = ['restock', 'toons hit', 'cogs miss']
 BattleGlobalAvPropStrings = (('Feather',
   'Megaphone',
@@ -4979,6 +5014,13 @@ BattleGlobalAvPropStrings = (('Feather',
   'Fire Hose',
   'Storm Cloud',
   'Geyser'),
+ ('Flower Pot',
+  'Sandbag',
+  'Anvil',
+  'Big Weight',
+  'Safe',
+  'Grand Piano',
+  'Toontanic'),
  ('Flower Pot',
   'Sandbag',
   'Anvil',
@@ -5034,6 +5076,13 @@ BattleGlobalAvPropStringsSingular = (('a Feather',
   'a Big Weight',
   'a Safe',
   'a Grand Piano',
+  'the Toontanic'),
+ ('a Flower Pot',
+  'a Sandbag',
+  'an Anvil',
+  'a Big Weight',
+  'a Safe',
+  'a Grand Piano',
   'the Toontanic'))
 BattleGlobalAvPropStringsPlural = (('Feathers',
   'Megaphones',
@@ -5083,6 +5132,13 @@ BattleGlobalAvPropStringsPlural = (('Feathers',
   'Big Weights',
   'Safes',
   'Grand Pianos',
+  'Oceanliners'),
+ ('Flower Pots',
+  'Sandbags',
+  'Anvils',
+  'Big Weights',
+  'Safes',
+  'Grand Pianos',
   'Oceanliners'))
 BattleGlobalAvTrackAccStrings = ('Medium',
  'Perfect',
@@ -5090,7 +5146,8 @@ BattleGlobalAvTrackAccStrings = ('Medium',
  'High',
  'Medium',
  'High',
- 'Low')
+ 'Low',
+ 'High')
 BattleGlobalLureAccLow = 'Low'
 BattleGlobalLureAccMedium = 'Medium'
 AttackMissed = 'MISSED'
@@ -6007,7 +6064,7 @@ AccessoryNamePrefix = {0: 'hat unisex ',
  11: 'shoes girl '}
 AwardManagerAccessoryNames = {}
 AccessoryTypeNames = {}
-for accessoryId in CatalogAccessoryItemGlobals.AccessoryTypes.keys():
+for accessoryId in list(CatalogAccessoryItemGlobals.AccessoryTypes.keys()):
     accessoryInfo = CatalogAccessoryItemGlobals.AccessoryTypes[accessoryId]
     if accessoryInfo[0] % 4 == 0:
         accessoryStyleDescription = HatStylesDescriptions
@@ -9237,7 +9294,7 @@ def getRecipeBeanText(beanTuple):
     if not beanTuple:
         return retval
     allTheSame = True
-    for index in xrange(len(beanTuple)):
+    for index in range(len(beanTuple)):
         if index + 1 < len(beanTuple):
             if not beanTuple[index] == beanTuple[index + 1]:
                 allTheSame = False
@@ -9251,7 +9308,7 @@ def getRecipeBeanText(beanTuple):
     else:
         retval += 'a'
         maxBeans = len(beanTuple)
-        for index in xrange(maxBeans):
+        for index in range(maxBeans):
             if index == maxBeans - 1:
                 retval += ' and %s Jellybean' % BeanColorWords[beanTuple[index]]
             elif index == 0:

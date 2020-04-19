@@ -1,8 +1,8 @@
 from otp.ai.AIBaseGlobal import *
 from otp.avatar import DistributedAvatarAI
-import SuitPlannerBase
-import SuitBase
-import SuitDNA
+from . import SuitPlannerBase
+from . import SuitBase
+from . import SuitDNA
 from direct.directnotify import DirectNotifyGlobal
 from toontown.battle import SuitBattleGlobals
 
@@ -52,7 +52,7 @@ class DistributedSuitBaseAI(DistributedAvatarAI.DistributedAvatarAI, SuitBase.Su
         self.notify.debug('Assigning level ' + str(lvl))
         if hasattr(self, 'doId'):
             self.d_setLevelDist(self.level)
-        hp = attributes['hp'][self.level]
+        hp = SuitBattleGlobals.calculateHealth(attributes, self.level + 1)
         self.maxHP = hp
         self.currHP = hp
 

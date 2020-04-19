@@ -19,8 +19,8 @@ class GZSafeZoneLoader(SafeZoneLoader):
         SafeZoneLoader.__init__(self, hood, parentFSM, doneEvent)
         self.musicFile = 'phase_6/audio/bgm/GZ_SZ.ogg'
         self.activityMusicFile = 'phase_6/audio/bgm/GS_KartShop.ogg'
-        self.dnaFile = 'phase_6/dna/golf_zone_sz.pdna'
-        self.safeZoneStorageDNAFile = 'phase_6/dna/storage_GZ_sz.pdna'
+        self.dnaFile = 'phase_6/dna/golf_zone_sz.dna'
+        self.safeZoneStorageDNAFile = 'phase_6/dna/storage_GZ_sz.dna'
         del self.fsm
         self.fsm = ClassicFSM.ClassicFSM('SafeZoneLoader', [State.State('start', self.enterStart, self.exitStart, ['quietZone', 'playground', 'toonInterior']),
          State.State('playground', self.enterPlayground, self.exitPlayground, ['quietZone', 'golfcourse']),
@@ -31,7 +31,7 @@ class GZSafeZoneLoader(SafeZoneLoader):
 
     def load(self):
         SafeZoneLoader.load(self)
-        self.birdSound = map(base.loadSfx, ['phase_4/audio/sfx/SZ_TC_bird1.ogg', 'phase_4/audio/sfx/SZ_TC_bird2.ogg', 'phase_4/audio/sfx/SZ_TC_bird3.ogg'])
+        self.birdSound = list(map(base.loadSfx, ['phase_4/audio/sfx/SZ_TC_bird1.ogg', 'phase_4/audio/sfx/SZ_TC_bird2.ogg', 'phase_4/audio/sfx/SZ_TC_bird3.ogg']))
 
     def unload(self):
         del self.birdSound
@@ -96,7 +96,7 @@ class GZSafeZoneLoader(SafeZoneLoader):
         del self.golfCourseId
 
     def handleRaceOver(self):
-        print 'you done!!'
+        print('you done!!')
 
     def handleLeftGolf(self):
         req = {'loader': 'safeZoneLoader',

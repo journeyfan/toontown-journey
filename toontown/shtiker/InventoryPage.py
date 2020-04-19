@@ -1,4 +1,4 @@
-import ShtikerPage
+from . import ShtikerPage
 from toontown.toonbase import ToontownBattleGlobals
 from direct.gui.DirectGui import *
 from pandac.PandaModules import *
@@ -74,7 +74,7 @@ class InventoryPage(ShtikerPage.ShtikerPage):
     def enterDeleteMode(self):
         self.title['text'] = TTLocalizer.InventoryPageDeleteTitle
         self.title['text_fg'] = (0, 0, 0, 1)
-        self.book['image_color'] = Vec4(1, 1, 0, 1)
+        self.book['image_color'] = Vec4(1, 1, 1, 1)
 
     def exitDeleteMode(self):
         self.title['text'] = TTLocalizer.InventoryPageTitle

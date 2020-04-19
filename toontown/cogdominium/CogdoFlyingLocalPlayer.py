@@ -13,14 +13,14 @@ from otp.otpbase import OTPGlobals
 from toontown.minigame.OrthoDrive import OrthoDrive
 from toontown.minigame.OrthoWalk import OrthoWalk
 from toontown.toonbase import TTLocalizer
-from CogdoFlyingCollisions import CogdoFlyingCollisions
-from CogdoFlyingPlayer import CogdoFlyingPlayer
-from CogdoFlyingGuiManager import CogdoFlyingGuiManager
-from CogdoFlyingInputManager import CogdoFlyingInputManager
-from CogdoFlyingCameraManager import CogdoFlyingCameraManager
-from CogdoFlyingObjects import CogdoFlyingPlatform, CogdoFlyingGatherable
-from CogdoFlyingLegalEagle import CogdoFlyingLegalEagle
-import CogdoFlyingGameGlobals as Globals
+from .CogdoFlyingCollisions import CogdoFlyingCollisions
+from .CogdoFlyingPlayer import CogdoFlyingPlayer
+from .CogdoFlyingGuiManager import CogdoFlyingGuiManager
+from .CogdoFlyingInputManager import CogdoFlyingInputManager
+from .CogdoFlyingCameraManager import CogdoFlyingCameraManager
+from .CogdoFlyingObjects import CogdoFlyingPlatform, CogdoFlyingGatherable
+from .CogdoFlyingLegalEagle import CogdoFlyingLegalEagle
+from . import CogdoFlyingGameGlobals as Globals
 
 class CogdoFlyingLocalPlayer(CogdoFlyingPlayer):
     notify = DirectNotifyGlobal.directNotify.newCategory('CogdoFlyingLocalPlayer')
@@ -164,7 +164,12 @@ class CogdoFlyingLocalPlayer(CogdoFlyingPlayer):
         self.deathInterval = Sequence(Func(self.resetVelocities), Parallel(Parallel(Func(self._deathSfx.play), LerpHprInterval(self.toon, 1.0, Vec3(720, 0, 0)), LerpFunctionInterval(self.toon.setScale, fromData=1.0, toData=0.1, duration=1.0), self.toon.posInterval(0.5, Vec3(0, 0, -25), other=self.toon)), Sequence(Wait(0.5), Func(base.transitions.irisOut))), Func(self.toon.stash), Wait(1.0), Func(self.toonSpawnFunc), name='%s.deathInterval' % self.__class__.__name__)
         self.outOfTimeInterval = Sequence(Func(messenger.send, CogdoFlyingLocalPlayer.PlayWaitingMusicEventName), Func(self._loseSfx.play), Func(base.transitions.irisOut), Wait(1.0), Func(self.resetVelocities), Func(self._guiMgr.setMessage, '', transition=None), Func(self.toon.stash), Func(self.toonSpawnFunc), name='%s.outOfTimeInterval' % self.__class__.__name__)
         self.spawnInterval = Sequence(Func(self.resetToonFunc), Func(self._cameraMgr.update, 0.0), Func(self._level.update), Func(self.toon.cnode.broadcastPosHprFull), Func(base.transitions.irisIn), Wait(0.5), Func(self.toon.setAnimState, 'TeleportIn'), Func(self.toon.unstash), Wait(1.5), Func(self.requestPostSpawnState), name='%s.spawnInterval' % self.__class__.__name__)
-        self.waitingForWinInterval = Sequence(Func(self._guiMgr.setMessage, TTLocalizer.WaitingForOtherToonsDots % '.'), Wait(1.5), Func(self._guiMgr.setMessage, TTLocalizer.WaitingForOtherToonsDots % '..'), Wait(1.5), Func(self._guiMgr.setMessage, TTLocalizer.WaitingForOtherToonsDots % '...'), Wait(1.5), name='%s.waitingForWinInterval' % self.__class__.__name__)
+        self.waitingForWinInterval = Sequence(Func(self._guiMgr.setMessage, TTLocalizer.MinigameWaitingForOtherToons),
+                                              Wait(1.5),
+                                              Func(self._guiMgr.setMessage, TTLocalizer.MinigameWaitingForOtherToons),
+                                              Wait(1.5),
+                                              Func(self._guiMgr.setMessage, TTLocalizer.MinigameWaitingForOtherToons),
+                                              Wait(1.5), name='%s.waitingForWinInterval' % self.__class__.__name__)
         self.waitingForWinSeq = Sequence(Func(self.setWaitingForWinState), Wait(4.0), Func(self.removeAllMemos), Wait(2.0), Func(self.game.distGame.d_sendRequestAction, Globals.AI.GameActions.LandOnWinPlatform, 0), Func(self.playWaitingForWinInterval), name='%s.waitingForWinSeq' % self.__class__.__name__)
         self.winInterval = Sequence(Func(self._guiMgr.setMessage, ''), Wait(4.0), Func(self.game.distGame.d_sendRequestAction, Globals.AI.GameActions.WinStateFinished, 0), name='%s.winInterval' % self.__class__.__name__)
         self.goSadSequence = Sequence(Wait(2.5), Func(base.transitions.irisOut, 1.5), name='%s.goSadSequence' % self.__class__.__name__)

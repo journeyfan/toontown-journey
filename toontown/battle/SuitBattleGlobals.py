@@ -3,7 +3,7 @@
 # Decompiled from: Python 3.8.2 (tags/v3.8.2:7b3ab59, Feb 25 2020, 23:03:10) [MSC v.1916 64 bit (AMD64)]
 # Embedded file name: toontown\battle\SuitBattleGlobals.py
 # Compiled at: 2019-07-15 23:54:48
-from BattleBase import *
+from .BattleBase import *
 import random
 from direct.directnotify import DirectNotifyGlobal
 from otp.otpbase import OTPLocalizer
@@ -40,7 +40,7 @@ def getSuitVitals(name, level=-1):
     dict['level'] = getActualFromRelativeLevel(name, level)
     if dict['level'] == 11:
         level = 0
-    dict['hp'] = data['hp'][level]
+    dict['hp'] =  calculateHealth(data, level)
     dict['def'] = data['def'][level]
     attacks = data['attacks']
     alist = []
@@ -58,6 +58,8 @@ def getSuitVitals(name, level=-1):
     dict['attacks'] = alist
     return dict
 
+def calculateHealth(stats, level):
+        return (stats['level'] + 1 + level) * (stats['level'] + 2 + level)
 
 def pickSuitAttack(attacks, suitLevel):
     attackNum = None
@@ -82,13 +84,13 @@ def pickSuitAttack(attacks, suitLevel):
         return attackNum
     else:
         if configAttackName == 'sequence':
-            for i in xrange(len(attacks)):
+            for i in range(len(attacks)):
                 if attacks[i] not in debugAttackSequence:
                     debugAttackSequence[attacks[i]] = 1
                     return i
 
             return attackNum
-        for i in xrange(len(attacks)):
+        for i in range(len(attacks)):
             if attacks[i][0] == configAttackName:
                 return i
 
@@ -106,7 +108,7 @@ def getSuitAttack(suitName, suitLevel, attackNum=-1):
     adict['suitName'] = suitName
     name = attack[0]
     adict['name'] = name
-    adict['id'] = SuitAttacks.keys().index(name)
+    adict['id'] = list(SuitAttacks.keys()).index(name)
     adict['animName'] = SuitAttacks[name][0]
     adict['hp'] = attack[1][suitLevel]
     adict['acc'] = attack[2][suitLevel]
@@ -322,31 +324,30 @@ SuitAttributes = {'f': {'name': TTLocalizer.SuitFlunky, 'singularname': TTLocali
    'tbc': {'name': TTLocalizer.SuitTheBigCheese, 'singularname': TTLocalizer.SuitTheBigCheeseS, 
            'pluralname': TTLocalizer.SuitTheBigCheeseP, 
            'level': 7, 
-           'hp': (90, 110, 132, 156, 200), 
-           'def': (35, 40, 45, 50, 55), 
-           'freq': (50, 30, 10, 5, 5), 
-           'acc': (35, 40, 45, 50, 55), 
+           'def': (35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70), 
+           'freq': (50, 30, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5), 
+           'acc': (35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95), 
            'attacks': (
                      (
                       'CigarSmoke',
-                      (10, 12, 15, 18, 20),
-                      (55, 65, 75, 85, 95),
-                      (20, 20, 20, 20, 20)),
+                      (10, 12, 15, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36),
+                      (55, 65, 75, 85, 90, 95, 95, 95, 95, 95, 95, 95, 95),
+                      (20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20)),
                      (
                       'FloodTheMarket',
-                      (14, 16, 18, 20, 22),
-                      (70, 75, 85, 90, 95),
-                      (10, 10, 10, 10, 10)),
+                      (14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38),
+                      (70, 75, 85, 90, 95, 95, 95, 95, 95, 95, 95, 95, 95),
+                      (10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10)),
                      (
                       'SongAndDance',
-                      (14, 15, 17, 19, 20),
-                      (60, 65, 70, 75, 80),
-                      (20, 20, 20, 20, 20)),
+                      (14, 15, 17, 19, 20, 22, 24, 26, 28, 30, 32, 34, 36),
+                      (60, 65, 70, 75, 80, 85, 90, 95, 95, 95, 95, 95, 95),
+                      (20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20)),
                      (
                       'TeeOff',
-                      (8, 11, 14, 17, 20),
-                      (55, 65, 70, 75, 80),
-                      (50, 50, 50, 50, 50)))},
+                      (8, 11, 14, 17, 20, 22, 24, 26, 28, 30, 32, 35, 38),
+                      (55, 65, 70, 75, 80, 85, 90, 95, 95, 95, 95, 95, 95),
+                      (50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50)))},
    'cp': {'name': 'The Club Pressident', 'singularname': TTLocalizer.SuitTheBigCheeseS,
            'pluralname': TTLocalizer.SuitTheBigCheeseP,
            'level': 7,
@@ -584,20 +585,19 @@ SuitAttributes = {'f': {'name': TTLocalizer.SuitFlunky, 'singularname': TTLocali
    'mh': {'name': TTLocalizer.SuitMrHollywood, 'singularname': TTLocalizer.SuitMrHollywoodS, 
           'pluralname': TTLocalizer.SuitMrHollywoodP, 
           'level': 7, 
-          'hp': (90, 110, 132, 156, 200), 
-          'def': (35, 40, 45, 50, 55), 
-          'freq': (50, 30, 10, 5, 5), 
-          'acc': (35, 40, 45, 50, 55), 
+          'def': (35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70), 
+          'freq': (50, 30, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), 
+          'acc': (35, 40, 45, 50, 55, 60, 60, 65, 70, 75, 80, 85, 90, 95), 
           'attacks': (
                     (
                      'PowerTrip',
-                     (10, 12, 15, 18, 20),
-                     (55, 65, 75, 85, 95),
-                     (50, 50, 50, 50, 50)),
+                     (10, 12, 15, 18, 20, 22, 24, 26, 28, 30, 33, 36, 40),
+                     (55, 65, 75, 85, 95, 95, 95, 95, 95, 95, 95, 95, 95),
+                     (50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50)),
                     ('RazzleDazzle',
-                     (8, 11, 14, 17, 20),
-                     (70, 75, 85, 90, 95),
-                     (50, 50, 50, 50, 50)))}, 
+                     (8, 11, 14, 17, 20, 24, 28, 32, 36, 40, 44, 48, 52),
+                     (70, 75, 85, 90, 95, 95, 95, 95, 95, 95, 95, 95, 95),
+                     (50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50)))}, 
    'sc': {'name': TTLocalizer.SuitShortChange, 'singularname': TTLocalizer.SuitShortChangeS, 
           'pluralname': TTLocalizer.SuitShortChangeP, 
           'level': 0, 
@@ -788,20 +788,19 @@ SuitAttributes = {'f': {'name': TTLocalizer.SuitFlunky, 'singularname': TTLocali
    'rb': {'name': TTLocalizer.SuitRobberBaron, 'singularname': TTLocalizer.SuitRobberBaronS, 
           'pluralname': TTLocalizer.SuitRobberBaronP, 
           'level': 7, 
-          'hp': (90, 110, 132, 156, 200), 
-          'def': (35, 40, 45, 50, 55), 
-          'freq': (50, 30, 10, 5, 5), 
-          'acc': (35, 40, 45, 50, 55), 
+          'def': (35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70), 
+          'freq': (50, 30, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), 
+          'acc': (35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95), 
           'attacks': (
                     (
                      'PowerTrip',
-                     (11, 14, 16, 18, 21),
-                     (60, 65, 70, 75, 80),
-                     (50, 50, 50, 50, 50)),
+                     (11, 14, 16, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45),
+                     (60, 65, 70, 75, 80, 85, 90, 95, 95, 95, 95, 95, 95),
+                     (50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50)),
                     ('TeeOff',
-                     (10, 12, 14, 16, 18),
-                     (60, 65, 75, 85, 90),
-                     (50, 50, 50, 50, 50)))}, 
+                     (10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34),
+                     (60, 65, 75, 85, 90, 95, 95, 95, 95, 95, 95, 95, 95),
+                     (50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50)))}, 
    'bf': {'name': TTLocalizer.SuitBottomFeeder, 'singularname': TTLocalizer.SuitBottomFeederS, 
           'pluralname': TTLocalizer.SuitBottomFeederP, 
           'level': 0, 
@@ -1004,20 +1003,224 @@ SuitAttributes = {'f': {'name': TTLocalizer.SuitFlunky, 'singularname': TTLocali
    'bw': {'name': TTLocalizer.SuitBigWig, 'singularname': TTLocalizer.SuitBigWigS, 
           'pluralname': TTLocalizer.SuitBigWigP, 
           'level': 7, 
-          'hp': (90, 110, 132, 156, 200), 
-          'def': (35, 40, 45, 50, 55), 
-          'freq': (50, 30, 10, 5, 5), 
-          'acc': (35, 40, 45, 50, 55), 
+          'def': (35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70), 
+          'freq': (50, 30, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), 
+          'acc': (35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95), 
           'attacks': (
                     (
                      'PowerTrip',
-                     (10, 11, 13, 15, 16),
-                     (75, 80, 85, 90, 95),
-                     (50, 50, 50, 50, 50)),
+                     (10, 11, 13, 15, 16, 18, 20, 22, 24, 26, 28, 30, 32),
+                     (75, 80, 85, 90, 95, 95, 95, 95, 95, 95, 95, 95, 95),
+                     (50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50)),
                     ('ThrowBook',
                      (13, 15, 17, 19, 21),
                      (80, 85, 85, 85, 90),
-                     (50, 50, 50, 50, 50)))}}
+                     (50, 50, 50, 50, 50)))},
+                     
+    ## ADDING SECBOTS
+                     
+   'wm': {'name': TTLocalizer.SuitSecWatchman, 'singularname': TTLocalizer.SuitSecWatchmanS, 
+         'pluralname': TTLocalizer.SuitSecWatchmanP, 
+         'level': 0, 
+         'hp': (6, 12, 20, 30, 42), 
+         'def': (2, 5, 10, 12, 15), 
+         'freq': (50, 30, 10, 5, 5), 
+         'acc': (35, 40, 45, 50, 55), 
+         'attacks': (
+                   (
+                    'PoundKey',
+                    (2, 2, 3, 4, 6),
+                    (75, 75, 80, 80, 90),
+                    (30, 35, 40, 45, 50)),
+                   ('Shred',
+                    (3, 4, 5, 6, 7),
+                    (50, 55, 60, 65, 70),
+                    (10, 15, 20, 25, 30)),
+                   ('ClipOnTie',
+                    (1, 1, 2, 2, 3),
+                    (75, 80, 85, 90, 95),
+                    (60, 50, 40, 30, 20)))},                    
+   'hm': {'name': TTLocalizer.SuitSecHenchman, 'singularname': TTLocalizer.SuitSecHenchmanS, 
+          'pluralname': TTLocalizer.SuitSecHenchmanS, 
+          'level': 1, 
+          'hp': (12, 20, 30, 42, 56), 
+          'def': (5, 10, 15, 20, 25), 
+          'freq': (50, 30, 10, 5, 5), 
+          'acc': (45, 50, 55, 60, 65), 
+          'attacks': (
+                    (
+                     'ClipOnTie',
+                     (2, 2, 3, 3, 4),
+                     (75, 75, 75, 75, 75),
+                     (15, 15, 15, 15, 15)),
+                    (
+                     'PickPocket',
+                     (1, 1, 1, 1, 1),
+                     (75, 75, 75, 75, 75),
+                     (15, 15, 15, 15, 15)),
+                    (
+                     'Rolodex',
+                     (4, 6, 7, 9, 12),
+                     (50, 50, 50, 50, 50),
+                     (30, 30, 30, 30, 30)),
+                    (
+                     'DoubleTalk',
+                     (4, 6, 7, 9, 12),
+                     (75, 80, 85, 90, 95),
+                     (40, 40, 40, 40, 40)))}, 
+    'mc': {'name': TTLocalizer.SuitSecMallCop, 'singularname': TTLocalizer.SuitSecMallCopS, 
+            'pluralname': TTLocalizer.SuitSecMallCopP, 
+            'level': 2, 
+            'hp': (20, 30, 42, 56, 72), 
+            'def': (10, 15, 20, 25, 30), 
+            'freq': (50, 30, 10, 5, 5), 
+            'acc': (65, 70, 75, 80, 85), 
+            'attacks': (
+                        (
+                        'Fired',
+                        (3, 4, 5, 5, 6),
+                        (75, 75, 75, 75, 75),
+                        (75, 5, 5, 5, 5)),
+                        (
+                        'GlowerPower',
+                        (3, 4, 6, 9, 12),
+                        (95, 95, 95, 95, 95),
+                        (10, 15, 20, 25, 30)),
+                        (
+                        'FingerWag',
+                        (3, 3, 4, 4, 5),
+                        (75, 75, 75, 75, 75),
+                        (5, 70, 5, 5, 5)),
+                        (
+                        'FreezeAssets',
+                        (3, 4, 6, 9, 12),
+                        (75, 75, 75, 75, 75),
+                        (5, 5, 65, 5, 30)),
+                        (
+                        'BounceCheck',
+                        (5, 6, 9, 13, 18),
+                        (75, 75, 75, 75, 75),
+                        (5, 5, 5, 60, 30)))}, 
+    'bg': {'name': TTLocalizer.SuitSecBodyGuard, 'singularname': TTLocalizer.SuitSecBodyGuardS, 
+            'pluralname': TTLocalizer.SuitSecBodyGuardP, 
+            'level': 3, 
+            'hp': (30, 42, 56, 72, 90), 
+            'def': (10, 15, 20, 25, 30), 
+            'freq': (50, 30, 10, 5, 5), 
+            'acc': (65, 70, 75, 80, 85), 
+            'attacks': (
+                        (
+                        'RubberStamp',
+                        (2, 2, 3, 3, 4),
+                        (75, 75, 75, 75, 75),
+                        (35, 35, 35, 35, 35)),
+                        (
+                        'RazzleDazzle',
+                        (1, 1, 1, 1, 1),
+                        (50, 50, 50, 50, 50),
+                        (25, 20, 15, 10, 5)),
+                        (
+                        'Synergy',
+                        (4, 5, 6, 7, 8),
+                        (50, 60, 70, 80, 90),
+                        (5, 10, 15, 20, 25)),
+                        (
+                        'TeeOff',
+                        (3, 3, 4, 4, 5),
+                        (50, 60, 70, 80, 90),
+                        (35, 35, 35, 35, 35)))}, 
+    'bnc': {'name': TTLocalizer.SuitSecBouncer, 'singularname': TTLocalizer.SuitSecBouncerS, 
+            'pluralname': TTLocalizer.SuitSecBouncerP, 
+            'level': 4, 
+            'hp': (42, 56, 72, 90, 110), 
+            'def': (20, 25, 30, 35, 40), 
+            'freq': (50, 30, 10, 5, 5), 
+            'acc': (35, 40, 45, 50, 55), 
+            'attacks': (
+                        (
+                        'GuiltTrip',
+                        (8, 11, 13, 15, 18),
+                        (60, 75, 80, 85, 90),
+                        (40, 40, 40, 40, 40)),
+                        ('RestrainingOrder',
+                        (6, 7, 9, 11, 13),
+                        (50, 65, 70, 75, 90),
+                        (25, 25, 25, 25, 25)),
+                        ('FingerWag',
+                        (5, 6, 7, 8, 9),
+                        (50, 55, 65, 75, 80),
+                        (35, 35, 35, 35, 35)))}, 
+    'bb': {'name': TTLocalizer.SuitSecBigBrother, 'singularname': TTLocalizer.SuitSecBigBrotherS, 
+            'pluralname': TTLocalizer.SuitSecBigBrotherP, 
+            'level': 5, 
+            'hp': (56, 72, 90, 110, 132), 
+            'def': (20, 25, 30, 35, 40), 
+            'freq': (50, 30, 10, 5, 5), 
+            'acc': (35, 40, 45, 50, 55), 
+            'attacks': (
+                        (
+                        'BrainStorm',
+                        (5, 6, 8, 10, 12),
+                        (60, 75, 80, 85, 90),
+                        (15, 15, 15, 15, 15)),
+                        (
+                        'HalfWindsor',
+                        (6, 9, 11, 13, 16),
+                        (50, 65, 70, 75, 80),
+                        (20, 20, 20, 20, 20)),
+                        (
+                        'Quake',
+                        (9, 12, 15, 18, 21),
+                        (60, 65, 75, 80, 85),
+                        (20, 20, 20, 20, 20)),
+                        (
+                        'Shake',
+                        (6, 8, 10, 12, 14),
+                        (70, 75, 80, 85, 90),
+                        (25, 25, 25, 25, 25)),
+                        (
+                        'Tremor',
+                        (5, 6, 7, 8, 9),
+                        (50, 50, 50, 50, 50),
+                        (20, 20, 20, 20, 20)))},                      
+    'ssa': {'name': TTLocalizer.SuitSecSecretServiceAgent, 'singularname': TTLocalizer.SuitSecSecretServiceAgentS, 
+            'pluralname': TTLocalizer.SuitSecSecretServiceAgentP, 
+            'level': 6, 
+            'hp': (72, 90, 110, 132, 156), 
+            'def': (25, 30, 35, 40, 45), 
+            'freq': (50, 30, 10, 5, 5), 
+            'acc': (35, 40, 45, 50, 55), 
+            'attacks': (
+                        (
+                        'Liquidate',
+                        (10, 12, 14, 16, 18),
+                        (60, 75, 80, 85, 90),
+                        (30, 30, 30, 30, 30)),
+                        ('MarketCrash',
+                        (8, 10, 12, 14, 16),
+                        (60, 65, 70, 75, 80),
+                        (45, 45, 45, 45, 45)),
+                        ('PowerTie',
+                        (6, 7, 8, 9, 10),
+                        (60, 65, 75, 85, 90),
+                        (25, 25, 25, 25, 25)))},      
+    'w': {'name': TTLocalizer.SuitSecWarden, 'singularname': TTLocalizer.SuitSecWardenS, 
+            'pluralname': TTLocalizer.SuitSecWardenP, 
+            'level': 7, 
+            'hp': (90, 110, 132, 156, 200), 
+            'def': (35, 40, 45, 50, 55), 
+            'freq': (50, 30, 10, 5, 5), 
+            'acc': (35, 40, 45, 50, 55), 
+            'attacks': (
+                        (
+                        'PowerTrip',
+                        (11, 14, 16, 18, 21),
+                        (60, 65, 70, 75, 80),
+                        (50, 50, 50, 50, 50)),
+                        ('TeeOff',
+                        (10, 12, 14, 16, 18),
+                        (60, 65, 75, 85, 90),
+                        (50, 50, 50, 50, 50)))},  }
 ATK_TGT_UNKNOWN = 1
 ATK_TGT_SINGLE = 2
 ATK_TGT_GROUP = 3
@@ -1153,73 +1356,73 @@ SuitAttacks = {'Audit': ('phone', ATK_TGT_SINGLE), 'Bite': (
                 'magic1', ATK_TGT_SINGLE), 
    'WriteOff': (
               'hold-pencil', ATK_TGT_SINGLE)}
-AUDIT = SuitAttacks.keys().index('Audit')
-BITE = SuitAttacks.keys().index('Bite')
-BOUNCE_CHECK = SuitAttacks.keys().index('BounceCheck')
-BRAIN_STORM = SuitAttacks.keys().index('BrainStorm')
-BUZZ_WORD = SuitAttacks.keys().index('BuzzWord')
-CALCULATE = SuitAttacks.keys().index('Calculate')
-CANNED = SuitAttacks.keys().index('Canned')
-CHOMP = SuitAttacks.keys().index('Chomp')
-CIGAR_SMOKE = SuitAttacks.keys().index('CigarSmoke')
-CLIPON_TIE = SuitAttacks.keys().index('ClipOnTie')
-CRUNCH = SuitAttacks.keys().index('Crunch')
-DEMOTION = SuitAttacks.keys().index('Demotion')
-DOWNSIZE = SuitAttacks.keys().index('Downsize')
-DOUBLE_TALK = SuitAttacks.keys().index('DoubleTalk')
-EVICTION_NOTICE = SuitAttacks.keys().index('EvictionNotice')
-EVIL_EYE = SuitAttacks.keys().index('EvilEye')
-FILIBUSTER = SuitAttacks.keys().index('Filibuster')
-FILL_WITH_LEAD = SuitAttacks.keys().index('FillWithLead')
-FINGER_WAG = SuitAttacks.keys().index('FingerWag')
-FIRED = SuitAttacks.keys().index('Fired')
-FIVE_O_CLOCK_SHADOW = SuitAttacks.keys().index('FiveOClockShadow')
-FLOOD_THE_MARKET = SuitAttacks.keys().index('FloodTheMarket')
-FOUNTAIN_PEN = SuitAttacks.keys().index('FountainPen')
-FREEZE_ASSETS = SuitAttacks.keys().index('FreezeAssets')
-GAVEL = SuitAttacks.keys().index('Gavel')
-GLOWER_POWER = SuitAttacks.keys().index('GlowerPower')
-GUILT_TRIP = SuitAttacks.keys().index('GuiltTrip')
-HALF_WINDSOR = SuitAttacks.keys().index('HalfWindsor')
-HANG_UP = SuitAttacks.keys().index('HangUp')
-HEAD_SHRINK = SuitAttacks.keys().index('HeadShrink')
-HOT_AIR = SuitAttacks.keys().index('HotAir')
-JARGON = SuitAttacks.keys().index('Jargon')
-LEGALESE = SuitAttacks.keys().index('Legalese')
-LIQUIDATE = SuitAttacks.keys().index('Liquidate')
-MARKET_CRASH = SuitAttacks.keys().index('MarketCrash')
-MUMBO_JUMBO = SuitAttacks.keys().index('MumboJumbo')
-PARADIGM_SHIFT = SuitAttacks.keys().index('ParadigmShift')
-PECKING_ORDER = SuitAttacks.keys().index('PeckingOrder')
-PICK_POCKET = SuitAttacks.keys().index('PickPocket')
-PINK_SLIP = SuitAttacks.keys().index('PinkSlip')
-PLAY_HARDBALL = SuitAttacks.keys().index('PlayHardball')
-POUND_KEY = SuitAttacks.keys().index('PoundKey')
-POWER_TIE = SuitAttacks.keys().index('PowerTie')
-POWER_TRIP = SuitAttacks.keys().index('PowerTrip')
-QUAKE = SuitAttacks.keys().index('Quake')
-RAZZLE_DAZZLE = SuitAttacks.keys().index('RazzleDazzle')
-RED_TAPE = SuitAttacks.keys().index('RedTape')
-RE_ORG = SuitAttacks.keys().index('ReOrg')
-RESTRAINING_ORDER = SuitAttacks.keys().index('RestrainingOrder')
-ROLODEX = SuitAttacks.keys().index('Rolodex')
-RUBBER_STAMP = SuitAttacks.keys().index('RubberStamp')
-RUB_OUT = SuitAttacks.keys().index('RubOut')
-SACKED = SuitAttacks.keys().index('Sacked')
-SANDTRAP = SuitAttacks.keys().index('SandTrap')
-SCHMOOZE = SuitAttacks.keys().index('Schmooze')
-SHAKE = SuitAttacks.keys().index('Shake')
-SHRED = SuitAttacks.keys().index('Shred')
-SONG_AND_DANCE = SuitAttacks.keys().index('SongAndDance')
-SPIN = SuitAttacks.keys().index('Spin')
-SYNERGY = SuitAttacks.keys().index('Synergy')
-TABULATE = SuitAttacks.keys().index('Tabulate')
-TEE_OFF = SuitAttacks.keys().index('TeeOff')
-THROW_BOOK = SuitAttacks.keys().index('ThrowBook')
-TREMOR = SuitAttacks.keys().index('Tremor')
-WATERCOOLER = SuitAttacks.keys().index('Watercooler')
-WITHDRAWAL = SuitAttacks.keys().index('Withdrawal')
-WRITE_OFF = SuitAttacks.keys().index('WriteOff')
+AUDIT = list(SuitAttacks.keys()).index('Audit')
+BITE = list(SuitAttacks.keys()).index('Bite')
+BOUNCE_CHECK = list(SuitAttacks.keys()).index('BounceCheck')
+BRAIN_STORM = list(SuitAttacks.keys()).index('BrainStorm')
+BUZZ_WORD = list(SuitAttacks.keys()).index('BuzzWord')
+CALCULATE = list(SuitAttacks.keys()).index('Calculate')
+CANNED = list(SuitAttacks.keys()).index('Canned')
+CHOMP = list(SuitAttacks.keys()).index('Chomp')
+CIGAR_SMOKE = list(SuitAttacks.keys()).index('CigarSmoke')
+CLIPON_TIE = list(SuitAttacks.keys()).index('ClipOnTie')
+CRUNCH = list(SuitAttacks.keys()).index('Crunch')
+DEMOTION = list(SuitAttacks.keys()).index('Demotion')
+DOWNSIZE = list(SuitAttacks.keys()).index('Downsize')
+DOUBLE_TALK = list(SuitAttacks.keys()).index('DoubleTalk')
+EVICTION_NOTICE = list(SuitAttacks.keys()).index('EvictionNotice')
+EVIL_EYE = list(SuitAttacks.keys()).index('EvilEye')
+FILIBUSTER = list(SuitAttacks.keys()).index('Filibuster')
+FILL_WITH_LEAD = list(SuitAttacks.keys()).index('FillWithLead')
+FINGER_WAG = list(SuitAttacks.keys()).index('FingerWag')
+FIRED = list(SuitAttacks.keys()).index('Fired')
+FIVE_O_CLOCK_SHADOW = list(SuitAttacks.keys()).index('FiveOClockShadow')
+FLOOD_THE_MARKET = list(SuitAttacks.keys()).index('FloodTheMarket')
+FOUNTAIN_PEN = list(SuitAttacks.keys()).index('FountainPen')
+FREEZE_ASSETS = list(SuitAttacks.keys()).index('FreezeAssets')
+GAVEL = list(SuitAttacks.keys()).index('Gavel')
+GLOWER_POWER = list(SuitAttacks.keys()).index('GlowerPower')
+GUILT_TRIP = list(SuitAttacks.keys()).index('GuiltTrip')
+HALF_WINDSOR = list(SuitAttacks.keys()).index('HalfWindsor')
+HANG_UP = list(SuitAttacks.keys()).index('HangUp')
+HEAD_SHRINK = list(SuitAttacks.keys()).index('HeadShrink')
+HOT_AIR = list(SuitAttacks.keys()).index('HotAir')
+JARGON = list(SuitAttacks.keys()).index('Jargon')
+LEGALESE = list(SuitAttacks.keys()).index('Legalese')
+LIQUIDATE = list(SuitAttacks.keys()).index('Liquidate')
+MARKET_CRASH = list(SuitAttacks.keys()).index('MarketCrash')
+MUMBO_JUMBO = list(SuitAttacks.keys()).index('MumboJumbo')
+PARADIGM_SHIFT = list(SuitAttacks.keys()).index('ParadigmShift')
+PECKING_ORDER = list(SuitAttacks.keys()).index('PeckingOrder')
+PICK_POCKET = list(SuitAttacks.keys()).index('PickPocket')
+PINK_SLIP = list(SuitAttacks.keys()).index('PinkSlip')
+PLAY_HARDBALL = list(SuitAttacks.keys()).index('PlayHardball')
+POUND_KEY = list(SuitAttacks.keys()).index('PoundKey')
+POWER_TIE = list(SuitAttacks.keys()).index('PowerTie')
+POWER_TRIP = list(SuitAttacks.keys()).index('PowerTrip')
+QUAKE = list(SuitAttacks.keys()).index('Quake')
+RAZZLE_DAZZLE = list(SuitAttacks.keys()).index('RazzleDazzle')
+RED_TAPE = list(SuitAttacks.keys()).index('RedTape')
+RE_ORG = list(SuitAttacks.keys()).index('ReOrg')
+RESTRAINING_ORDER = list(SuitAttacks.keys()).index('RestrainingOrder')
+ROLODEX = list(SuitAttacks.keys()).index('Rolodex')
+RUBBER_STAMP = list(SuitAttacks.keys()).index('RubberStamp')
+RUB_OUT = list(SuitAttacks.keys()).index('RubOut')
+SACKED = list(SuitAttacks.keys()).index('Sacked')
+SANDTRAP = list(SuitAttacks.keys()).index('SandTrap')
+SCHMOOZE = list(SuitAttacks.keys()).index('Schmooze')
+SHAKE = list(SuitAttacks.keys()).index('Shake')
+SHRED = list(SuitAttacks.keys()).index('Shred')
+SONG_AND_DANCE = list(SuitAttacks.keys()).index('SongAndDance')
+SPIN = list(SuitAttacks.keys()).index('Spin')
+SYNERGY = list(SuitAttacks.keys()).index('Synergy')
+TABULATE = list(SuitAttacks.keys()).index('Tabulate')
+TEE_OFF = list(SuitAttacks.keys()).index('TeeOff')
+THROW_BOOK = list(SuitAttacks.keys()).index('ThrowBook')
+TREMOR = list(SuitAttacks.keys()).index('Tremor')
+WATERCOOLER = list(SuitAttacks.keys()).index('Watercooler')
+WITHDRAWAL = list(SuitAttacks.keys()).index('Withdrawal')
+WRITE_OFF = list(SuitAttacks.keys()).index('WriteOff')
 
 def getFaceoffTaunt(suitName, doId):
     if suitName in SuitFaceoffTaunts:

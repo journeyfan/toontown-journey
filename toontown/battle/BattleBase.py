@@ -1,7 +1,7 @@
 from pandac.PandaModules import *
 from toontown.toonbase.ToontownBattleGlobals import *
 from direct.task.Timer import *
-import math
+import math, functools
 from direct.directnotify import DirectNotifyGlobal
 from toontown.toon import NPCToons
 from toontown.toonbase import TTLocalizer
@@ -40,6 +40,7 @@ SOUND = SOUND_TRACK
 THROW = THROW_TRACK
 SQUIRT = SQUIRT_TRACK
 DROP = DROP_TRACK
+POWER = POWER_TRACK
 TOON_ATTACK_TIME = 12.0
 SUIT_ATTACK_TIME = 12.0
 TOON_TRAP_DELAY = 0.8
@@ -157,7 +158,7 @@ def findToonAttack(toons, attacks, track):
             return -1
         return 0
 
-    foundAttacks.sort(compFunc)
+    foundAttacks.sort(key=functools.cmp_to_key(compFunc))
     return foundAttacks
 
 

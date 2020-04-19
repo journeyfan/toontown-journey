@@ -1,18 +1,18 @@
-import CatalogItem
+from . import CatalogItem
 from pandac.PandaModules import *
 import types
 from direct.distributed.PyDatagram import PyDatagram
 from direct.distributed.PyDatagramIterator import PyDatagramIterator
+from direct.directnotify import DirectNotifyGlobal
 
 class CatalogItemList:
-
     def __init__(self, source = None, store = 0):
         self.store = store
         self.__blob = None
         self.__list = None
-        if isinstance(source, types.StringType):
+        if isinstance(source, bytes):
             self.__blob = source
-        elif isinstance(source, types.ListType):
+        elif isinstance(source, list):
             self.__list = source[:]
         elif isinstance(source, CatalogItemList):
             if source.store == store:
@@ -173,45 +173,45 @@ class CatalogItemList:
         return len(self.__list)
 
     def __getitem__(self, index):
-        if self.__list == None:
-            self.__decodeList()
-        return self.__list[index]
+        if isinstance(index, slice):
+            if self.__list == None:
+                self.__decodeList()
+            return CatalogItemList(self.__list[index.start:index.stop], store=self.store)
+        else:
+            if self.__list == None:
+                self.__decodeList()
+            return self.__list[index]
 
     def __setitem__(self, index, item):
-        if self.__list == None:
-            self.__decodeList()
-        self.__list[index] = item
-        self.__blob = None
-        return
+        if isinstance(index, slice):
+            if self.__list == None:
+                self.__decodeList()
+            if isinstance(index.step, CatalogItemList):
+                self.__list[index.start:index.stop] = item.__list
+            else:
+                self.__list[index.start:index.stop] = item
+            self.__blob = None
+            return
+        else:
+            if self.__list == None:
+                self.__decodeList()
+            self.__list[index] = item
+            self.__blob = None
+            return
 
     def __delitem__(self, index):
-        if self.__list == None:
-            self.__decodeList()
-        del self.__list[index]
-        self.__blob = None
-        return
-
-    def __getslice__(self, i, j):
-        if self.__list == None:
-            self.__decodeList()
-        return CatalogItemList(self.__list[i:j], store=self.store)
-
-    def __setslice__(self, i, j, s):
-        if self.__list == None:
-            self.__decodeList()
-        if isinstance(s, CatalogItemList):
-            self.__list[i:j] = s.__list
+        if isinstance(index, slice):
+            if self.__list == None:
+                self.__decodeList()
+            del self.__list[index.start:index.stop]
+            self.__blob = None
+            return
         else:
-            self.__list[i:j] = s
-        self.__blob = None
-        return
-
-    def __delslice__(self, i, j):
-        if self.__list == None:
-            self.__decodeList()
-        del self.__list[i:j]
-        self.__blob = None
-        return
+            if self.__list == None:
+                self.__decodeList()
+            del self.__list[index]
+            self.__blob = None
+            return
 
     def __iadd__(self, other):
         if self.__list == None:

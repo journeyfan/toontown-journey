@@ -1,6 +1,6 @@
 from direct.showbase.PythonUtil import *
 from direct.showbase import DConfig
-import __builtin__, sys
+import builtins, sys
 
 # class 'decorator' that records the stack at the time of creation
 # be careful with this, it creates a StackTrace, and that can take a
@@ -17,7 +17,7 @@ def recordCreationStack(cls):
     def getCreationStackTraceCompactStr(self):
         return self._creationStackTrace.compact()
     def printCreationStackTrace(self):
-        print self._creationStackTrace
+        print(self._creationStackTrace)
     cls.__init__ = __recordCreationStack_init__
     cls.getCreationStackTrace = getCreationStackTrace
     cls.getCreationStackTraceCompactStr = getCreationStackTraceCompactStr
@@ -48,7 +48,7 @@ def recordCreationStackStr(cls):
     def getCreationStackTraceCompactStr(self):
         return ','.join(self._creationStackTraceStrLst)
     def printCreationStackTrace(self):
-        print ','.join(self._creationStackTraceStrLst)
+        print(','.join(self._creationStackTraceStrLst))
     cls.__init__ = __recordCreationStackStr_init__
     cls.getCreationStackTraceCompactStr = getCreationStackTraceCompactStr
     cls.printCreationStackTrace = printCreationStackTrace
@@ -59,7 +59,7 @@ def pdir(obj, str = None, width = None,
     # Remove redundant class entries
     uniqueLineage = []
     for l in getClassLineage(obj):
-        if type(l) == types.ClassType:
+        if type(l) == type:
             if l in uniqueLineage:
                 break
         uniqueLineage.append(l)
@@ -67,7 +67,7 @@ def pdir(obj, str = None, width = None,
     uniqueLineage.reverse()
     for obj in uniqueLineage:
         _pdir(obj, str, width, fTruncate, lineWidth, wantPrivate)
-        print
+        print()
 
 def _pdir(obj, str = None, width = None,
             fTruncate = 1, lineWidth = 75, wantPrivate = 0):
@@ -81,8 +81,8 @@ def _pdir(obj, str = None, width = None,
             padBefore = int((70 - length)/2.0)
             padAfter = max(0, 70 - length - padBefore)
             header = '*' * padBefore + name + '*' * padAfter
-        print header
-        print
+        print(header)
+        print()
     def printInstanceHeader(i, printHeader = printHeader):
         printHeader(i.__class__.__name__ + ' INSTANCE INFO')
     def printClassHeader(c, printHeader = printHeader):
@@ -92,12 +92,12 @@ def _pdir(obj, str = None, width = None,
     # Print Header
     if type(obj) == types.InstanceType:
         printInstanceHeader(obj)
-    elif type(obj) == types.ClassType:
+    elif type(obj) == type:
         printClassHeader(obj)
-    elif type (obj) == types.DictionaryType:
+    elif type (obj) == dict:
         printDictionaryHeader(obj)
     # Get dict
-    if type(obj) == types.DictionaryType:
+    if type(obj) == dict:
         dict = obj
     # FFI objects are builtin types, they have no __dict__
     elif not hasattr(obj, '__dict__'):
@@ -113,7 +113,7 @@ def _pdir(obj, str = None, width = None,
     aproposKeys = []
     privateKeys = []
     remainingKeys = []
-    for key in dict.keys():
+    for key in list(dict.keys()):
         if not width:
             keyWidth = len(key)
         if str:
@@ -152,7 +152,7 @@ def _pdir(obj, str = None, width = None,
         if fTruncate:
             # Cut off line (keeping at least 1 char)
             strvalue = strvalue[:max(1, lineWidth - maxWidth)]
-        print (format % key)[:maxWidth] + '\t' + strvalue
+        print((format % key)[:maxWidth] + '\t' + strvalue)
 
 def choice(condition, ifTrue, ifFalse):
     # equivalent of C++ (condition ? ifTrue : ifFalse)
@@ -212,5 +212,5 @@ def describeException(backTrace = 4):
     return description
 
 
-__builtin__.pdir = pdir
-__builtin__.choice = choice
+builtins.pdir = pdir
+builtins.choice = choice

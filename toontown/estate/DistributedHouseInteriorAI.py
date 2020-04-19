@@ -1,24 +1,25 @@
 from direct.distributed.DistributedObjectAI import DistributedObjectAI
-from DistributedFurnitureManagerAI import *
+from .DistributedFurnitureManagerAI import *
 from toontown.catalog import CatalogItem
 from toontown.catalog.CatalogWindowItem import CatalogWindowItem
 from toontown.catalog.CatalogWallpaperItem import CatalogWallpaperItem
 from toontown.catalog.CatalogMouldingItem import CatalogMouldingItem
 from toontown.catalog.CatalogFlooringItem import CatalogFlooringItem
 from toontown.catalog.CatalogWainscotingItem import CatalogWainscotingItem
-from DNAFurnitureReaderAI import DNAFurnitureReaderAI
+from .DNAFurnitureReaderAI import DNAFurnitureReaderAI
+from lib.libpandadna import DNAStorage
 from toontown.dna.DNAParser import *
-import HouseGlobals
+from . import HouseGlobals
 import random
 
 # The house interior DNA files for each
 houseInteriors = [
-    'phase_5.5/dna/house_interior3.pdna',
-    'phase_5.5/dna/house_interior4.pdna',
-    'phase_5.5/dna/house_interior5.pdna',
-    'phase_5.5/dna/house_interior7.pdna',
-    'phase_5.5/dna/house_interior8.pdna',
-    'phase_5.5/dna/house_interior10.pdna',
+    'phase_5.5/dna/house_interior3.dna',
+    'phase_5.5/dna/house_interior4.dna',
+    'phase_5.5/dna/house_interior5.dna',
+    'phase_5.5/dna/house_interior7.dna',
+    'phase_5.5/dna/house_interior8.dna',
+    'phase_5.5/dna/house_interior10.dna',
 ]
 
 defaultWindows = [

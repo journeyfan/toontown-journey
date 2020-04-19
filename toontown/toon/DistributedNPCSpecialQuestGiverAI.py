@@ -1,7 +1,7 @@
 from otp.ai.AIBaseGlobal import *
 from direct.task.Task import Task
 from pandac.PandaModules import *
-from DistributedNPCToonBaseAI import *
+from .DistributedNPCToonBaseAI import *
 from toontown.quest import Quests
 from toontown.nametag.NametagGlobals import *
 
@@ -79,7 +79,7 @@ class DistributedNPCSpecialQuestGiverAI(DistributedNPCToonBaseAI):
             if trackId == track:
                 self.air.questManager.avatarChoseTrack(avId, self, self.pendingTrackQuest, trackId)
                 av = self.air.doId2do.get(avId)
-                if av.getTrackAccess() == [0 for x in xrange(7)]:
+                if av.getTrackAccess() == [0 for x in range(7)]:
                     av.b_setFirstTrackPicked(trackId)
                 else:
                     av.b_setSecondTrackPicked(trackId)

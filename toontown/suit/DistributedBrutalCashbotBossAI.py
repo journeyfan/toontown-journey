@@ -46,7 +46,7 @@ class DistributedBrutalCashbotBossAI(DistributedCashbotBossAI):
 
             toon = self.air.doId2do.get(avId)
             if toon:
-                for _ in xrange(4):
+                for _ in range(4):
                     toon.doResistanceEffect(self.rewardId)
 
             if simbase.config.GetBool('cfo-staff-event', False):

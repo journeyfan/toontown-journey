@@ -1,5 +1,5 @@
 from direct.directnotify import DirectNotifyGlobal
-import DistributedFactoryAI
+from . import DistributedFactoryAI
 from toontown.toon import NPCToons
 import random
 
