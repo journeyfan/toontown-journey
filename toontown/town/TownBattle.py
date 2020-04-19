@@ -10,6 +10,7 @@ from . import TownBattleSOSPanel
 from . import TownBattleSOSPetSearchPanel
 from . import TownBattleSOSPetInfoPanel
 from . import TownBattleToonPanel
+from . import TownBattleCogPanel
 
 from toontown.toontowngui import TTDialog
 from direct.directnotify import DirectNotifyGlobal
