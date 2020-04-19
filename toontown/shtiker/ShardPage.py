@@ -8,6 +8,7 @@ from toontown.shtiker import ShtikerPage
 from toontown.toonbase import TTLocalizer
 from toontown.toonbase import ToontownGlobals
 from toontown.toontowngui import TTDialog
+import functools
 
 
 ICON_COLORS = (Vec4(0.863, 0.776, 0.769, 1.0), Vec4(0.749, 0.776, 0.824, 1.0),
@@ -239,7 +240,7 @@ class ShardPage(ShtikerPage.ShtikerPage):
 
     def updateScrollList(self):
         curShardTuples = base.cr.listActiveShards()
-        curShardTuples.sort(compareShardTuples)
+        curShardTuples.sort(key=functools.cmp_to_key(compareShardTuples))
 
         currentShardId = self.getCurrentShardId()
         actualShardId = base.localAvatar.defaultShard
