@@ -215,7 +215,7 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
         self.trackBars = []
         self.buttons = []
         for track in range(0, len(Tracks)):
-            trackFrame = DirectFrame(parent=self.invFrame, image=self.rowModel, scale=(1.0, 1.0, 1.1), pos=(0, 0.3, self.TrackYOffset + track * self.TrackYSpacing), image_color=(TrackColors[track][0],
+            trackFrame = DirectFrame(parent=self.invFrame, image=self.rowModel, scale=(1.2, 1.0, 1.1), pos=(0, 0.3, self.TrackYOffset + track * self.TrackYSpacing), image_color=(TrackColors[track][0],
              TrackColors[track][1],
              TrackColors[track][2],
              1), state=DGG.NORMAL, relief=None)
@@ -442,8 +442,8 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
 
     def bookActivateButtons(self):
         self.setPos(0, 0, 0.52)
-        self.setScale(1.0)
-        self.detailFrame.setPos(0.1, 0, -0.855)
+        self.setScale(0.8)
+        self.detailFrame.setPos(0.1, 0, -1.055)
         self.detailFrame.setScale(0.75)
         self.deleteEnterButton.show()
         self.deleteEnterButton.setPos(-0.75, 0, -0.89)

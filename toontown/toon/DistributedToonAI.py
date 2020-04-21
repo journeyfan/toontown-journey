@@ -1152,9 +1152,10 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
         if not radar:
             self.notify.warning('cogRadar set to bad value: %s. Resetting to [0,0,0,0]' % radar)
             self.cogRadar = [0,
-                             0,
-                             0,
-                             0]
+             0,
+             0,
+             0,
+             0]
         else:
             self.cogRadar = radar
 
@@ -1172,9 +1173,16 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
         if not radar:
             self.notify.warning('buildingRadar set to bad value: %s. Resetting to [0,0,0,0]' % radar)
             self.buildingRadar = [0,
+<<<<<<< HEAD
                                   0,
                                   0,
                                   0]
+=======
+             0,
+             0,
+             0,
+             0]
+>>>>>>> 9f4781142424d2bb1f0ed395f80ed478f8f9c655
         else:
             self.buildingRadar = radar
 
@@ -1192,9 +1200,16 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
         if not types:
             self.notify.warning('cogTypes set to bad value: %s. Resetting to [0,0,0,0]' % types)
             self.cogTypes = [0,
+<<<<<<< HEAD
                              0,
                              0,
                              0]
+=======
+             0,
+             0,
+             0,
+             0]
+>>>>>>> 9f4781142424d2bb1f0ed395f80ed478f8f9c655
         else:
             self.cogTypes = types
 
@@ -1212,10 +1227,17 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
         if not levels:
             self.notify.warning('cogLevels set to bad value: %s. Resetting to [0,0,0,0,0]' % levels)
             self.cogLevels = [0,
+<<<<<<< HEAD
                               0,
                               0,
                               0,
                               0]
+=======
+             0,
+             0,
+             0,
+             0]
+>>>>>>> 9f4781142424d2bb1f0ed395f80ed478f8f9c655
         else:
             self.cogLevels = levels
 
@@ -1279,9 +1301,16 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
         if not parts:
             self.notify.warning('cogParts set to bad value: %s. Resetting to [0,0,0,0]' % parts)
             self.cogParts = [0,
+<<<<<<< HEAD
                              0,
                              0,
                              0]
+=======
+             0,
+             0,
+             0,
+             0]
+>>>>>>> 9f4781142424d2bb1f0ed395f80ed478f8f9c655
         else:
             self.cogParts = parts
 

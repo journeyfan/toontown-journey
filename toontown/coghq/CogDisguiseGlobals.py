@@ -158,7 +158,7 @@ MeritsPerLevel = makeMeritHierarchy(100)  # Bossbot
 MeritsPerLevel += makeMeritHierarchy(75)  # Lawbot
 MeritsPerLevel += makeMeritHierarchy(50)  # Cashbot
 MeritsPerLevel += makeMeritHierarchy(25)  # Sellbot
-MeritsPerLevel += makeMeritHierarchy(25)  # Sellbot
+MeritsPerLevel += makeMeritHierarchy(25)  # Secbot
 
 def getNextPart(parts, partIndex, dept):
     dept = dept2deptIndex(dept)

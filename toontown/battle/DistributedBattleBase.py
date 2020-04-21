@@ -615,6 +615,8 @@ class DistributedBattleBase(DistributedNode.DistributedNode, BattleBase):
             levels.append(-1)
             targetIndices.append(-1)
 
+        print(tracks, levels)
+
         self.townBattleAttacks = (toonIndices,
          tracks,
          levels,
