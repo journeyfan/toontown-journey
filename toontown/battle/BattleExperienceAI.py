@@ -185,6 +185,11 @@ def assignRewards(activeToons, toonSkillPtsGained, suitsKilled, zoneId, helpfulT
                     toon.experience.addExp(i, amount=exp)
                     toon.inventory.addItemWithList(i, newGagList)
 
+        for cogs in suitsKilled:
+            if random.random() <= 0.5:
+                toon.addMoney(level * 2)
+
+
         toon.b_setExperience(toon.experience.makeNetString())
         toon.d_setInventory(toon.inventory.makeNetString())
         toon.b_setAnimState('victory', 1)
