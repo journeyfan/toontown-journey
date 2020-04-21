@@ -1173,16 +1173,10 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
         if not radar:
             self.notify.warning('buildingRadar set to bad value: %s. Resetting to [0,0,0,0]' % radar)
             self.buildingRadar = [0,
-<<<<<<< HEAD
-                                  0,
-                                  0,
-                                  0]
-=======
              0,
              0,
              0,
              0]
->>>>>>> 9f4781142424d2bb1f0ed395f80ed478f8f9c655
         else:
             self.buildingRadar = radar
 
