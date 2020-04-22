@@ -59,6 +59,6 @@ suitProperties = {'f': (4.0 / cSize, SuitDNA.corpPolyColor, ['flunky', 'glasses'
                   'bnc': (6.0 /cSize, SuitDNA.securityPolyColor, ['flunky'], 'bouncer.jpg', 7.5),
                   'bb': (4.75 / bSize, SuitDNA.securityPolyColor, ['movershaker'], '', 6.7),
                   'ssa': (5.3/ cSize, SuitDNA.securityPolyColor, ['moneybags'], '', 6.97),
-                  'w': (7.0 / aSize, SuitDNA.securityPolyColor, ['yesman'], 'robber-baron.jpg', 8.95),
+                  'w': (7.0 / aSize, SuitDNA.securityPolyColor, ['yesman'], 'warden.jpg', 8.95),
                   }
 
