@@ -165,7 +165,8 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
         del self.trackNameLabels
         del self.trackBars
         for buttonList in self.buttons:
-            for buttonIndex in range(MAX_LEVEL_INDEX + 1):
+            ##CHANGED
+            for buttonIndex in range(MAX_LEVEL_INDEX):
                 buttonList[buttonIndex].destroy()
 
         del self.buttons
