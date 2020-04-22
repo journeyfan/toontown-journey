@@ -2,6 +2,7 @@ from direct.directnotify import DirectNotifyGlobal
 from toontown.toonbase import ToontownBattleGlobals
 from toontown.toonbase import ToontownGlobals
 from toontown.suit import SuitDNA
+import random
 BattleExperienceAINotify = DirectNotifyGlobal.directNotify.newCategory('BattleExprienceAI')
 
 def getSkillGained(toonSkillPtsGained, toonId, track):
@@ -186,8 +187,8 @@ def assignRewards(activeToons, toonSkillPtsGained, suitsKilled, zoneId, helpfulT
                     toon.inventory.addItemWithList(i, newGagList)
 
         for cogs in suitsKilled:
-            if random.random() <= 0.5:
-                toon.addMoney(level * 2)
+            if random.choice([1,2]) == 2:
+                toon.addMoney(cogs['level'] * 2)
 
 
         toon.b_setExperience(toon.experience.makeNetString())
