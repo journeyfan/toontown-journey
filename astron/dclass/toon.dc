@@ -638,6 +638,7 @@ dclass DistributedToon : DistributedPlayer {
   setHouseType(uint8 type = 0) required ownrecv db;
   setFirstTrackPicked(uint8) required ownrecv db;
   setSecondTrackPicked(uint8) required ownrecv db;
+  warnLocalToon(string) ownrecv;
 };
 
 dclass DistributedCCharBase : DistributedObject {

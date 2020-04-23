@@ -2729,7 +2729,10 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
     def setCanUseUnites(self, canUseUnites):
         self.canUseUnites = canUseUnites
 		
-    
+    def warnToon(self, reason):
+        reason = 'You have been warned by a moderator for: {0}'.format(reason)
+        self.setSystemMessage(base.localAvatar.doId, reason)
+
 @magicWord(category=CATEGORY_MODERATOR, types=[int, int]) 
 def emblems(silver=10, gold=10):
     spellbook.getTarget().addEmblems((gold, silver))

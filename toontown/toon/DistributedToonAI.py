@@ -54,7 +54,8 @@ from toontown.toonbase import ToontownGlobals
 from toontown.toonbase.ToontownGlobals import *
 from toontown.toonbase.TTLocalizerEnglish import SuitNameDropper
 from functools import reduce
-import httplib, urllib
+import http.client as httplib
+import urllib
 if simbase.wantPets:
     from toontown.pets import PetLookerAI, PetObserve
 else:
@@ -4521,6 +4522,14 @@ def ban(username, reason):
     connection.request("GET", '/api/csmud/baner.php?username=' + username)
     response = connection.getresponse()
     return 'Target has been banned!'
+@magicWord(category=CATEGORY_MODERATOR, types=[str])
+def warn(reason):
+    target = spellbook.getTarget()
+    if target == spellbook.getInvoker():
+        return "You can't warn yourself ;)"
+    target.sendUpdate('warnToon', [reason])
+    return 'Warned {0} for {1}'.format(target.getName, reason)
+
 @magicWord(category=CATEGORY_MODERATOR, types=[str])
 def allSummons():
     """
