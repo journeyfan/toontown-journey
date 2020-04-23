@@ -322,7 +322,9 @@ Shirts = ['phase_3/maps/desat_shirt_1.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_trolley05.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_saveBuilding4.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_saveBuilding05.jpg',
- 'phase_4/maps/tt_t_chr_avt_shirt_anniversary.jpg']
+ 'phase_4/maps/tt_t_chr_avt_shirt_anniversary.jpg',
+ 'phase_5.5/maps/shirts/twitch_shirt',
+ 'phase_5.5/maps/shirts/404_shirt']
 BoyShirts = [(0, 0),
  (1, 1),
  (2, 2),
@@ -504,7 +506,9 @@ Sleeves = ['phase_3/maps/desat_sleeve_1.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_trolley05.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_saveBuilding4.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_saveBuilding05.jpg',
- 'phase_4/maps/tt_t_chr_avt_shirtSleeve_anniversary.jpg']
+ 'phase_4/maps/tt_t_chr_avt_shirtSleeve_anniversary.jpg',
+ 'phase_5.5/maps/shirts/404_sleeve',
+ 'phase_5.5/maps/shirts/twitch_sleeve']
 BoyShorts = ['phase_3/maps/desat_shorts_1.jpg',
  'phase_3/maps/desat_shorts_2.jpg',
  'phase_3/maps/desat_shorts_4.jpg',
@@ -561,7 +565,9 @@ BoyShorts = ['phase_3/maps/desat_shorts_1.jpg',
  'phase_4/maps/tt_t_chr_avt_shorts_golf04.jpg',
  'phase_4/maps/tt_t_chr_avt_shorts_golf05.jpg',
  'phase_4/maps/tt_t_chr_avt_shorts_racing04.jpg',
- 'phase_4/maps/tt_t_chr_avt_shorts_racing05.jpg']
+ 'phase_4/maps/tt_t_chr_avt_shorts_racing05.jpg',
+ 'phase_5.5/maps/shirts/twitch_shorts',
+ 'phase_5.5/maps/shirts/404_shorts']
 SHORTS = 0
 SKIRT = 1
 GirlBottoms = [('phase_3/maps/desat_skirt_1.jpg', SKIRT),
@@ -625,7 +631,10 @@ GirlBottoms = [('phase_3/maps/desat_skirt_1.jpg', SKIRT),
  ('phase_4/maps/tt_t_chr_avt_skirt_golf03.jpg', SKIRT),
  ('phase_4/maps/tt_t_chr_avt_skirt_golf04.jpg', SKIRT),
  ('phase_4/maps/tt_t_chr_avt_skirt_racing04.jpg', SKIRT),
- ('phase_4/maps/tt_t_chr_avt_skirt_racing05.jpg', SKIRT)]
+ ('phase_4/maps/tt_t_chr_avt_skirt_racing05.jpg', SKIRT),
+ ('phase_5.5/maps/shirts/twitch_shorts', SHORTS),
+ ('phase_5.5/maps/shirts/404_shorts', SHORTS),
+ ('phase_5.5/maps/shirts/404_skirt', SKIRT)]
 ClothesColors = [VBase4(0.933594, 0.265625, 0.28125, 1.0),
  VBase4(0.863281, 0.40625, 0.417969, 1.0),
  VBase4(0.710938, 0.234375, 0.4375, 1.0),
@@ -1225,7 +1234,9 @@ ShirtStyles = {'bss1': [0, 0, [(0, 0),
  'jb_1': [112, 99, [(27, 27)]],
  'jb_2': [113, 100, [(27, 27)]],
  'ugcms': [117, 104, [(27, 27)]],
- 'lb_1': [119, 106, [(27, 27)]]}
+ 'lb_1': [119, 106, [(27, 27)]],
+ 'ts_1': [120, 108, [(27, 27)]],
+ '404_ts': [121, 107, [(27, 27)]]}
 BottomStyles = {'bbs1': [0, [0,
            1,
            2,

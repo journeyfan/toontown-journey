@@ -6238,7 +6238,8 @@ ShirtStylesDescriptions = {'bss1': 'solid',
  'lb_1': 'Lawbot Icon Shirt',
  'jb_1': 'Jellybean Shirt',
  'jb_2': 'Doodle Shirt',
- 'ugcms': 'Get Connected Mover & Shaker'}
+ 'ugcms': 'Get Connected Mover & Shaker',
+}
 BottomStylesDescriptions = {'bbs1': 'plain w/ pockets',
  'bbs2': 'belt',
  'bbs3': 'cargo',
