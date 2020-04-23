@@ -204,7 +204,7 @@ def kick(reason='No reason specified'):
     simbase.air.send(datagram)
     return "Kicked %s from the game server!" % target.getName()
 
-
+'''
 @magicWord(category=CATEGORY_MODERATOR, types=[str, str])
 def ban(duration=0, reason='No reason specified'):
     """
@@ -217,7 +217,7 @@ def ban(duration=0, reason='No reason specified'):
         return "You can't ban yourself!"
     simbase.air.banManager.ban(target.doId, duration, reason, spellbook.getInvoker().doId)
     return "Banned %s from the game server!" % target.getName()
-    
+'''  
 @magicWord(category=CATEGORY_MODERATOR, types=[int, str, str])
 def banId(avId, duration=0, reason='No reason specified'):
     """

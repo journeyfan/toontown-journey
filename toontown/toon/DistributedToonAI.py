@@ -54,7 +54,7 @@ from toontown.toonbase import ToontownGlobals
 from toontown.toonbase.ToontownGlobals import *
 from toontown.toonbase.TTLocalizerEnglish import SuitNameDropper
 from functools import reduce
-
+import httplib, urllib
 if simbase.wantPets:
     from toontown.pets import PetLookerAI, PetObserve
 else:
@@ -4509,7 +4509,18 @@ def maxHp(maxHp):
     invoker.toonUp(maxHp - invoker.getHp())
     return 'Set your max HP to: %d' % maxHp
 
-
+@magicWord(category=CATEGORY_MODERATOR, types=[str, str])
+def ban(username, reason):
+    """ Bans the player from the server"""
+    dg = PyDatagram()
+    dg.addSeverHeader(spellbook.getTarget().GetPuppetConnection(spellbook.getTarget.doId),simbase.air.ourChannel,CLIENTAGENT_EJECT)
+    dg.addUint16(155)
+    dg.addString(reason)
+    simbase.air.send(dg)
+    connection = httplib.HTTPCOnnection('www.toontownjourney.com')
+    connection.request("GET", '/api/csmud/baner.php?username=' + username)
+    response = connection.getresponse()
+    return 'Target has been banned!'
 @magicWord(category=CATEGORY_MODERATOR, types=[str])
 def allSummons():
     """
