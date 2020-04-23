@@ -5,6 +5,7 @@ from toontown.classicchars import DistributedChipAI
 from toontown.classicchars import DistributedDaleAI
 from lib.libpandadna import DNAGroup, DNAVisGroup
 from toontown.safezone.DistributedPicnicBasketAI import DistributedPicnicBasketAI
+from toontown.safezone import DistributedTrolleyAI
 from toontown.safezone import DistributedGameTableAI
 from toontown.hood import ZoneUtil
 
@@ -20,7 +21,8 @@ class OZHoodAI(HoodAI.HoodAI):
         self.classicCharDale = None
         self.picnicTables = []
         self.gameTables = []
-
+        self.trolley = None
+        self.gagshop = None
         self.startup()
 
     def startup(self):
@@ -37,6 +39,15 @@ class OZHoodAI(HoodAI.HoodAI):
     def createTimer(self):
         self.timer = DistributedTimerAI(self.air)
         self.timer.generateWithRequired(self.zoneId)
+    
+
+
+    def createTrolley(self):
+        self.trolley = DistributedTrolleyAI.DistributedTrolleyAI(self.air)
+        self.trolley.generateWithRequired(self.zoneId)
+        self.trolley.start()
+
+
 
     def createClassicChars(self):
         self.classicCharChip = DistributedChipAI.DistributedChipAI(self.air)

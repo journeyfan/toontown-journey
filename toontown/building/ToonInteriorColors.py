@@ -39,4 +39,6 @@ colors = {DonaldsDock: {'TI_wainscotting': wainscottingBase,
             'TI_wallpaper_border': wallpaperBorderBase,
             'TI_door': doorBase + [Vec4(0.8, 0.5, 0.3, 1.0)],
             'TI_floor': floorBase},
- MyEstate: baseScheme}
+ MyEstate: baseScheme,
+ 
+ OutdoorZone: baseScheme}
