@@ -5254,9 +5254,9 @@ def trackBonus(trackIndex):
     Modify the invoker's track bonus level.
     """
     invoker = spellbook.getInvoker()
-    if not 0 <= trackIndex < 7:
+    if not 0 <= trackIndex < 8:
         return 'Invalid track index!'
-    trackBonusLevel = [0] * 7
+    trackBonusLevel = [0] * 8
     trackBonusLevel[trackIndex] = 1
     invoker.b_setTrackBonusLevel(trackBonusLevel)
     return 'Your track bonus level has been set!'
