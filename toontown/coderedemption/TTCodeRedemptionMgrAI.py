@@ -74,12 +74,14 @@ class TTCodeRedemptionMgrAI(DistributedObjectAI):
         },
             'twitch': {
                 'items': [
-                    CatalogClothingItem.CatalogClothingItem(1822, 0)
+                    CatalogClothingItem.CatalogClothingItem(1822, 0),
+                    CatalogClothingItem.CatalogClothingItem(1824, 0),
+                    CatalogClothingItem.CatalogClothingItem(1825, 0)
                 ]
             },
             '404': {
                 'items': [
-                    CatalogClothingItem.CatalogCLothingItem(1823, 0)
+                    CatalogClothingItem.CatalogClothingItem(1823, 0)
                 ]
             },
         'sillymeter': {
@@ -140,3 +142,4 @@ class TTCodeRedemptionMgrAI(DistributedObjectAI):
         av.b_setDeliverySchedule(av.onOrder)
         self.sendUpdateToAvatarId(avId, 'redeemCodeResult', [0])
         self.air.writeServerEvent('code-redeemed', avId, 'Toon is being sent %s from redeemed code' % items)
+

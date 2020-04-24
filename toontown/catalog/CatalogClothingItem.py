@@ -292,7 +292,12 @@ ClothingTypes = {101: (ABoysShirt, 'bss1', 40),
  1819: (AGirlsSkirt, 'sa_gs21', 5000),
  1820: (AShirt, 'sa_ss55', 5000),
  1822: (AShirt, 'ts_1', 5000),
- 1823: (AShirt, '404_ts', 5000)}
+ 1823: (AShirt, '404_ts', 5000),
+ 1824: (ABoysShorts, 'twitch_s1', 5000),
+ 1825: (AGirlsShorts, 'twitch_s1', 5000),
+ 1826: (ABoysShorts, '404_s1', 5000),
+ 1827: (AGirlsShorts, '404_s1', 5000),
+ 1828: (AGirlsSkirt, '404_s2', 5000)}
 LoyaltyClothingItems = (1600,
  1601,
  1602,
