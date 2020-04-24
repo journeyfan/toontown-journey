@@ -507,8 +507,8 @@ Sleeves = ['phase_3/maps/desat_sleeve_1.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_saveBuilding4.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_saveBuilding05.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_anniversary.jpg',
- 'phase_5.5/maps/shirts/404_sleeve',
- 'phase_5.5/maps/shirts/twitch_sleeve']
+ 'phase_5.5/maps/shirts/404_sleeve.png',
+ 'phase_5.5/maps/shirts/twitch_sleeve.png']
 BoyShorts = ['phase_3/maps/desat_shorts_1.jpg',
  'phase_3/maps/desat_shorts_2.jpg',
  'phase_3/maps/desat_shorts_4.jpg',
@@ -566,8 +566,8 @@ BoyShorts = ['phase_3/maps/desat_shorts_1.jpg',
  'phase_4/maps/tt_t_chr_avt_shorts_golf05.jpg',
  'phase_4/maps/tt_t_chr_avt_shorts_racing04.jpg',
  'phase_4/maps/tt_t_chr_avt_shorts_racing05.jpg',
- 'phase_5.5/maps/shirts/twitch_shorts',
- 'phase_5.5/maps/shirts/404_shorts']
+ 'phase_5.5/maps/shirts/twitch_shorts.png',
+ 'phase_5.5/maps/shirts/404_shorts.png']
 SHORTS = 0
 SKIRT = 1
 GirlBottoms = [('phase_3/maps/desat_skirt_1.jpg', SKIRT),
@@ -633,8 +633,8 @@ GirlBottoms = [('phase_3/maps/desat_skirt_1.jpg', SKIRT),
  ('phase_4/maps/tt_t_chr_avt_skirt_racing04.jpg', SKIRT),
  ('phase_4/maps/tt_t_chr_avt_skirt_racing05.jpg', SKIRT),
  ('phase_5.5/maps/shirts/twitch_shorts', SHORTS),
- ('phase_5.5/maps/shirts/404_shorts', SHORTS),
- ('phase_5.5/maps/shirts/404_skirt', SKIRT)]
+ ('phase_5.5/maps/shirts/404_shorts.png', SHORTS),
+ ('phase_5.5/maps/shirts/404_skirt.png', SKIRT)]
 ClothesColors = [VBase4(0.933594, 0.265625, 0.28125, 1.0),
  VBase4(0.863281, 0.40625, 0.417969, 1.0),
  VBase4(0.710938, 0.234375, 0.4375, 1.0),
@@ -1235,8 +1235,8 @@ ShirtStyles = {'bss1': [0, 0, [(0, 0),
  'jb_2': [113, 100, [(27, 27)]],
  'ugcms': [117, 104, [(27, 27)]],
  'lb_1': [119, 106, [(27, 27)]],
- 'ts_1': [148, 135, [(27, 27)]],
- '404_ts': [149, 134, [(27, 27)]]}
+ 'ts_1': [148, 136, [(27, 27)]],
+ '404_ts': [149, 135, [(27, 27)]]}
 BottomStyles = {'bbs1': [0, [0,
            1,
            2,
@@ -1663,9 +1663,9 @@ BottomStyles = {'bbs1': [0, [0,
  'hw_gs6': [55, [27]],
  'hw_gs7': [56, [27]],
  'hw_gsk1': [53, [27]],
- 'twitch_s1': [63, [27]],
- '404_s1': [64, [27]],
- '404_s2': [65, [27],]
+ 'twitch_s1': [57, [27]],
+ '404_s1': [58, [27]],
+ '404_s2': [64, [27],]
  }
 MAKE_A_TOON = 1
 TAMMY_TAILOR = 2004
