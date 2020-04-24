@@ -191,7 +191,12 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         self.buffs = []
         self.houseType = 0
         self.canUseUnites = True
+        self.redeemedCodes = []
 
+
+    def setRedeemedCodes(self, redeemedCodes):
+        self.redeemedCodes = redeemedCodes
+        
     def disable(self):
         for soundSequence in self.soundSequenceList:
             soundSequence.finish()

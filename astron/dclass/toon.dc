@@ -639,6 +639,8 @@ dclass DistributedToon : DistributedPlayer {
   setFirstTrackPicked(uint8) required ownrecv db;
   setSecondTrackPicked(uint8) required ownrecv db;
   warnLocalToon(string) ownrecv;
+  setRedeemedCodes(string [] = []) required ownrecv db;
+
 };
 
 dclass DistributedCCharBase : DistributedObject {

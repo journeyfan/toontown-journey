@@ -202,6 +202,7 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
         self._gmDisabled = False
         self.promotionStatus = [0, 0, 0, 0]
         self.buffs = []
+        self.redeemedCodes = []
 
     def generate(self):
         DistributedPlayerAI.DistributedPlayerAI.generate(self)
@@ -577,8 +578,15 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
     def getMaxNPCFriends(self):
         return self.maxNPCFriends
 
-    def b_setRedeemedCodes(self, redeemedCodes):
+    def setRedeemedCodes(self, redeemedCodes):
         self.redeemedCodes = redeemedCodes
+
+    def d_setRedeemedCodes(self, redeemedCodes):
+        self.sendUpdate('setRedeemedCodes', [redeemedCodes])
+
+    def b_setRedeemedCodes(self, redeemedCodes):
+        self.setRedeemedCodes(redeemedCodes)
+        self.d_setRedeemedCodes(redeemedCodes)
 
     def getRedeemedCodes(self, redeemedCodes):
         return self.redeemedCodes
@@ -587,8 +595,14 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
         return code in self.redeemedCodes
 
     def redeemCode(self, code):
-        if not isCodeReedemed(code):
+        if not self.isCodeRedeemed(code):
             self.redeemedCodes.append(code)
+            self.b_setRedeemedCodes(self.redeemedCodes)
+
+    def removeCode(self, code):
+        if self.isCodeRedeemed(code):
+            self.redeemedCodes.remove(code)
+            self.b_setRedeemedCodes(self.redeemedCodes)
             
     def getBattleId(self):
         if self.battleId >= 0:
@@ -2200,6 +2214,90 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
     def getCatalogSchedule(self):
         return (self.catalogScheduleCurrentWeek, self.catalogScheduleNextTime)
 
+    def b_setDeliverySchedule(self, onOrder, doUpdateLater = True):
+        self.setDeliverySchedule(onOrder, doUpdateLater)
+        self.d_setDeliverySchedule(onOrder)
+
+    def d_setDeliverySchedule(self, onOrder):
+        self.sendUpdate('setDeliverySchedule', [onOrder.getBlob(store=CatalogItem.Customization | CatalogItem.DeliveryDate)])
+
+    def addToDeliverySchedule(self, item, minutes=0):
+        if config.GetBool('want-instant-delivery', False):
+            minutes = 0
+
+        item.deliveryDate = int(time.time() / 60. + minutes + .5)
+        self.onOrder.append(item)
+        self.b_setDeliverySchedule(self.onOrder)
+    
+    def setDeliverySchedule(self, onOrder, doUpdateLater = True):
+        self.setBothSchedules(onOrder, None)
+
+    def getDeliverySchedule(self):
+        return self.onOrder.getBlob(store=CatalogItem.Customization | CatalogItem.DeliveryDate)
+        
+    def b_setBothSchedules(self, onOrder, onGiftOrder, doUpdateLater = True):
+        self.setBothSchedules(onOrder, onGiftOrder, doUpdateLater)
+        self.d_setDeliverySchedule(onOrder)
+        self.d_setGiftSchedule(onGiftOrder)
+
+    def setBothSchedules(self, onOrder, onGiftOrder, doUpdateLater = True):
+        if onOrder != None:
+            self.onOrder = CatalogItemList.CatalogItemList(onOrder, store=CatalogItem.Customization | CatalogItem.DeliveryDate)
+        if onGiftOrder != None:
+            self.onGiftOrder = CatalogItemList.CatalogItemList(onGiftOrder, store=CatalogItem.Customization | CatalogItem.DeliveryDate)
+        if not hasattr(self, 'air') or self.air == None:
+            return
+        if doUpdateLater and hasattr(self, 'name'):
+            taskName = 'next-bothDelivery-%s' % self.doId
+            now = int(time.time() / 60 + 0.5)
+            nextItem = None
+            nextGiftItem = None
+            nextTime = None
+            nextGiftTime = None
+            if self.onOrder:
+                nextTime = self.onOrder.getNextDeliveryDate()
+                nextItem = self.onOrder.getNextDeliveryItem()
+            if self.onGiftOrder:
+                nextGiftTime = self.onGiftOrder.getNextDeliveryDate()
+                nextGiftItem = self.onGiftOrder.getNextDeliveryItem()
+            if nextItem:
+                pass
+            if nextGiftItem:
+                pass
+            if nextTime == None:
+                nextTime = nextGiftTime
+            if nextGiftTime == None:
+                nextGiftTime = nextTime
+            if nextGiftTime < nextTime:
+                nextTime = nextGiftTime
+            existingDuration = None
+            checkTaskList = taskMgr.getTasksNamed(taskName)
+            if checkTaskList:
+                currentTime = globalClock.getFrameTime()
+                checkTask = checkTaskList[0]
+                existingDuration = checkTask.wakeTime - currentTime
+            if nextTime:
+                newDuration = max(10.0, nextTime * 60 - time.time())
+                if existingDuration and existingDuration >= newDuration:
+                    taskMgr.remove(taskName)
+                    taskMgr.doMethodLater(newDuration, self.__deliverBothPurchases, taskName)
+                elif existingDuration and existingDuration < newDuration:
+                    pass
+                else:
+                    taskMgr.doMethodLater(newDuration, self.__deliverBothPurchases, taskName)
+        return
+
+    def __deliverBothPurchases(self, task):
+        now = int(time.time() / 60 + 0.5)
+        delivered, remaining = self.onOrder.extractDeliveryItems(now)
+        deliveredGifts, remainingGifts = self.onGiftOrder.extractDeliveryItems(now)
+        giftItem = CatalogItemList.CatalogItemList(deliveredGifts, store=CatalogItem.Customization | CatalogItem.DeliveryDate)
+        if len(giftItem) > 0:
+            self.air.writeServerEvent('Getting Gift', self.doId, 'sender %s receiver %s gift %s' % (giftItem[0].giftTag, self.doId, giftItem[0].getName()))
+        self.b_setMailboxContents(self.mailboxContents + delivered + deliveredGifts)
+        self.b_setCatalogNotify(self.catalogNotify, ToontownGlobals.NewItems)
+        self.b_setBothSchedules(remaining, remainingGifts)
+        return Task.done
     def __deliverCatalog(self, task):
         self.air.catalogManager.deliverCatalogFor(self)
         return Task.done

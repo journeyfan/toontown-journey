@@ -323,8 +323,8 @@ Shirts = ['phase_3/maps/desat_shirt_1.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_saveBuilding4.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_saveBuilding05.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_anniversary.jpg',
- 'phase_5.5/maps/shirts/twitch_shirt',
- 'phase_5.5/maps/shirts/404_shirt']
+ 'phase_5.5/maps/shirts/twitch_shirt.png',
+ 'phase_5.5/maps/shirts/404_shirt.png']
 BoyShirts = [(0, 0),
  (1, 1),
  (2, 2),
@@ -1235,8 +1235,8 @@ ShirtStyles = {'bss1': [0, 0, [(0, 0),
  'jb_2': [113, 100, [(27, 27)]],
  'ugcms': [117, 104, [(27, 27)]],
  'lb_1': [119, 106, [(27, 27)]],
- 'ts_1': [120, 108, [(27, 27)]],
- '404_ts': [121, 107, [(27, 27)]]}
+ 'ts_1': [148, 135, [(27, 27)]],
+ '404_ts': [149, 134, [(27, 27)]]}
 BottomStyles = {'bbs1': [0, [0,
            1,
            2,
