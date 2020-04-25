@@ -7,7 +7,14 @@ from direct.task.Task import Task
 import math
 from direct.directnotify import DirectNotifyGlobal
 from direct.interval.IntervalGlobal import *
-
+bossBarIncrementAmount = 7
+bossBarColors = (Vec4(0, 1, 0, 0.8),
+                Vec4(1, 1, 0, 0.8),
+                Vec4(1, 0.5, 0, 0.8),
+                Vec4(1, 0, 0, 0.8),
+                Vec4(0.3, 0.3, 0.3, 0.8))
+        
+colorThresholds = (0.65, 0.4, 0.2, 0.1, 0.5)
 class BossHealthBar:
     def __init__(self):
 
@@ -21,15 +28,9 @@ class BossHealthBar:
         self.newHealth = 0
         self.maxHealth = 0
         self.healthRatio = 0
+
         self.isUpdating = False
         self.isBlinking = False
-        self.bossBarColors = (Vec4(0, 1, 0, 0.8),
-                              Vec4(1, 1, 0, 0.8),
-                              Vec4(1, 0.5, 0, 0.8),
-                              Vec4(1, 0, 0, 0.8),
-                              Vec4(0.3, 0.3, 0.3, 0.8))
-        
-        self.colorThresholds = (0.65, 0.4, 0.2, 0.1, 0.5)
         return
     
     def start(self, health, maxHealth):
@@ -58,15 +59,15 @@ class BossHealthBar:
     def __checkUpdateColor(self, health, maxHealth):
         if self.bossBar:
             self.healthRatio = float(health) / float(maxHealth)
-        if self.healthRatio > self.colorThresholds[0]:
+        if self.healthRatio > colorThresholds[0]:
             condition = 0
-        elif self.healthRatio > self.colorThresholds[1]:
+        elif self.healthRatio > colorThresholds[1]:
             condition = 1
-        elif self.healthRatio > self.colorThresholds[2]:
+        elif self.healthRatio > colorThresholds[2]:
             condition = 2
-        elif self.healthRatio > self.colorThresholds[3]:
+        elif self.healthRatio > colorThresholds[3]:
             condition = 3
-        elif self.healthRatio > self.colorThresholds[4]:
+        elif self.healthRatio > colorThresholds[4]:
             condition = 4
         else:
             condition = 5
@@ -95,7 +96,7 @@ class BossHealthBar:
 
     def __blinkRed(self, task):
         if self.bossBar:
-            self.bossBar['barColor'] = self.bossBarColors[3]
+            self.bossBar['barColor'] = bossBarColors[3]
             return Task.done
         else:
             taskMgr.remove('bar-blink-task')
@@ -103,30 +104,30 @@ class BossHealthBar:
     def __applyNewColor(self, currentColor):
         if self.bossBar:
             if currentColor != 3 and currentColor !=4 and currentColor !=5:
-                if self.healthRatio > self.colorThresholds[0]:
+                if self.healthRatio > colorThresholds[0]:
                     condition = 0
-                elif self.healthRatio > self.colorThresholds[1]:
+                elif self.healthRatio > colorThresholds[1]:
                     condition = 1
-                elif self.healthRatio > self.colorThresholds[2]:
+                elif self.healthRatio > colorThresholds[2]:
                     condition = 2
                 if condition > 0:
-                    numeratorRatioAmount = self.colorThresholds[condition - 1]
+                    numeratorRatioAmount = colorThresholds[condition - 1]
                 else:
                     numeratorRatioAmount = 1
-                denominatorRatioAmount = self.colorThresholds[condition]
-                numeratorColorAmount = self.bossBarColors[condition]
-                denominatorColorAmount = self.bossBarColors[condition + 1]
+                denominatorRatioAmount = colorThresholds[condition]
+                numeratorColorAmount = bossBarColors[condition]
+                denominatorColorAmount = bossBarColors[condition + 1]
                 currentRatioAmount =numeratorRatioAmount - self.healthRatio
                 totalRatioAmount = numeratorRatioAmount - denominatorRatioAmount
                 ratioRatio = currentRatioAmount / totalRatioAmount
                 differenceColorAmount = denominatorColorAmount - numeratorColorAmount
                 ratioColorToAdd = differenceColorAmount * ratioRatio
-                totalColorAmount = self.bossBarColors[condition] + ratioColorToAdd
+                totalColorAmount = bossBarColors[condition] + ratioColorToAdd
                 self.bossBar['barColor'] = totalColorAmount 
 
     def __blinkGray(self, task):
         if self.bossBar:
-            self.bossBar['barColor'] = self.bossBarColors[4]
+            self.bossBar['barColor'] = bossBarColors[4]
             return Task.done
         else:
             taskMgr.remove('bar-blink-task')
@@ -141,29 +142,29 @@ class BossHealthBar:
             taskMgr.remove('blink-task')
             if self.isBlinking:
                 taskMgr.remove('bar-blink-task')
-            self.healthCondition = 0 
+            self.healthCondition = None
 
     def __smoothUpdate(self, task):
         if self.bossBar:
             if self.currentHealth != self.newHealth:
-                posOrNeg = self.currentHealth = self.newHealth
+                posOrNeg = self.currentHealth - self.newHealth
                 if posOrNeg > 0:
-                    if posOrNeg == 1:
+                    if posOrNeg < bossBarIncrementAmount:
 
-                        self.currentHealth -= 1
+                        self.currentHealth -= posOrNeg
                     else:
-                        self.currentHealth -= 2
+                        self.currentHealth -= bossBarIncrementAmount
                 elif posOrNeg < 0:
-                    if posOrNeg == -1:
+                    if posOrNeg > bossBarIncrementAmount*-1:
 
-                        self.currentHealth += 1
+                        self.currentHealth += posOrNeg
                     else:
-                        self.currentHealth += 2
+                        self.currentHealth += bossBarIncrementAmount
                 
                 self.bossBar['text'] = ('{0} / {1}'.format(str(self.currentHealth), str(self.maxHealth)))
                 self.bossBar['value'] = self.currentHealth
                 self.__checkUpdateColor(self.currentHealth, self.maxHealth)
-            elif self.currentHealth == newHealth:
+            elif self.currentHealth == self.newHealth:
                 self.isUpdating = False
                 taskMgr.remove('bar-smooth-update-task')
             return Task.done
