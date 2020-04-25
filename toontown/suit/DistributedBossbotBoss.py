@@ -668,6 +668,9 @@ class DistributedBossbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
                 toon.takeOffSuit()
 
         self.bossClub.reparentTo(self.rightHandJoint)
+        self.bossHealthBar.start()
+        self.bossHealthBar.update(self.bossMaxDamage, self.bossMaxDamage)
+
         self.generateHealthBar()
         self.updateHealthBar()
         base.playMusic(self.phaseFourMusic, looping=1, volume=0.9)
@@ -688,7 +691,9 @@ class DistributedBossbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
             self.flashRed()
             self.showHpText(-delta, scale=5)
         self.bossDamage = bossDamage
+        self.bossHealthBar.update(self.bossMaxDamage - self.bossDamage, self.bossMaxDamage)
         self.updateHealthBar()
+
 
     def setGolfSpot(self, golfSpot, golfSpotIndex):
         self.golfSpots[golfSpotIndex] = golfSpot

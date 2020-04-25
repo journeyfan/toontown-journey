@@ -22,7 +22,7 @@ from direct.controls.ControlManager import CollisionHandlerRayStart
 from direct.showbase import PythonUtil
 import random
 from toontown.nametag import NametagGlobals
-
+from toontown.coghq import BossHealthBar
 class DistributedBossCog(DistributedAvatar.DistributedAvatar, BossCog.BossCog):
     notify = DirectNotifyGlobal.directNotify.newCategory('DistributedBossCog')
     allowClickedNameTag = True
@@ -117,6 +117,7 @@ class DistributedBossCog(DistributedAvatar.DistributedAvatar, BossCog.BossCog):
         self.bubbleF = self.rotateNode.attachNewNode(bubbleFNode)
         self.bubbleF.setTag('attackCode', str(ToontownGlobals.BossCogFrontAttack))
         self.bubbleF.stash()
+        self.bossHealthBar = BossHealthBar.BossHealthBar()
 
     def disable(self):
         DistributedAvatar.DistributedAvatar.disable(self)
@@ -133,6 +134,7 @@ class DistributedBossCog(DistributedAvatar.DistributedAvatar, BossCog.BossCog):
         self.cleanupFlash()
         self.disableLocalToonSimpleCollisions()
         self.ignoreAll()
+        self.bossHealthBar.cleanup()
         return
 
     def delete(self):

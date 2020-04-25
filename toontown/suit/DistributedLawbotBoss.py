@@ -243,8 +243,10 @@ class DistributedLawbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
                 self.bossDamageMovie.resumeUntil(self.bossDamage * self.bossDamageToMovie)
                 if self.recoverRate:
                     taskMgr.add(self.__recoverBossDamage, taskName)
-        self.makeScaleReflectDamage()
+        self.bossHealthBar.update(self.bossMaxDamage - self.bossDamage, self.bossMaxDamage)
 
+        self.makeScaleReflectDamage()
+        
     def getBossDamage(self):
         self.notify.debug('----- getBossDamage')
         now = globalClock.getFrameTime()
@@ -968,7 +970,7 @@ class DistributedLawbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         #if diffSettings[4]:
             #localAvatar.chatMgr.chatInputSpeedChat.removeCJMenu()
             #localAvatar.chatMgr.chatInputSpeedChat.addCJMenu(self.bonusWeight)
-
+        self.bossHealthBar.start()
     def __doneBattleThree(self):
         self.notify.debug('----- __doneBattleThree')
         self.setState('NearVictory')

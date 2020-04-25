@@ -189,6 +189,8 @@ class DistributedSellbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         self.bossDamage = bossDamage
         self.recoverRate = recoverRate
         self.recoverStartTime = recoverStartTime
+        self.bossHealthBar.update(self.bossMaxDamage - self.bossDamage, self.bossMaxDamage)
+
         taskName = 'RecoverBossDamage'
         taskMgr.remove(taskName)
         if self.bossDamageMovie:
@@ -894,7 +896,8 @@ class DistributedSellbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         self.bossDamageToMovie = self.bossDamageMovie.getDuration() / self.bossMaxDamage
         self.bossDamageMovie.setT(self.bossDamage * self.bossDamageToMovie)
         base.playMusic(self.battleThreeMusic, looping=1, volume=0.9)
-
+        self.bossHealthBar.start()
+        
     def __doneBattleThree(self):
         self.setState('NearVictory')
         self.unstickBoss()
