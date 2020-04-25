@@ -772,7 +772,7 @@ class DistributedCashbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         self.midVault.stash()
         self.__hideResistanceToon()
         localAvatar.setCameraFov(ToontownGlobals.BossBattleCameraFov)
-        self.bossHealthBar.start()
+        self.bossHealthBar.start(self.bossMaxDamage - self.bossDamage, self.bossMaxDamage)
         self.generateHealthBar()
         self.updateHealthBar()
         base.playMusic(self.battleThreeMusic, looping=1, volume=0.9)

@@ -1,6 +1,5 @@
 from toontown.toonbase import TTLocalizer
 from toontown.toonbase.ToontownGlobals import *
-from direct.gui import OnscreenText
 from direct.gui.DirectGui import *
 from panda3d.core import *
 from toontown.suit.Suit import *
@@ -37,7 +36,7 @@ class BossHealthBar:
         self.maxHealth = maxHealth
         self.newHealth = health
         self.currentHealth = health 
-        self.bossBar['text'] = ('{0} / {1}'.format(str(health), str(maxhealth)))
+        self.bossBar['text'] = ('{0} / {1}'.format(str(health), str(maxHealth)))
         self.bossBar['range'] = maxHealth
         self.bossBar['value'] = health
         self.__checkUpdateColor(health, maxHealth)
@@ -48,7 +47,6 @@ class BossHealthBar:
             taskMgr.remove('bar-smooth-update-task')
             self.isUpdating = False
         self.newHealth = health
-        
         if self.newhealth < 0:
             self.newhealth = 0
         if self.maxHealth != 0:

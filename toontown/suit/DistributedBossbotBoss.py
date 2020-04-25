@@ -668,7 +668,7 @@ class DistributedBossbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
                 toon.takeOffSuit()
 
         self.bossClub.reparentTo(self.rightHandJoint)
-        self.bossHealthBar.start()
+        self.bossHealthBar.start(self.bossMaxDamage - self.bossDamage, self.bossMaxDamage)
         self.bossHealthBar.update(self.bossMaxDamage, self.bossMaxDamage)
 
         self.generateHealthBar()

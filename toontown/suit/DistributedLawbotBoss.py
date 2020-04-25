@@ -970,7 +970,7 @@ class DistributedLawbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         #if diffSettings[4]:
             #localAvatar.chatMgr.chatInputSpeedChat.removeCJMenu()
             #localAvatar.chatMgr.chatInputSpeedChat.addCJMenu(self.bonusWeight)
-        self.bossHealthBar.start()
+        self.bossHealthBar.start(self.bossMaxDamage - self.bossDamage, self.bossMaxDamage)
     def __doneBattleThree(self):
         self.notify.debug('----- __doneBattleThree')
         self.setState('NearVictory')
