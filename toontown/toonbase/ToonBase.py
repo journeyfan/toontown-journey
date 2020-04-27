@@ -332,7 +332,7 @@ class ToonBase(OTPBase.OTPBase):
             self.isSprinting = 1
         else:
             if self.isSprinting == 1:
-                self.stopSprint
+                self.stopSprint()
     
     def stopSprint(self):
         if hasattr(base, 'localAvatar'):
