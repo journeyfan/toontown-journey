@@ -544,7 +544,7 @@ dclass DistributedToon : DistributedPlayer {
   setGhostMode(uint8) broadcast ownrecv ram;
   setPosIndex(uint8 = 0) required ownrecv db;
   setFishCollection(uint8[] = [], uint8[] = [], uint16[] = []) required ownrecv db;
-  setMaxFishTank(uint8 = 20) required ownrecv db;
+  setMaxFishTank(uint8 = 10) required ownrecv db;
   setFishTank(uint8[] = [], uint8[] = [], uint16[] = []) required ownrecv db;
   setFishingRod(uint8 = 0) required broadcast ownrecv db;
   setFishingTrophies(uint8[] = []) required ownrecv db;

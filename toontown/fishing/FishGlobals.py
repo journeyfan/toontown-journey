@@ -325,7 +325,12 @@ Anywhere = 1
 TTG = ToontownGlobals
 __fishDict = {
     0: (
-        (1, 3, 1, (Anywhere,)),
+        (
+            1,
+            3,
+            1,
+            (Anywhere,),
+        ),  # agent_angelic (min, max, ??, (location,)) ?? = I'm not sur what this does
         (1, 1, 4, (TTG.ToontownCentral, Anywhere)),
         (3, 5, 5, (TTG.PunchlinePlace, TTG.TheBrrrgh)),
         (3, 5, 3, (TTG.SillyStreet, TTG.DaisyGardens)),
@@ -425,16 +430,16 @@ __fishDict = {
     ),
     34: ((1, 20, 8, (TTG.DonaldsDreamland, Anywhere)),),
     35: (
-        (1, 3, 1, (Anywhere,)),
-        (1, 1, 4, (TTG.ToontownCentral, Anywhere)),
-        (3, 5, 5, (TTG.PunchlinePlace, TTG.TheBrrrgh, Anywhere)),
+        (11, 18, 3, (Anywhere,)),
+        (16, 20, 7, (TTG.DonaldsDock, Anywhere)),
+        (10, 16, 5, (TTG.TheBrrrgh,)),
     ),
     36: (
-        (1, 3, 1, (Anywhere,)),
-        (1, 1, 4, (TTG.ToontownCentral, Anywhere)),
-        (3, 5, 5, (TTG.PunchlinePlace, TTG.TheBrrrgh, Anywhere)),
-        (3, 5, 3, (TTG.SillyStreet, TTG.DaisyGardens)),
-        (1, 5, 2, (TTG.LoopyLane, TTG.ToontownCentral)),
+        (1, 15, 2, (Anywhere,)),
+        (1, 4, 3, (TTG.ToontownCentral, Anywhere,)),
+        (5, 9, 6, (TTG.LighthouseLane, Anywhere,)),
+        (11, 15, 4, (TTG.TenorTerrace, TTG.TheBrrrgh, Anywhere,)),
+        (4, 8, 8, (TTG.MapleStreet, TTG.ToontownCentral, Anywhere)),
     ),
 }
 
