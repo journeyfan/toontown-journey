@@ -251,6 +251,8 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
 
         DistributedAvatarAI.DistributedAvatarAI.sendDeleteEvent(self)
 
+    def d_setSprint(self):
+        self.sendUpdate('setSprint', [])
     def delete(self):
         if self._dbCheckDoLater:
             taskMgr.remove(self._dbCheckDoLater)

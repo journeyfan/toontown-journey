@@ -276,6 +276,9 @@ class ToonBase(OTPBase.OTPBase):
         del tpMgr
         self.lastScreenShotTime = globalClock.getRealTime()
         self.accept('InputState-forward', self.__walking)
+        self.accept('shift', self.startSprint)
+        self.accept('shift-up', self.stopSprint)
+        self.isSprinting = 0
         self.canScreenShot = 1
         self.glitchCount = 0
         self.walking = 0
@@ -320,6 +323,23 @@ class ToonBase(OTPBase.OTPBase):
         OTPBase.OTPBase.windowEvent(self, win)
 
         MarginGlobals.updateMarginVisibles()
+
+    def startSprint(self):
+        if hasattr(base, 'localAvatar'):
+            base.localAvatar.currentSpeed = OTPGlobals.ToonForwardSprintSpeed
+            base.localAvatar.currentReverseSpeed = OTPGlobals.ToonReverseSprintSpeed
+            base.localAvatar.controlManager.setSpeeds(OTPGlobals.ToonForwardSprintSpeed, OTPGlobals.ToonJumpForce, OTPGlobals.ToonReverseSprintSpeed, OTPGlobals.ToonRotateSpeed)
+            self.isSprinting = 1
+        else:
+            if self.isSprinting == 1:
+                self.stopSprint()
+    
+    def stopSprint(self):
+        if hasattr(base, 'localAvatar'):
+            base.localAvatar.currentSpeed = OTPGlobals.ToonForwardSpeed
+            base.localAvatar.currentReverseSpeed = OTPGlobals.ToonReverseSpeed
+            base.localAvatar.controlManager.setSpeeds(OTPGlobals.ToonForwardSpeed, OTPGlobals.ToonJumpForce, OTPGlobals.ToonReverseSpeed, OTPGlobals.ToonRotateSpeed)
+            self.isSprinting = 0
 
     def setCursorAndIcon(self):
         tempdir = tempfile.mkdtemp()
