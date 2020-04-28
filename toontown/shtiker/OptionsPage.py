@@ -889,9 +889,9 @@ class MoreOptionsTabPage(DirectFrame):
                 textStartHeight))
         
         self.musicVolumeLabel = DirectLabel(parent=self, relief=None, text='', text_align = TextNode.ALeft, text_scale = options_text_scale, text_wordwrap=16, pos=(leftMargin, 0, textStartHeight - 0.1))
-        self.musicVolumeSlider = DirectSlider(parent=self,  pos =(0.16, 0, textStartHeight - 0.1), range=(0,100), value=settings['musicVol'] * 100, pageSize=5, command=self.setMusicVolume)
+        self.musicVolumeSlider = DirectSlider(parent=self,  pos =(0.16, 0, textStartHeight - 0.15), range=(0,100), value=settings['musicVol'] * 100, pageSize=5, command=self.setMusicVolume)
         self.sfxVolumeLabel = DirectLabel(parent=self, relief=None, text='', text_align = TextNode.ALeft, text_scale = options_text_scale, text_wordwrap=16, pos=(leftMargin, 0, textStartHeight - 0.3))
-        self.sfxVolumeSlider = DirectSlider(parent=self,  pos =(0.16, 0, textStartHeight - 0.3), range=(0,100), value=settings['sfxVol'] * 100, pageSize=5, command=self.setSfxVolume)
+        self.sfxVolumeSlider = DirectSlider(parent=self,  pos =(0.16, 0, textStartHeight - 0.35), range=(0,100), value=settings['sfxVol'] * 100, pageSize=5, command=self.setSfxVolume)
         self.sfxVolumeSlider.setScale(0.5)
         self.musicVolumeSlider.setScale(0.5)
         self.WASD_toggleButton = DirectButton(
@@ -998,11 +998,11 @@ class MoreOptionsTabPage(DirectFrame):
 
 
     def __setSfxLabel(self):
-        self.sfxVolumeLabel['text'] = 'Sound Effects Volume: ' + str(settings.get('sfxVol'))
+        self.sfxVolumeLabel['text'] = 'Sound Effects Volume: ' + str(round(settings.get('sfxVol'), 2))
 
 
     def __setMusicLabel(self):
-        self.musicVolumeLabel['text'] = 'Music Volume: ' + str(settings.get('musicVol'))
+        self.musicVolumeLabel['text'] = 'Music Volume: ' + str(round(settings.get('musicVol'), 2))
 
 
 
