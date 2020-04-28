@@ -887,6 +887,13 @@ class MoreOptionsTabPage(DirectFrame):
                 leftMargin,
                 0,
                 textStartHeight))
+        
+        self.musicVolumeLabel = DirectLabel(parent=self, relief=None, text='', text_align = TextNode.ALeft, text_scale = options_text_scale, text_wordwrap=16, pos=(leftMargin, 0, textStartHeight - 0.1))
+        self.musicVolumeSlider = DirectSlider(parent=self,  pos =(0.16, 0, textStartHeight - 0.1), range=(0,100), value=settings['musicVol'] * 100, pageSize=5, command=self.setMusicVolume)
+        self.sfxVolumeLabel = DirectLabel(parent=self, relief=None, text='', text_align = TextNode.ALeft, text_scale = options_text_scale, text_wordwrap=16, pos=(leftMargin, 0, textStartHeight - 0.3))
+        self.sfxVolumeSlider = DirectSlider(parent=self,  pos =(0.16, 0, textStartHeight - 0.3), range=(0,100), value=settings['sfxVol'] * 100, pageSize=5, command=self.setSfxVolume)
+        self.sfxVolumeSlider.setScale(0.5)
+        self.musicVolumeSlider.setScale(0.5)
         self.WASD_toggleButton = DirectButton(
             parent=self,
             relief=None,
@@ -923,25 +930,39 @@ class MoreOptionsTabPage(DirectFrame):
                 1.55,
                 1.0,
                 1.0)
+
         gui.removeNode()
         guiButton.removeNode()
+
+
 
     def enter(self):
         self.show()
         self.settingsChanged = 0
         self.__setWASDButton()
+        self.__setMusicLabel()
+        self.__setSfxLabel()
 
     def exit(self):
         self.ignore('confirmDone')
         self.hide()
 
     def unload(self):
-        Self.WASD_Label.destroy()
+        self.WASD_Label.destroy()
         del self.WASD_Label
         self.WASD_toggleButton.destroy()
         del self.WASD_toggleButton
         self.keymapDialogButton.destroy()
         del self.keymapDialogButton
+        self.musicVolumeLabel.destroy()
+        del self.musicVolumeLabel
+        self.musicVolumeSlider.destroy()
+        del self.musicVolumeSlider
+        self.sfxVolumeLabel.destroy()
+        del self.sfxVolumeLabel
+        self.sfxVolumeSlider.destroy()
+        del self.sfxVolumeSlider
+
     
     def __doToggleWASD(self):
         messenger.send('wakeup')
@@ -957,6 +978,33 @@ class MoreOptionsTabPage(DirectFrame):
         base.localAvatar.controlManager.disable()
         self.settingsChanged = 1
         self.__setWASDButton()
+
+    def setMusicVolume(self):
+        self.settingsChanged = 1
+        volume = float(self.musicVolumeSlider['value'] / 100)
+        settings['musicVol'] = volume
+        base.musicManager.setVolume(volume)
+        base.musicActive = volume > 0.0
+        self.__setMusicLabel()
+
+    def setSfxVolume(self):
+        self.settingsChanged = 1
+        volume = float(self.sfxVolumeSlider['value'] / 100)
+        settings['sfxVol'] = volume
+        for sfm in base.sfxManagerList:
+            sfm.setVolume(volume)
+        base.sfxActive = volume > 0.0
+        self.__setSfxLabel()
+
+
+    def __setSfxLabel(self):
+        self.sfxVolumeLabel['text'] = 'Sound Effects Volume: ' + str(settings.get('sfxVol'))
+
+
+    def __setMusicLabel(self):
+        self.musicVolumeLabel['text'] = 'Music Volume: ' + str(settings.get('musicVol'))
+
+
 
     def __setWASDButton(self):
         if base.wantCustomControls:
