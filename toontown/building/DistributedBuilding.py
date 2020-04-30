@@ -642,13 +642,21 @@ class DistributedBuilding(DistributedObject.DistributedObject):
         backgroundNP.setPosHprScale(
             0.0, 0.0, -1.2 + textHeight * 0.8 / zScale, 0.0, 0.0, 0.0, 20.0, 8.0, 8.0 * zScale)
         backgroundNP.node().setEffect(DecalEffect.make())
-        signTextNodePath = backgroundNP.attachNewNode(textNode.generate())
+        backEffect = backgroundNP.find("**/tt_t_ara_cbe_fieldOfficeSign")
+        backEffect.node().setEffect(DecalEffect.make())
+        signTextNodePath = backEffect.attachNewNode(textNode.generate())
         signTextNodePath.setPosHprScale(
             0.0, 0.0, -0.13 + textHeight * 0.1 / zScale, 0.0, 0.0, 0.0, 0.1 * 8.0 / 20.0, 0.1, 0.1 / zScale)
         signTextNodePath.setColor(1.0, 1.0, 1.0, 1.0)
-        frontNP = suitBuildingNP.find('**/*_front/+GeomNode;+s')
-        backgroundNP.wrtReparentTo(frontNP)
-        frontNP.node().setEffect(DecalEffect.make())
+        frontNP = suitBuildingNP.find('**/*_front')
+        if 'LegalEagle' in str(frontNP):
+            frontNP = suitBuildingNP.find('**/*_front/lbfo_door_origin')
+            backgroundNP.wrtReparentTo(frontNP)
+            frontNP.node().setEffect(DecalEffect.make())
+        else:
+            frontNP = suitBuildingNP.find('**/*_front/+GeomNode;+s')
+            backgroundNP.wrtReparentTo(frontNP)
+            frontNP.node().setEffect(DecalEffect.make())
         suitBuildingNP.setName('cb' + str(self.block) + ':_landmark__DNARoot')
         suitBuildingNP.setPosHprScale(
             nodePath, 15.463, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0)
