@@ -2,7 +2,7 @@
 from pandac.PandaModules import *
 
 
-hashVal = 2539680046
+hashVal = 815455578
 
 
 from direct.distributed import DistributedObject, DistributedNode, DistributedSmoothNode, DistributedCartesianGrid, DistributedCamera, DistributedObjectGlobal

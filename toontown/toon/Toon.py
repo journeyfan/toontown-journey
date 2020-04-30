@@ -629,7 +629,7 @@ class Toon(Avatar.Avatar, ToonHead):
         levelTwoIn = base.config.GetInt('lod2-in', 700)
         levelTwoOut = base.config.GetInt('lod2-out', 500)
         levelThreeIn = base.config.GetInt('lod3-in', 1000)
-        levelThreeOut = base.config.GetInt('lod3-out', 7000)
+        levelThreeOut = base.config.GetInt('lod3-out', 700)
         self.addLOD(1000, levelOneIn, levelOneOut)
         self.addLOD(500, levelTwoIn, levelTwoOut)
         self.addLOD(250, levelThreeIn, levelThreeOut)

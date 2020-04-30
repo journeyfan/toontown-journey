@@ -640,6 +640,8 @@ dclass DistributedToon : DistributedPlayer {
   setSecondTrackPicked(uint8) required ownrecv db;
   warnLocalToon(string) ownrecv;
   setRedeemedCodes(string [] = []) required ownrecv db;
+  setSprint() broadcast ownrecv ram;
+  
 
 };
 
