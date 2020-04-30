@@ -544,8 +544,11 @@ class DistributedCogdoInterior(DistributedObject.DistributedObject):
         else:
             if self.FOType == 's':
                 self._movie = CogdoElevatorMovie()
+                print(self._movie)
                 self._movie.load()
+                print(self._movie)
                 self._movie.play()
+                print(self._movie)
         self.__playElevator(ts, self.elevatorName, self.__handleElevatorDone)
         mult = ToontownBattleGlobals.getCreditMultiplier(self.currentFloor)
         base.localAvatar.inventory.setBattleCreditMultiplier(mult)
