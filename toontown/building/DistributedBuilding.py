@@ -507,14 +507,17 @@ class DistributedBuilding(DistributedObject.DistributedObject):
         textHeight = textNode.getHeight()
         zScale = (textHeight + 2) / 3.0
         signOrigin = suitBuildingNP.find('**/sign_origin;+s')
-        backgroundNP = loader.loadModel(
-            'phase_5/models/cogdominium/field_office_sign')
+        if self.track == 121:
+            backgroundNP = loader.loadModel(
+                'phase_5/models/cogdominium/field_office_sign')
+            backgroundNP = backgroundNP.find("**/tt_t_ara_cbe_fieldOfficeSign")
+        else:
+            backgroundNP = loader.loadModel('phase_5/models/modules/suit_sign')
         backgroundNP.reparentTo(signOrigin)
         backgroundNP.setPosHprScale(
             0.0, 0.0, textHeight * 0.8 / zScale, 0.0, 0.0, 0.0, 8.0, 8.0, 8.0 * zScale)
-        backEffect = backgroundNP.find("**/tt_t_ara_cbe_fieldOfficeSign")
-        backEffect.node().setEffect(DecalEffect.make())
-        signTextNodePath = backEffect.attachNewNode(textNode.generate())
+
+        backgroundNP.node().setEffect(DecalEffect.make())
         signTextNodePath = backgroundNP.attachNewNode(textNode.generate())
         signTextNodePath.setPosHprScale(
             0.0, 0.0, -0.21 + textHeight * 0.1 / zScale, 0.0, 0.0, 0.0, 0.1, 0.1, 0.1 / zScale)
