@@ -251,7 +251,7 @@ class DistributedMazeGame(DistributedMinigame):
         model.removeNode()
         self.treasureModel.setScale(1.6)
         self.treasureModel.setP(-90)
-        self.music = base.loadMusic("phase_4/audio/bgm/MG_toontag.ogg")
+        self.music = base.loader.loadMusic("phase_4/audio/bgm/MG_toontag.ogg")
         self.toonHitTracks = {}
         self.scorePanels = []
 
@@ -306,16 +306,16 @@ class DistributedMazeGame(DistributedMinigame):
             "falling": [None] * self.numPlayers,
         }
         for i in range(self.numPlayers):
-            self.sndTable["hitBySuit"][i] = base.loadSfx(
+            self.sndTable["hitBySuit"][i] = base.loader.loadSfx(
                 "phase_4/audio/sfx/MG_Tag_C.ogg"
             )
-            self.sndTable["falling"][i] = base.loadSfx(
+            self.sndTable["falling"][i] = base.loader.loadSfx(
                 "phase_4/audio/sfx/MG_cannon_whizz.ogg"
             )
 
         self.grabSounds = []
         for i in range(5):
-            self.grabSounds.append(base.loadSfx("phase_4/audio/sfx/MG_maze_pickup.ogg"))
+            self.grabSounds.append(base.loader.loadSfx("phase_4/audio/sfx/MG_maze_pickup.ogg"))
 
         self.grabSoundIndex = 0
         for avId in self.avIdList:

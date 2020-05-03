@@ -394,7 +394,7 @@ def loadDialog():
     )
     global DogDialogueArray
     for file in DogDialogueFiles:
-        DogDialogueArray.append(base.loadSfx(loadPath + file + ".ogg"))
+        DogDialogueArray.append(base.loader.loadSfx(loadPath + file + ".ogg"))
 
     catDialogueFiles = (
         "AV_cat_short",
@@ -406,7 +406,7 @@ def loadDialog():
     )
     global CatDialogueArray
     for file in catDialogueFiles:
-        CatDialogueArray.append(base.loadSfx(loadPath + file + ".ogg"))
+        CatDialogueArray.append(base.loader.loadSfx(loadPath + file + ".ogg"))
 
     horseDialogueFiles = (
         "AV_horse_short",
@@ -418,7 +418,7 @@ def loadDialog():
     )
     global HorseDialogueArray
     for file in horseDialogueFiles:
-        HorseDialogueArray.append(base.loadSfx(loadPath + file + ".ogg"))
+        HorseDialogueArray.append(base.loader.loadSfx(loadPath + file + ".ogg"))
 
     rabbitDialogueFiles = (
         "AV_rabbit_short",
@@ -430,7 +430,7 @@ def loadDialog():
     )
     global RabbitDialogueArray
     for file in rabbitDialogueFiles:
-        RabbitDialogueArray.append(base.loadSfx(loadPath + file + ".ogg"))
+        RabbitDialogueArray.append(base.loader.loadSfx(loadPath + file + ".ogg"))
 
     mouseDialogueFiles = (
         "AV_mouse_short",
@@ -442,7 +442,7 @@ def loadDialog():
     )
     global MouseDialogueArray
     for file in mouseDialogueFiles:
-        MouseDialogueArray.append(base.loadSfx(loadPath + file + ".ogg"))
+        MouseDialogueArray.append(base.loader.loadSfx(loadPath + file + ".ogg"))
 
     duckDialogueFiles = (
         "AV_duck_short",
@@ -454,7 +454,7 @@ def loadDialog():
     )
     global DuckDialogueArray
     for file in duckDialogueFiles:
-        DuckDialogueArray.append(base.loadSfx(loadPath + file + ".ogg"))
+        DuckDialogueArray.append(base.loader.loadSfx(loadPath + file + ".ogg"))
 
     monkeyDialogueFiles = (
         "AV_monkey_short",
@@ -466,7 +466,7 @@ def loadDialog():
     )
     global MonkeyDialogueArray
     for file in monkeyDialogueFiles:
-        MonkeyDialogueArray.append(base.loadSfx(loadPath + file + ".ogg"))
+        MonkeyDialogueArray.append(base.loader.loadSfx(loadPath + file + ".ogg"))
 
     bearDialogueFiles = (
         "AV_bear_short",
@@ -478,7 +478,7 @@ def loadDialog():
     )
     global BearDialogueArray
     for file in bearDialogueFiles:
-        BearDialogueArray.append(base.loadSfx(loadPath + file + ".ogg"))
+        BearDialogueArray.append(base.loader.loadSfx(loadPath + file + ".ogg"))
 
     pigDialogueFiles = (
         "AV_pig_short",
@@ -490,7 +490,7 @@ def loadDialog():
     )
     global PigDialogueArray
     for file in pigDialogueFiles:
-        PigDialogueArray.append(base.loadSfx(loadPath + file + ".ogg"))
+        PigDialogueArray.append(base.loader.loadSfx(loadPath + file + ".ogg"))
     cogDialogueFiles = (
         "COG_VO_grunt",
         "COG_VO_murmur",
@@ -579,7 +579,7 @@ class Toon(Avatar.Avatar, ToonHead):
         self.jar = None
         self.setTag("pieCode", str(ToontownGlobals.PieCodeToon))
         self.setFont(ToontownGlobals.getToonFont())
-        self.soundChatBubble = base.loadSfx("phase_3/audio/sfx/GUI_balloon_popup.ogg")
+        self.soundChatBubble = base.loader.loadSfx("phase_3/audio/sfx/GUI_balloon_popup.ogg")
         self.animFSM = ClassicFSM(
             "Toon",
             [
@@ -1979,7 +1979,7 @@ class Toon(Avatar.Avatar, ToonHead):
 
     def getSoundTeleport(self):
         if not self.soundTeleport:
-            self.soundTeleport = base.loadSfx("phase_3.5/audio/sfx/AV_teleport.ogg")
+            self.soundTeleport = base.loader.loadSfx("phase_3.5/audio/sfx/AV_teleport.ogg")
         return self.soundTeleport
 
     def getTeleportOutTrack(self, autoFinishTrack=1):

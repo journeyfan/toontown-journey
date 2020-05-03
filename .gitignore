@@ -5,11 +5,17 @@
 .project
 .pydevproject
 
+# Visual Studio
+.vs
+
 # PyCharm
 .idea
 
 # Mac directory info:
 .DS_Store
+
+# Windows directory info:
+Thumbs.db
 
 # Game-specific files and directories:
 preferences.json
