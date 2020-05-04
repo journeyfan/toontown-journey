@@ -216,6 +216,7 @@ class OptionsPage(ShtikerPage.ShtikerPage):
             self.codesTabPage.exit()
             self.moreOptionsTab['state'] = DGG.NORMAL
             self.moreOptionsTabPage.exit()
+
         elif mode == PageMode.Codes:
             self.title['text'] = TTLocalizer.CdrPageTitle
             self.optionsTab['state'] = DGG.NORMAL
@@ -270,15 +271,21 @@ class OptionsTabPage(DirectFrame):
         textRowHeight = 0.145
         textStartHeight = 0.45
         self.Music_Label = OptionLabel(parent=self)
-        self.SoundFX_Label = OptionLabel(parent=self, z=textStartHeight - textRowHeight)
-        self.Friends_Label = OptionLabel(parent=self, z=textStartHeight - 3 * textRowHeight)
-        self.Whispers_Label = OptionLabel(parent=self, z=textStartHeight - 4 * textRowHeight)
-        self.DisplaySettings_Label = OptionLabel(parent=self, text_wordwrap=10, z=textStartHeight - 5 * textRowHeight)
+        self.SoundFX_Label = OptionLabel(
+            parent=self, z=textStartHeight - textRowHeight)
+        self.Friends_Label = OptionLabel(
+            parent=self, z=textStartHeight - 3 * textRowHeight)
+        self.Whispers_Label = OptionLabel(
+            parent=self, z=textStartHeight - 4 * textRowHeight)
+        self.DisplaySettings_Label = OptionLabel(
+            parent=self, text_wordwrap=10, z=textStartHeight - 5 * textRowHeight)
         self.SpeedChatStyle_Label = OptionLabel(parent=self, text=TTLocalizer.OptionsPageSpeedChatStyleLabel,
                                                 text_wordwrap=10, z=textStartHeight - 6 * textRowHeight)
-        self.ToonChatSounds_Label = OptionLabel(parent=self, z=textStartHeight - 2 * textRowHeight + 0.025)
+        self.ToonChatSounds_Label = OptionLabel(
+            parent=self, z=textStartHeight - 2 * textRowHeight + 0.025)
         self.ToonChatSounds_Label.setScale(0.9)
-        self.Music_toggleButton = OptionButton(parent=self, command=self.__doToggleMusic)
+        self.Music_toggleButton = OptionButton(
+            parent=self, command=self.__doToggleMusic)
         self.SoundFX_toggleButton = OptionButton(parent=self, z=buttonbase_ycoord - textRowHeight,
                                                  command=self.__doToggleSfx)
         self.Friends_toggleButton = OptionButton(parent=self, z=buttonbase_ycoord - textRowHeight * 3,
@@ -337,14 +344,15 @@ class OptionsTabPage(DirectFrame):
                                                         command=self.__doToggleToonChatSounds)
         self.ToonChatSounds_toggleButton.setScale(0.8)
         self.speedChatStyleText = SpeedChat.SpeedChat(name='OptionsPageStyleText',
-            structure=[2000],
-            backgroundModelName='phase_3/models/gui/ChatPanel',
-            guiModelName='phase_3.5/models/gui/speedChatGui')
+                                                      structure=[2000],
+                                                      backgroundModelName='phase_3/models/gui/ChatPanel',
+                                                      guiModelName='phase_3.5/models/gui/speedChatGui')
         self.speedChatStyleText.setScale(self.speed_chat_scale)
-        self.speedChatStyleText.setPos(0.37, 0, buttonbase_ycoord - textRowHeight * 6 + 0.03)
+        self.speedChatStyleText.setPos(
+            0.37, 0, buttonbase_ycoord - textRowHeight * 6 + 0.03)
         self.speedChatStyleText.reparentTo(self, DGG.FOREGROUND_SORT_INDEX)
         self.exitButton = OptionButton(parent=self, image_scale=1.15, text=TTLocalizer.OptionsPageExitToontown,
-                                       pos=(0.45, 0, -0.6), command=self.__handleExitShowWithConfirm)
+                                       text_scale=0.045, pos=(0.45, 0, -0.6), command=self.__handleExitShowWithConfirm)
         gui.removeNode()
 
     def enter(self):
@@ -486,7 +494,8 @@ class OptionsTabPage(DirectFrame):
 
     def __doToggleAcceptWhispers(self):
         messenger.send('wakeup')
-        acceptingNonFriendWhispers = settings.get('acceptingNonFriendWhispers', {})
+        acceptingNonFriendWhispers = settings.get(
+            'acceptingNonFriendWhispers', {})
         if base.localAvatar.acceptingNonFriendWhispers:
             base.localAvatar.acceptingNonFriendWhispers = 0
             acceptingNonFriendWhispers[str(base.localAvatar.doId)] = False
@@ -517,15 +526,18 @@ class OptionsTabPage(DirectFrame):
         if self.displaySettings is None:
             self.displaySettings = DisplaySettingsDialog.DisplaySettingsDialog()
             self.displaySettings.load()
-            self.accept(self.displaySettings.doneEvent, self.__doneDisplaySettings)
-        self.displaySettings.enter(self.ChangeDisplaySettings, self.ChangeDisplayAPI)
+            self.accept(self.displaySettings.doneEvent,
+                        self.__doneDisplaySettings)
+        self.displaySettings.enter(
+            self.ChangeDisplaySettings, self.ChangeDisplayAPI)
 
     def __doneDisplaySettings(self, anyChanged, apiChanged):
         if anyChanged:
             self.__setDisplaySettings()
             properties = base.win.getProperties()
             self.displaySettingsChanged = 1
-            self.displaySettingsSize = (properties.getXSize(), properties.getYSize())
+            self.displaySettingsSize = (
+                properties.getXSize(), properties.getYSize())
             self.displaySettingsFullscreen = properties.getFullscreen()
             self.displaySettingsApi = base.pipe.getInterfaceName()
             self.displaySettingsApiChanged = apiChanged
@@ -533,7 +545,8 @@ class OptionsTabPage(DirectFrame):
     def __setDisplaySettings(self):
         properties = base.win.getProperties()
         if properties.getFullscreen():
-            screensize = '%s x %s' % (properties.getXSize(), properties.getYSize())
+            screensize = '%s x %s' % (
+                properties.getXSize(), properties.getYSize())
         else:
             screensize = TTLocalizer.OptionsPageDisplayWindowed
         api = base.pipe.getInterfaceName()
@@ -589,7 +602,8 @@ class OptionsTabPage(DirectFrame):
         if not self.displaySettingsChanged:
             return
         taskMgr.remove(self.DisplaySettingsTaskName)
-        settings['res'] = (self.displaySettingsSize[0], self.displaySettingsSize[1])
+        settings['res'] = (self.displaySettingsSize[0],
+                           self.displaySettingsSize[1])
         settings['fullscreen'] = self.displaySettingsFullscreen
         return Task.done
 
@@ -631,15 +645,21 @@ class CodesTabPage(DirectFrame):
         return
 
     def load(self):
-        cdrGui = loader.loadModel('phase_3.5/models/gui/tt_m_gui_sbk_codeRedemptionGui')
+        cdrGui = loader.loadModel(
+            'phase_3.5/models/gui/tt_m_gui_sbk_codeRedemptionGui')
         instructionGui = cdrGui.find('**/tt_t_gui_sbk_cdrPresent')
         flippyGui = cdrGui.find('**/tt_t_gui_sbk_cdrFlippy')
         codeBoxGui = cdrGui.find('**/tt_t_gui_sbk_cdrCodeBox')
-        self.resultPanelSuccessGui = cdrGui.find('**/tt_t_gui_sbk_cdrResultPanel_success')
-        self.resultPanelFailureGui = cdrGui.find('**/tt_t_gui_sbk_cdrResultPanel_failure')
-        self.resultPanelErrorGui = cdrGui.find('**/tt_t_gui_sbk_cdrResultPanel_error')
-        self.successSfx = base.loadSfx('phase_3.5/audio/sfx/tt_s_gui_sbk_cdrSuccess.ogg')
-        self.failureSfx = base.loadSfx('phase_3.5/audio/sfx/tt_s_gui_sbk_cdrFailure.ogg')
+        self.resultPanelSuccessGui = cdrGui.find(
+            '**/tt_t_gui_sbk_cdrResultPanel_success')
+        self.resultPanelFailureGui = cdrGui.find(
+            '**/tt_t_gui_sbk_cdrResultPanel_failure')
+        self.resultPanelErrorGui = cdrGui.find(
+            '**/tt_t_gui_sbk_cdrResultPanel_error')
+        self.successSfx = base.loader.loadSfx(
+            'phase_3.5/audio/sfx/tt_s_gui_sbk_cdrSuccess.ogg')
+        self.failureSfx = base.loader.loadSfx(
+            'phase_3.5/audio/sfx/tt_s_gui_sbk_cdrFailure.ogg')
         self.instructionPanel = DirectFrame(parent=self,
                                             relief=None,
                                             image=instructionGui,
@@ -652,7 +672,8 @@ class CodesTabPage(DirectFrame):
                                             pos=(-0.429,
                                                  0,
                                                  -0.05))
-        self.codeBox = DirectFrame(parent=self, relief=None, image=codeBoxGui, pos=(0.433, 0, 0.35))
+        self.codeBox = DirectFrame(
+            parent=self, relief=None, image=codeBoxGui, pos=(0.433, 0, 0.35))
         self.flippyFrame = DirectFrame(
             parent=self, relief=None, image=flippyGui, pos=(
                 0.44, 0, -0.353))
@@ -734,7 +755,8 @@ class CodesTabPage(DirectFrame):
                                             0,
                                             -0.0567))
         self.resultPanel.hide()
-        closeButtonGui = loader.loadModel('phase_3/models/gui/dialog_box_buttons_gui')
+        closeButtonGui = loader.loadModel(
+            'phase_3/models/gui/dialog_box_buttons_gui')
         self.closeButton = DirectButton(
             parent=self.resultPanel,
             pos=(
@@ -875,7 +897,7 @@ class MoreOptionsTabPage(DirectFrame):
         options_text_scale = 0.052
         disabled_arrow_color = Vec4(0.6, 0.6, 0.6, 1.0)
         self.speed_chat_scale = 0.055
-        
+
         self.WASD_Label = DirectLabel(
             parent=self,
             relief=None,
@@ -887,6 +909,13 @@ class MoreOptionsTabPage(DirectFrame):
                 leftMargin,
                 0,
                 textStartHeight))
+        
+        self.musicVolumeLabel = DirectLabel(parent=self, relief=None, text='', text_align = TextNode.ALeft, text_scale = options_text_scale, text_wordwrap=16, pos=(leftMargin, 0, textStartHeight - 0.1))
+        self.musicVolumeSlider = DirectSlider(parent=self,  pos =(0.16, 0, textStartHeight - 0.15), range=(0,100), value=settings['musicVol'] * 100, pageSize=5, command=self.setMusicVolume)
+        self.sfxVolumeLabel = DirectLabel(parent=self, relief=None, text='', text_align = TextNode.ALeft, text_scale = options_text_scale, text_wordwrap=16, pos=(leftMargin, 0, textStartHeight - 0.3))
+        self.sfxVolumeSlider = DirectSlider(parent=self,  pos =(0.16, 0, textStartHeight - 0.35), range=(0,100), value=settings['sfxVol'] * 100, pageSize=5, command=self.setSfxVolume)
+        self.sfxVolumeSlider.setScale(0.5)
+        self.musicVolumeSlider.setScale(0.5)
         self.WASD_toggleButton = DirectButton(
             parent=self,
             relief=None,
@@ -920,34 +949,46 @@ class MoreOptionsTabPage(DirectFrame):
                 buttonbase_ycoord),
             command=self.__openKeyRemapDialog)
         self.keymapDialogButton.setScale(
-                1.55,
-                1.0,
-                1.0)
+            1.55,
+            1.0,
+            1.0)
         gui.removeNode()
         guiButton.removeNode()
+
+
 
     def enter(self):
         self.show()
         self.settingsChanged = 0
         self.__setWASDButton()
+        self.__setMusicLabel()
+        self.__setSfxLabel()
 
     def exit(self):
         self.ignore('confirmDone')
         self.hide()
 
     def unload(self):
-        Self.WASD_Label.destroy()
+        self.WASD_Label.destroy()
         del self.WASD_Label
         self.WASD_toggleButton.destroy()
         del self.WASD_toggleButton
         self.keymapDialogButton.destroy()
         del self.keymapDialogButton
-    
+        self.musicVolumeLabel.destroy()
+        del self.musicVolumeLabel
+        self.musicVolumeSlider.destroy()
+        del self.musicVolumeSlider
+        self.sfxVolumeLabel.destroy()
+        del self.sfxVolumeLabel
+        self.sfxVolumeSlider.destroy()
+        del self.sfxVolumeSlider
+
     def __doToggleWASD(self):
         messenger.send('wakeup')
         if base.wantCustomControls:
-           base.wantCustomControls = False
-           settings['want-Custom-Controls'] = False
+            base.wantCustomControls = False
+            settings['want-Custom-Controls'] = False
         else:
             base.wantCustomControls = True
             settings['want-Custom-Controls'] = True
@@ -958,6 +999,33 @@ class MoreOptionsTabPage(DirectFrame):
         self.settingsChanged = 1
         self.__setWASDButton()
 
+    def setMusicVolume(self):
+        self.settingsChanged = 1
+        volume = float(self.musicVolumeSlider['value'] / 100)
+        settings['musicVol'] = volume
+        base.musicManager.setVolume(volume)
+        base.musicActive = volume > 0.0
+        self.__setMusicLabel()
+
+    def setSfxVolume(self):
+        self.settingsChanged = 1
+        volume = float(self.sfxVolumeSlider['value'] / 100)
+        settings['sfxVol'] = volume
+        for sfm in base.sfxManagerList:
+            sfm.setVolume(volume)
+        base.sfxActive = volume > 0.0
+        self.__setSfxLabel()
+
+
+    def __setSfxLabel(self):
+        self.sfxVolumeLabel['text'] = 'Sound Effects Volume: ' + str(round(settings.get('sfxVol'), 2))
+
+
+    def __setMusicLabel(self):
+        self.musicVolumeLabel['text'] = 'Music Volume: ' + str(round(settings.get('musicVol'), 2))
+
+
+
     def __setWASDButton(self):
         if base.wantCustomControls:
             self.WASD_Label['text'] = 'Custom Keymapping is on.'
@@ -967,7 +1035,7 @@ class MoreOptionsTabPage(DirectFrame):
             self.WASD_Label['text'] = 'Custom Keymapping is off.'
             self.WASD_toggleButton['text'] = TTLocalizer.OptionsPageToggleOn
             self.keymapDialogButton.hide()
-    
+
     def __openKeyRemapDialog(self):
         if base.wantCustomControls:
             self.controlDialog = ControlRemapDialog.ControlRemap()

@@ -891,7 +891,7 @@ class CogdoFlyingLocalPlayer(CogdoFlyingPlayer):
     def exitRunning(self):
         CogdoFlyingLocalPlayer.notify.debug("exit%s: '%s' -> '%s'" % (self.oldState, self.oldState, self.newState))
         self.orthoWalk.stop()
-        self.ignore(base.jump)
+        self.ignore(base.JUMP)
         self.ignore('lcontrol')
 
     def enterOutOfTime(self):

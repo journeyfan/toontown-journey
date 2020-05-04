@@ -72,18 +72,18 @@ class TTCodeRedemptionMgrAI(DistributedObjectAI):
                 CatalogClothingItem.CatalogClothingItem(1821, 0)
             ]
         },
-            'twitch': {
-                'items': [
-                    CatalogClothingItem.CatalogClothingItem(1822, 0),
-                    CatalogClothingItem.CatalogClothingItem(1824, 0),
-                    CatalogClothingItem.CatalogClothingItem(1825, 0)
-                ]
-            },
-            '404': {
-                'items': [
-                    CatalogClothingItem.CatalogClothingItem(1823, 0)
-                ]
-            },
+        'twitch': {
+            'items': [
+                CatalogClothingItem.CatalogClothingItem(1822, 0),
+                CatalogClothingItem.CatalogClothingItem(1824, 0),
+                CatalogClothingItem.CatalogClothingItem(1825, 0)
+            ]
+        },
+        '404': {
+            'items': [
+                CatalogClothingItem.CatalogClothingItem(1823, 0)
+            ]
+        },
         'sillymeter': {
             'items': [
                 CatalogClothingItem.CatalogClothingItem(1753, 0)
