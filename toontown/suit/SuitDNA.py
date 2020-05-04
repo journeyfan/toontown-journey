@@ -64,6 +64,7 @@ suitATypes = ['ym',
  'm',
  'mh',
  ##Adding new Security Cogs
+ 'wm',
  'bg',
  'w']
 suitBTypes = ['p',
@@ -88,7 +89,6 @@ suitCTypes = ['f',
  'cc',
  'gh',
   ##Adding new Security Cogs
- 'wm',
  'bnc',
  'mc',
  'ssa']
