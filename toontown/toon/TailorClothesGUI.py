@@ -18,10 +18,10 @@ class TailorClothesGUI(ClothesGUI.ClothesGUI):
             self.bottoms = ToonDNA.getBottoms(gender, tailorId=self.tailorId)
             self.gender = gender
             self.topChoice = -1
-            #self.topStyleChoice = -1
-            #self.topColorChoice = -1
+            self.topStyleChoice = -1
+            self.topColorChoice = -1
             self.bottomChoice = -1
-            #self.bottomStyleChoice = -1            
-            #self.bottomColorChoice = -1
+            self.bottomStyleChoice = -1
+            self.bottomColorChoice = -1
         self.setupButtons()
         return

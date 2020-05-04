@@ -7424,8 +7424,14 @@ ColorShopLegs = "Legs"
 ColorShopParts = "Multi Color"
 ColorShopAll = "Single Color"
 ClothesShopShorts = "Shorts"
+ClothesShopShortStyles = "Shorts Style"
+ClothesShopShortColors = "Shorts Color"
 ClothesShopShirt = "Shirts"
+ClothesShopShirtStyle = "Shirt Style"
+ClothesShopShirtColor = "Shirt Color"
 ClothesShopBottoms = "Bottoms"
+ClothesShopBottomsStyle = "Bottom Style"
+ClothesShopBottomsColor = "Bottom Color"
 PromptTutorial = "Congratulations!!\nYou are Toontown Journey's newest Trooper!\n\nWould you like to continue to the Toontorial or teleport directly to Toontown Central?"
 MakeAToonSkipTutorial = "Skip Toontorial"
 MakeAToonEnterTutorial = "Enter Toontorial"
@@ -9239,7 +9245,6 @@ CatalogPastButtonText = "To Past Items"
 TutorialHQOfficerName = "HQ Harry"
 NPCToonNames = {
     20000: "Tutorial Tom",
-    998: "Tom",
     999: "Toon Tailor",
     1000: lToonHQ,
     20001: Flippy,
@@ -9899,6 +9904,7 @@ NPCToonNames = {
     7008: "Ima Cagedtoon",
     7009: "Jimmy Thelock",
     # Start with 91913.
+    91913: "Tom",
     91917: "Knight Racer",
     91918: "Buster",
 }

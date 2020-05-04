@@ -134,7 +134,7 @@ class ClosetGUI(ClothesGUI.ClothesGUI):
         self.bottomChoice += offset
         if self.bottomChoice <= 0:
             self.bottomChoice = 0
-        self.updateScrollButtons(self.bottomChoice, length, 0, self.bottomLButton, self.bottomRButton)
+        self.updateFrame(self.bottomChoice, length, self.bottomFrame)
         if self.bottomChoice < 0 or self.bottomChoice >= len(self.bottoms) or len(self.bottoms[self.bottomChoice]) != 2:
             self.notify.warning('bottomChoice index is out of range!')
             return None
