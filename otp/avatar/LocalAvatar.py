@@ -138,7 +138,7 @@ class LocalAvatar(DistributedAvatar.DistributedAvatar, DistributedSmoothNode.Dis
         self.stopUpdateSmartCamera()
         self.shutdownSmartCamera()
         self.deleteCollisions()
-#        self.controlManager.delete()  # While normally a good idea, latest PD3d has a bug
+        self.controlManager.delete()
         self.physControls = None
         del self.controlManager
         self.positionExaminer.delete()
