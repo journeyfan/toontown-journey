@@ -10,6 +10,7 @@ import re
 import sys
 import token
 import tokenize
+import io
 
 from . import BlinkingArrows
 from otp.speedchat import SpeedChatGlobals
@@ -22,6 +23,7 @@ from toontown.suit import SuitDNA
 from toontown.toon import ToonHeadFrame
 from toontown.toonbase import TTLocalizer
 from toontown.toonbase import ToontownBattleGlobals
+from . import QuestScripts
 
 
 notify = DirectNotifyGlobal.directNotify.newCategory("QuestParser")
@@ -58,14 +60,14 @@ def clear():
     globalVarDict.clear()
 
 
-def readFile(filename):
+def readFile():
     global curId
-    scriptFile = StreamReader(vfs.openReadFile(filename, 1), 1)
+    scriptFile = io.StringIO(QuestScripts.SCRIPT)
 
     def readline():
-        return scriptFile.readline().replace(b"\r", b"")
+        return scriptFile.readline().replace("\r", "")
 
-    gen = tokenize.tokenize(readline)
+    gen = tokenize.generate_tokens(readline)
     line = getLineOfTokens(gen)
     while line is not None:
         if line == []:
@@ -78,7 +80,6 @@ def readFile(filename):
         else:
             lineDict[curId].append(line)
         line = getLineOfTokens(gen)
-
     return
 
 
@@ -100,7 +101,7 @@ def getLineOfTokens(gen):
             if re.match(FLOAT, token[1]):
                 number = float(token[1])
             else:
-                number = float(token[1])
+                number = int(token[1])
             if nextNeg:
                 tokens.append(-number)
                 nextNeg = 0
@@ -113,9 +114,7 @@ def getLineOfTokens(gen):
         else:
             notify.warning(
                 "Ignored token type: %s on line: %s"
-                % (tokenize.tok_name[token[0]], token[2][0])
-            )
-
+                % (tokenize.tok_name[token[0]], token[2][0]))
         try:
             token = next(gen)
         except StopIteration:
@@ -1260,13 +1259,4 @@ class NPCMoviePlayer(DirectObject.DirectObject):
         else:
             return Wait(0.0)
 
-
-searchPath = DSearchPath()
-if __debug__:
-    searchPath.appendDirectory(Filename("../resources/phase_3/etc"))
-searchPath.appendDirectory(Filename("/phase_3/etc"))
-scriptFile = Filename("QuestScripts.txt")
-found = vfs.resolveFilename(scriptFile, searchPath)
-if not found:
-    notify.error("Could not find QuestScripts.txt file")
-readFile(scriptFile)
+readFile()
