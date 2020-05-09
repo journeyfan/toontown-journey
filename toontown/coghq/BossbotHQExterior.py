@@ -7,7 +7,7 @@ from toontown.battle import BattlePlace
 from toontown.building import Elevator
 from toontown.coghq import CogHQExterior
 from toontown.dna.DNAParser import loadDNAFileAI
-from lib.libpandadna import DNAStorage
+from libpandadna import DNAStorage
 from toontown.hood import ZoneUtil
 from toontown.toonbase import ToontownGlobals
 

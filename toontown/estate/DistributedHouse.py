@@ -19,7 +19,7 @@ from toontown.hood import Place
 from . import HouseGlobals
 from toontown.building import ToonInteriorColors
 from direct.showbase.MessengerGlobal import messenger
-from lib.libpandadna import DNADoor
+from libpandadna import DNADoor
 from toontown.nametag.NametagGroup import NametagGroup
 from toontown.nametag.Nametag import Nametag
 

@@ -7,7 +7,7 @@ from toontown.catalog.CatalogMouldingItem import CatalogMouldingItem
 from toontown.catalog.CatalogFlooringItem import CatalogFlooringItem
 from toontown.catalog.CatalogWainscotingItem import CatalogWainscotingItem
 from .DNAFurnitureReaderAI import DNAFurnitureReaderAI
-from lib.libpandadna import DNAStorage
+from libpandadna import DNAStorage
 from toontown.dna.DNAParser import *
 from . import HouseGlobals
 import random

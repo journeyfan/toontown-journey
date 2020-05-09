@@ -26,7 +26,7 @@ from toontown.hood import PartyHood
 from toontown.toonbase import TTLocalizer
 from toontown.parties.PartyGlobals import GoToPartyStatus
 from toontown.dna.DNAParser import *
-from lib.libpandadna import DNAStorage
+from libpandadna import DNAStorage
 
 class PlayGame(StateData.StateData):
     notify = DirectNotifyGlobal.directNotify.newCategory('PlayGame')

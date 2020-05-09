@@ -3,7 +3,7 @@ from direct.directnotify.DirectNotifyGlobal import *
 from toontown.hood import ZoneUtil
 from toontown.toonbase import ToontownGlobals
 from toontown.building import SuitBuildingGlobals
-from lib.libpandadna import DNASuitPoint, DNAStorage, loadDNAFileAI
+from libpandadna import DNASuitPoint, DNAStorage, loadDNAFileAI
 
 class SuitPlannerBase:
     notify = directNotify.newCategory('SuitPlannerBase')

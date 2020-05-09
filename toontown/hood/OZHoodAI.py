@@ -3,7 +3,7 @@ from toontown.toonbase import ToontownGlobals
 from toontown.distributed.DistributedTimerAI import DistributedTimerAI
 from toontown.classicchars import DistributedChipAI
 from toontown.classicchars import DistributedDaleAI
-from lib.libpandadna import DNAGroup, DNAVisGroup
+from libpandadna import DNAGroup, DNAVisGroup
 from toontown.safezone.DistributedPicnicBasketAI import DistributedPicnicBasketAI
 from toontown.safezone import DistributedTrolleyAI
 from toontown.safezone import DistributedGameTableAI
