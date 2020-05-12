@@ -222,6 +222,7 @@ class DistributedCashbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         planeNode.addSolid(plane)
         planeNode.setCollideMask(ToontownGlobals.PieBitmask)
         self.geom.attachNewNode(planeNode)
+        self.battleThreeMusic = base.loader.loadMusic('phase_9/audio/bgm/encntr_cfo.mp3')
         self.geom.reparentTo(render)
 
     def unloadEnvironment(self):

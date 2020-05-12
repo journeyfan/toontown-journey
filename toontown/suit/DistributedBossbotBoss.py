@@ -670,7 +670,6 @@ class DistributedBossbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         self.bossClub.reparentTo(self.rightHandJoint)
         self.bossHealthBar.start(self.bossMaxDamage - self.bossDamage, self.bossMaxDamage)
         self.bossHealthBar.update(self.bossMaxDamage, self.bossMaxDamage)
-
         self.generateHealthBar()
         self.updateHealthBar()
         base.playMusic(self.phaseFourMusic, looping=1, volume=0.9)

@@ -28,7 +28,7 @@ class TownLoader(StateData.StateData):
     zone2music = {
         ToontownCentral : 'phase_9/audio/bgm/encntr_suit_ttc.ogg',
         DonaldsDock : 'phase_9/audio/bgm/encntr_suit_dd.ogg',
-        DaisyGardens : 'phase_9/audio/bgm/encntr_suit_dg.ogg',
+        DaisyGardens : 'phase_9/audio/bgm/encntr_suit_dg.mp3',
         MinniesMelodyland : 'phase_9/audio/bgm/encntr_suit_mml.ogg',
         TheBrrrgh : 'phase_9/audio/bgm/encntr_suit_tb.ogg',
         DonaldsDreamland : 'phase_9/audio/bgm/encntr_suit_ddl.ogg'

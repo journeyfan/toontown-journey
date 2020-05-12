@@ -7,7 +7,7 @@ import yaml
 
 
 APPLICABLE_FILE_PATTERNS = ('*.mf', 'ambience.yaml')
-CONTENT_EXT_WHITELIST = ('.jpg', '.jpeg', '.rgb', '.png', '.ogg', '.ttf')
+CONTENT_EXT_WHITELIST = ('.jpg', '.jpeg', '.rgb', '.png', '.ogg', '.ttf', '.mp3')
 
 
 class ContentPackError(Exception):
