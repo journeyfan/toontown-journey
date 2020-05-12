@@ -20,7 +20,8 @@ RESISTANCE_TOONUP = 0
 RESISTANCE_RESTOCK = 1
 RESISTANCE_MONEY = 2
 RESISTANCE_DANCE = 3
-
+RESISTANCE_TICKETS = 4
+RESISTANCE_MERITS = 5
 allowedResistanceMessages = []
 if config.GetBool('want-resistance-toonup', True):
     allowedResistanceMessages.append(RESISTANCE_TOONUP)
@@ -31,7 +32,7 @@ if config.GetBool('want-resistance-money', True):
 if config.GetBool('want-resistance-dance', True):
     allowedResistanceMessages.append(RESISTANCE_DANCE)
     
-resistanceMenu = [RESISTANCE_TOONUP, RESISTANCE_RESTOCK, RESISTANCE_MONEY,RESISTANCE_DANCE]
+resistanceMenu = [RESISTANCE_TOONUP, RESISTANCE_RESTOCK, RESISTANCE_MONEY,RESISTANCE_DANCE, RESISTANCE_TICKETS, RESISTANCE_MERITS]
 randomResistanceMenu = [RESISTANCE_TOONUP, RESISTANCE_RESTOCK, RESISTANCE_MONEY,RESISTANCE_DANCE]
 resistanceDict = {
     RESISTANCE_TOONUP: {
@@ -80,8 +81,22 @@ resistanceDict = {
         'chatText': TTLocalizer.ResistanceDanceChat,
         'values': ['Dance'],
         'items': [0]
-    }
-}
+    },
+RESISTANCE_TICKETS: {
+        'menuName': TTLocalizer.ResistanceTicketsMenu,
+        'itemText': TTLocalizer.ResistanceTicketsItem,
+        'chatText': TTLocalizer.ResistanceTicketsChat,
+        'values': [200, 400, 800, 2000],
+        'items': [0, 1, 2, 3]
+    },
+RESISTANCE_MERITS: {
+    'menuName': TTLocalizer.ResistanceMeritsMenu,
+    'itemText': TTLocalizer.ResistanceMeritsItem,
+    'chatText': TTLocalizer.ResistanceMeritsChat,
+    'values': [500,1000,1500,2000],
+    'items': [0,1,2,3]
+
+}}
 
 
 def encodeId(menuIndex, itemIndex):
@@ -210,6 +225,9 @@ def doEffect(textId, speakingToon, nearbyToons):
             toon = base.cr.doId2do.get(toonId)
             if toon and (not toon.ghostMode):
                 toon.setAnimState('victory')
+    elif menuIndex == RESISTANCE_TICKETS or menuIndex == RESISTANCE_MERITS:
+        effect = BattleParticles.loadParticleFile('resistanceEffectSparkle.ptf')
+        fadeColor = VBase4(1, 0.5,1,1 )
     else:
         return
     recolorToons = Parallel()
