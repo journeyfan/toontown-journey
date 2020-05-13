@@ -3104,14 +3104,9 @@ class DistributedToonAI(
 
         elif msgType == ResistanceChat.RESISTANCE_MERITS:
             merits = self.getCogMerits()
-            merits[0] += msgValue 
-            self.b_setCogMerits(merits)
-            merits[1] += msgValue
-            self.b_setCogMerits(merits)
-            merits[2] += msgValue
-            self.b_setCogMerits(merits)
-            merits[3] += msgValue
-            self.b_setCogMerits(merits)
+            for index, value in enumerate(merits):
+                merits[index] += msgValue 
+                self.b_setCogMerits(merits)
 
         elif msgType == ResistanceChat.RESISTANCE_CHEESY:
             if self.oldCheesyExpireTime >= self.savedCheesyExpireTime:

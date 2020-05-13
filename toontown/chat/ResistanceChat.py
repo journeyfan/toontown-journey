@@ -225,7 +225,28 @@ def doEffect(textId, speakingToon, nearbyToons):
             toon = base.cr.doId2do.get(toonId)
             if toon and (not toon.ghostMode):
                 toon.setAnimState('victory')
-    elif menuIndex == RESISTANCE_TICKETS or menuIndex == RESISTANCE_MERITS:
+    elif menuIndex == RESISTANCE_TICKETS:
+        effect = BattleParticles.loadParticleFile('resistanceEffectSparkle.ptf')
+        ticket = loader.loadModel('phase_6/models/karting/tickets.bam')
+        ticket = ticket.find('**/tickets')
+        colors = {
+            'particles-1': (1, 1, 0, 1),
+            'particles-2': (1, 0, 0, 1),
+            'particles-3': (0, 1, 0, 1),
+            'particles-4': (0, 0, 1, 1),
+            'particles-5': (1, 0, 1, 1)
+        }
+        for name, color in list(colors.items()):
+            node = ticket.copyTo(NodePath())
+            node.setColorScale(*color)
+            p = effect.getParticlesNamed(name)
+            p.renderer.setGeomNode(node.node())
+        fadeColor = VBase4(0, 1, 0, 1)
+
+
+    elif menuIndex == RESISTANCE_MERITS:
+
+        
         effect = BattleParticles.loadParticleFile('resistanceEffectSparkle.ptf')
         fadeColor = VBase4(1, 0.5,1,1 )
     else:
