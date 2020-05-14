@@ -31,6 +31,12 @@ if config.GetBool('want-resistance-money', True):
     allowedResistanceMessages.append(RESISTANCE_MONEY)
 if config.GetBool('want-resistance-dance', True):
     allowedResistanceMessages.append(RESISTANCE_DANCE)
+
+if config.GetBool('want-resistance-tickets', True):
+    allowedResistanceMessages.append(RESISTANCE_TICKETS)
+
+if config.GetBool('want-resistance-merits', True):
+    allowedResistanceMessages.append(RESISTANCE_MERITS)
     
 resistanceMenu = [RESISTANCE_TOONUP, RESISTANCE_RESTOCK, RESISTANCE_MONEY,RESISTANCE_DANCE, RESISTANCE_TICKETS, RESISTANCE_MERITS]
 randomResistanceMenu = [RESISTANCE_TOONUP, RESISTANCE_RESTOCK, RESISTANCE_MONEY,RESISTANCE_DANCE]
