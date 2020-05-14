@@ -58,10 +58,12 @@ class DisguisePage(ShtikerPage.ShtikerPage):
                 tabIndex = 4
                 textPos = (1.57, -1.05)
             elif dept == 'y':
+                
                 tabIndex = 4
-                textPos = (1.57, -1.15)
+                textPos = (1.57, -5.55) #outside the page so no one can click it for it now, until we fix the cog_disguises bam file to have the 5th tab
             pageGeom = gui.find('**/page%d' % tabIndex)
             tabGeom = gui.find('**/tab%d' % tabIndex)
+            #TODO add page and tab for secbots for geom
             tab = DirectButton(
                 parent=self.pageFrame, relief=None, geom=tabGeom,
                 geom_color=DeptColors[tabIndex - 1],
