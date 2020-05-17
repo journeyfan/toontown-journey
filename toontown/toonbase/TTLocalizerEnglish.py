@@ -7526,56 +7526,56 @@ CopyrightedNames = (
     "goofy",
 )
 NumToColor = [
-    "White",
-    "Peach",
-    "Bright Red",
-    "Red",
-    "Boysenberry",
-    "Sienna",
-    "Brown",
-    "Tan",
-    "Coral",
-    "Orange",
-    "Yellow",
-    "Cream",
-    "Citrine",
-    "Apple Green",
-    "Sea Green",
-    "Green",
-    "Light Blue",
-    "Aqua",
-    "Blue",
-    "Periwinkle",
-    "Royal Blue",
-    "Indigo",
-    "Purple",
-    "Lavender",
-    "Pink",
-    "Black",
-    "Rose Pink",
-    "Hot Pink",
-    "Crimson",
-    "Maroon",
-    "Bronze",
-    "Sherbet",
-    "Pumpkin",
-    "Flame Orange",
-    "Amber",
-    "Lime",
-    "Dark Green",
-    "Electric Green",
-    "Celeste Blue",
-    "Mint Green",
-    "Emerald",
-    "Teal",
-    "Cobalt",
-    "Ice Blue",
-    "Azure",
-    "Slate Blue",
-    "Steel Blue",
-    "Grape",
-    "Tuscan Red",
-    "Gray",
+    "White", #0
+    "Peach", #1
+    "Bright Red", #2
+    "Red", #3
+    "Boysenberry", #4 
+    "Sienna", #5
+    "Brown", #6
+    "Tan", #7
+    "Coral", #8
+    "Orange", #9
+    "Yellow",# 10
+    "Cream",#11
+    "Citrine",#12
+    "Apple Green",# 13
+    "Sea Green",#14
+    "Green",#15
+    "Light Blue",#16
+    "Aqua",#17
+    "Blue",#18
+    "Periwinkle",#19
+    "Royal Blue",#20
+    "Indigo",#21
+    "Purple",#22
+    "Lavender",#23
+    "Pink",#24
+    "Black",#25
+    "Rose Pink",#26
+    "Hot Pink",#27
+    "Crimson",#28
+    "Maroon",#29
+    "Bronze",#30
+    "Sherbet",#31
+    "Pumpkin",#32
+    "Flame Orange",#33
+    "Amber",#34
+    "Lime",#35
+    "Dark Green",#36
+    "Electric Green",#37
+    "Celeste Blue",#38
+    "Mint Green",#39
+    "Emerald",#40
+    "Teal",#41
+    "Cobalt",#42
+    "Ice Blue",#43
+    "Azure",#44
+    "Slate Blue",#45
+    "Steel Blue",#46
+    "Grape",#47
+    "Tuscan Red",#48
+    "Gray",#49
 ]
 AnimalToSpecies = {
     "dog": "Dog",
@@ -9907,6 +9907,8 @@ NPCToonNames = {
     91913: "Tom",
     91917: "Knight Racer",
     91918: "Buster",
+    91919: "Ashkowski",
+    91920: "Darth Anon E Mouse"
 }
 zone2TitleDict = {
     2513: ("Toon Hall", ""),
