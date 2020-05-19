@@ -998,7 +998,7 @@ HQnpcFriends = {2001: (ToontownBattleGlobals.HEAL_TRACK, 5, ToontownGlobals.MaxH
                 3129: (ToontownBattleGlobals.NPC_RESTOCK_GAGS, ToontownBattleGlobals.THROW_TRACK, 0, 3),
                 4125: (ToontownBattleGlobals.NPC_RESTOCK_GAGS, ToontownBattleGlobals.SOUND_TRACK, 0, 3),
                 1329: (ToontownBattleGlobals.NPC_RESTOCK_GAGS, ToontownBattleGlobals.DROP_TRACK, 0, 3),
-                91919:(ToontownBattleGlobals.SOUND_TRACK, 5, 75, 4),
+                91919:(ToontownBattleGlobals.SOUND_TRACK, 5, 55, 4),
                 91920: (ToontownBattleGlobals.DROP_TRACK, 5,300, 5 )}
 
 FOnpcFriends = {9310: (ToontownBattleGlobals.LURE_TRACK, 1, 0, 0),
