@@ -9908,7 +9908,8 @@ NPCToonNames = {
     91917: "Knight Racer",
     91918: "Buster",
     91919: "Ashkowski",
-    91920: "Darth Anon E Mouse"
+    91920: "Darth Anon E Mouse",
+    91921: 'Hayden'
 }
 zone2TitleDict = {
     2513: ("Toon Hall", ""),
