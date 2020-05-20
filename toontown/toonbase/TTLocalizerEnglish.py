@@ -11045,6 +11045,13 @@ ResistanceEmote1 = NPCToonNames[9228] + ": Welcome to the Resistance!"
 ResistanceEmote2 = (
     NPCToonNames[9228] + ": Use your new emote to identify yourself to other members."
 )
+
+ResistanceTicketsMenu = 'tickets'
+ResistanceTicketsItem = '%s tickets'
+ResistanceTicketsChat = 'Toons of the World, Go Race!'
+ResistanceMeritsMenu = 'merits'
+ResistanceMeritsItem = '%s merits'
+ResistanceMeritsChat = 'Toons of the World, Go Fight Some Bosses!'
 ResistanceEmote3 = NPCToonNames[9228] + ": Good luck!"
 KartUIExit = "Leave Kart"
 KartShop_Cancel = lCancel

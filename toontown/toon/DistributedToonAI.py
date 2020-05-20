@@ -3099,8 +3099,15 @@ class DistributedToonAI(
             self.notify.debug("Restock for " + self.name)
         elif msgType == ResistanceChat.RESISTANCE_MONEY:
             self.addMoney(msgValue)
-        elif msgType == ResistanceChat.RESISTANCE_DANCE:
-            print("Hello")
+        elif msgType == ResistanceChat.RESISTANCE_TICKETS:
+            self.b_setTickets(self.getTickets() + msgValue)
+
+        elif msgType == ResistanceChat.RESISTANCE_MERITS:
+            merits = self.getCogMerits()
+            for index, value in enumerate(merits):
+                merits[index] += msgValue 
+                self.b_setCogMerits(merits)
+
         elif msgType == ResistanceChat.RESISTANCE_CHEESY:
             if self.oldCheesyExpireTime >= self.savedCheesyExpireTime:
                 self.oldCheesyEffect = self.savedCheesyEffect
