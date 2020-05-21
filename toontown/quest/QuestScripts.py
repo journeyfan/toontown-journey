@@ -380,7 +380,7 @@ POS localToon 203.8 18.64 -0.475
 HPR localToon -90.0 0.0 0.0
 SHOW localToon
 LOCAL_CHAT_CONFIRM npc QuestScriptTutorialBlocker_3 blockerDialogue_03
-OBSCURE_CHAT 1 0
+OBSCURE_CHAT 1 0 1
 SHOW chatScButton
 WAIT 0.6 
 ARROWS_ON -1.3644 0.91 180 -1.5644 0.74 -90 
@@ -395,7 +395,7 @@ CLEAR_CHAT localToon
 REPARENTTO camera localToon
 LOCAL_CHAT_CONFIRM npc QuestScriptTutorialBlocker_5 "CFReversed" blockerDialogue_05a blockerDialogue_05b
 LOCAL_CHAT_CONFIRM npc QuestScriptTutorialBlocker_6 "CFReversed" blockerDialogue_06
-OBSCURE_CHAT 0 0 
+OBSCURE_CHAT 0 0 0
 SHOW chatNormalButton
 WAIT 0.6 
 LOCAL_CHAT_CONFIRM npc QuestScriptTutorialBlocker_7 "CFReversed" blockerDialogue_07
@@ -416,7 +416,7 @@ WAIT 0.75
 REPARENTTO npc hidden
 FREE_LOCALTOON
 UPON_TIMEOUT ARROWS_OFF
-UPON_TIMEOUT OBSCURE_CHAT 0 0 
+UPON_TIMEOUT OBSCURE_CHAT 0 0 0
 UPON_TIMEOUT REPARENTTO camera localToon
 FINISH_QUEST_MOVIE
 

@@ -16,6 +16,7 @@ import zlib
 from . import DistributedToon
 from . import LaffMeter
 from . import Toon
+from . import ChatHistory
 from otp.avatar import DistributedPlayer
 from otp.avatar import LocalAvatar
 from otp.avatar import PositionExaminer
@@ -203,6 +204,7 @@ class LocalToon(DistributedToon.DistributedToon, LocalAvatar.LocalAvatar):
             self.oldPos = None
             self.questMap = None
             self.prevToonIdx = 0
+            self.chatHistory = None
 
     def setDNA(self, dna):
         base.localAvatarStyle = dna
@@ -323,6 +325,8 @@ class LocalToon(DistributedToon.DistributedToon, LocalAvatar.LocalAvatar):
             self.nametag.unmanage(base.marginManager)
         self.ignoreAll()
         DistributedToon.DistributedToon.disable(self)
+        if self.chatHistory:
+            self.chatHistory.stop()
         return
 
     def disableBodyCollisions(self):
@@ -465,6 +469,10 @@ class LocalToon(DistributedToon.DistributedToon, LocalAvatar.LocalAvatar):
         self.accept("InputState-slide", self.__toonMoved)
 
         self.achievementGui = AchievementGui.AchievementGui()
+        self.chatHistory = ChatHistory.ChatHistory()
+        self.chatHistory.reparentTo(base.a2dLeftCenter)
+        self.chatHistory.setPos(-1, 0, 0.2)
+        
 
         QuestParser.init()
         return

@@ -38,6 +38,8 @@ class ToontownChatManager(ChatManager.ChatManager):
         self.openScSfx.setVolume(0.6)
         self.scButton = DirectButton(image=(gui.find('**/ChtBx_ChtBtn_UP'), gui.find('**/ChtBx_ChtBtn_DN'), gui.find('**/ChtBx_ChtBtn_RLVR')), pos=TTLocalizer.TCMscButtonPos, parent=base.a2dTopLeft, scale=1.179, relief=None, image_color=Vec4(0.75, 1, 0.6, 1), text=('', OTPLocalizer.GlobalSpeedChatName, OTPLocalizer.GlobalSpeedChatName), text_scale=TTLocalizer.TCMscButton, text_fg=Vec4(1, 1, 1, 1), text_shadow=Vec4(0, 0, 0, 1), text_pos=(0, -0.09), textMayChange=0, sortOrder=DGG.FOREGROUND_SORT_INDEX, command=self.__scButtonPressed, clickSound=self.openScSfx)
         self.scButton.hide()
+        self.historyButton = DirectButton(image=(gui.find('**/ChtBx_ChtBtn_UP'), gui.find('**/ChtBx_ChtBtn_DN'), gui.find('**/ChtBx_ChtBtn_RLVR')), pos=TTLocalizer.TCMhistoryButtonPos, parent=base.a2dTopLeft, scale = 1.179, relief=None, image_color=Vec4(1,0,0, 1), text=('', OTPLocalizer.GlobalChatHistoryName, OTPLocalizer.GlobalChatHistoryName), text_scale=TTLocalizer.TCMhistoryButton, text_fg=Vec4(1, 1, 1, 1), text_shadow=Vec4(0, 0, 0, 1), text_pos=(0, -0.09), textMayChange=0, sortOrder=DGG.FOREGROUND_SORT_INDEX, command=self.__historyButtonPressed)
+        self.historyButton.hide()
         self.whisperFrame = DirectFrame(parent=base.a2dTopLeft, relief=None, image=DGG.getDefaultDialogGeom(), image_scale=(0.45, 0.45, 0.45), image_color=OTPGlobals.GlobalDialogColor, pos=(1.25, 0, -0.269), text=OTPLocalizer.ChatManagerWhisperTo, text_wordwrap=7.0, text_scale=TTLocalizer.TCMwhisperFrame, text_fg=Vec4(0, 0, 0, 1), text_pos=(0, 0.14), textMayChange=1, sortOrder=DGG.FOREGROUND_SORT_INDEX)
         self.whisperFrame.hide()
         self.whisperButton = DirectButton(parent=self.whisperFrame, image=(gui.find('**/ChtBx_ChtBtn_UP'), gui.find('**/ChtBx_ChtBtn_DN'), gui.find('**/ChtBx_ChtBtn_RLVR')), pos=(-0.125, 0, -0.1), scale=1.179, relief=None, image_color=Vec4(1, 1, 1, 1), text=('',
@@ -87,6 +89,8 @@ class ToontownChatManager(ChatManager.ChatManager):
         del self.whisperCancelButton
         self.chatInputWhiteList.destroy()
         del self.chatInputWhiteList
+        self.historyButton.destroy()
+        del self.historyButton
 
     def sendSCResistanceChatMessage(self, textId):
         messenger.send('chatUpdateSCResistance', [textId])
@@ -390,6 +394,9 @@ class ToontownChatManager(ChatManager.ChatManager):
         self.whisperFrame.hide()
         return
 
+    def __historyButtonPressed(self):
+        if base.localAvatar.chatHistory:
+            base.localAvatar.chatHistory.toggle()
     def enterNormalChat(self):
         result = ChatManager.ChatManager.enterNormalChat(self)
         if result == None:

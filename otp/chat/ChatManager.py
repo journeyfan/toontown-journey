@@ -47,6 +47,7 @@ class ChatManager(DirectObject.DirectObject):
         self.wantBackgroundFocus = not base.wantCustomControls
         self.__scObscured = 0
         self.__normalObscured = 0
+        self.__historyObscured = 0
         self.openChatWarning = None
         self.unpaidChatWarning = None
         self.teaser = None
@@ -137,16 +138,20 @@ class ChatManager(DirectObject.DirectObject):
         del self.cr
         return
 
-    def obscure(self, normal, sc):
+    def obscure(self, normal, sc, ch = False):
         self.__scObscured = sc
         if self.__scObscured:
             self.scButton.hide()
         self.__normalObscured = normal
         if self.__normalObscured:
             self.normalButton.hide()
+        self.__historyObscured = ch
+        if self.__historyObscured:
+            self.historyButton.hide()
+
 
     def isObscured(self):
-        return (self.__normalObscured, self.__scObscured)
+        return (self.__normalObscured, self.__scObscured, self.__historyObscured)
 
     def stop(self):
         self.fsm.request('off')
@@ -207,6 +212,7 @@ class ChatManager(DirectObject.DirectObject):
     def enterOff(self):
         self.scButton.hide()
         self.normalButton.hide()
+        self.historyButton.hide()
         self.ignoreAll()
 
     def exitOff(self):
@@ -226,10 +232,13 @@ class ChatManager(DirectObject.DirectObject):
             self.scButton.show()
         if not self.__normalObscured:
             self.normalButton.show()
+        if not self.__historyObscured:
+            self.historyButton.show()
 
     def exitMainMenu(self):
         self.scButton.hide()
         self.normalButton.hide()
+        self.historyButton.hide()
         self.ignore('enterNormalChat')
         if self.wantBackgroundFocus:
             self.chatInputNormal.chatEntry['backgroundFocus'] = 0
@@ -397,6 +406,7 @@ class ChatManager(DirectObject.DirectObject):
         self.scButton.hide()
         self.normalButton.hide()
         self.chatInputSpeedChat.hide()
+        self.historyButton.hide()
 
     def enterNormalChat(self):
         if base.wantCustomControls:
