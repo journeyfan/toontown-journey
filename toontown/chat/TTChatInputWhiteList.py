@@ -17,7 +17,7 @@ class TTChatInputWhiteList(ChatInputWhiteListFrame):
     def __init__(self, parent = None, **kw):
         entryOptions = {'parent': self,
          'relief': DGG.SUNKEN,
-         'scale': 0.05,
+         'scale': 0.035,
          'frameColor': (0.9, 0.9, 0.85, 0.0),
          'pos': (-0.2, 0, 0.11),
          'entryFont': OTPGlobals.getInterfaceFont(),
