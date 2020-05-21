@@ -18,7 +18,7 @@ class TTChatInputNormal(ChatInputNormal.ChatInputNormal):
          -0.07,
          0.05), text=OTPLocalizer.ChatInputNormalWhisper, text_scale=0.04, text_fg=Vec4(0, 0, 0, 1), text_wordwrap=9.5, textMayChange=1)
         self.whisperLabel.hide()
-        self.chatEntry = DirectEntry(parent=self.chatFrame, relief=None, scale=0.05, pos=(-0.2, 0, 0.11), entryFont=OTPGlobals.getInterfaceFont(), width=8.6, numLines=3, cursorKeys=0, backgroundFocus=0, command=self.sendChat)
+        self.chatEntry = DirectEntry(parent=self.chatFrame, relief=None, scale=0.05, pos=(-0.2, 0, 0.11), entryFont=OTPGlobals.getInterfaceFont(), width=8.6, numLines=5, cursorKeys=0, backgroundFocus=0, command=self.sendChat)
         self.chatEntry.bind(DGG.OVERFLOW, self.chatOverflow)
         self.chatEntry.bind(DGG.TYPE, self.typeCallback)
         return
