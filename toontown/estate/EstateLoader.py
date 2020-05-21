@@ -81,6 +81,7 @@ class EstateLoader(SafeZoneLoader.SafeZoneLoader):
         del self.submergeSound
         del self.birdSound
         del self.cricketSound
+        self.music.stop()
         for node in self.houseNode:
             node.removeNode()
 
