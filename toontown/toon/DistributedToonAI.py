@@ -1397,6 +1397,12 @@ class DistributedToonAI(
         maxSuitType = SuitDNA.suitsPerDept - 1
         maxSuitLevel = (SuitDNA.levelsPerSuit - 1) + maxSuitType
         maxCogLevel = (SuitDNA.levelsPerSuit - 1) + self.cogTypes[deptIndex]
+
+        lastCog = self.cogTypes[dept] >= SuitDNA.suitsPerDept - 1
+        if lastCog:
+            maxCogLevel = SuitDNA.MaxCogSuitLevel
+            maxSuitLevel = SuitDNA.MaxCogSuitLevel
+
         if (cogLevel == maxCogLevel) or (cogLevel == maxSuitLevel):
             self.promotionStatus[deptIndex] = ToontownGlobals.PendingPromotion
             self.d_setPromotionStatus(self.promotionStatus)
@@ -5333,7 +5339,7 @@ def SetMax(missingTrack=None):
     maxSuitType = SuitDNA.suitsPerDept - 1
     invoker.b_setCogTypes([maxSuitType] * suitDeptCount)
     maxSuitLevel = (SuitDNA.levelsPerSuit - 1) + maxSuitType
-    invoker.b_setCogLevels([maxSuitLevel] * suitDeptCount)
+    invoker.b_setCogLevels([SuitDNA.MaxCogSuitLevel] * suitDeptCount)
     cogMerits = []
     for i in range(suitDeptCount):
         suitIndex = (SuitDNA.suitsPerDept * (i + 1)) - 1
