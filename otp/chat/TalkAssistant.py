@@ -339,9 +339,9 @@ class TalkAssistant(DirectObject.DirectObject):
                 messenger.send('NewOpenMessage', [newMessage])
                 if hasattr(base.cr, 'chatHistory'):
                     if self.isThought(message):
-                        base.cr.chatHistory.addToHistory('{0} thinks: {1}'.format(avatarName, message), accountId)
+                        base.cr.chatHistory.addToHistory('{0} thinks: {1}'.format(avatarName, message), senderAvId)
                     else:
-                        base.cr.chatHistory.addToHistory('{0}: {1}'.format(avatarName, message), accountId)
+                        base.cr.chatHistory.addToHistory('{0}: {1}'.format(avatarName, message), senderAvId)
             if newMessage.getBody() == OTPLocalizer.AntiSpamInChat:
                 self.spamDictByDoId[senderAvId] = 1
             else:
@@ -366,7 +366,7 @@ class TalkAssistant(DirectObject.DirectObject):
             self.addToHistoryDISLId(newMessage, accountId)
         messenger.send('NewOpenMessage', [newMessage])
         if hasattr(base.cr, 'chatHistory'):
-            base.cr.chatHistory.addToHistory('{0} whispers: {1}'.format(avatarName, message), accountId)
+            base.cr.chatHistory.addToHistory('{0} whispers: {1}'.format(avatarName, message), avatarId)
         return error
 
     def receiveAccountTalk(self, avatarId, avatarName, accountId, accountName, toId, toName, message, scrubbed = 0):
