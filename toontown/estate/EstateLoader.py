@@ -47,7 +47,7 @@ class EstateLoader(SafeZoneLoader.SafeZoneLoader):
 
     def load(self):
         SafeZoneLoader.SafeZoneLoader.load(self)
-        self.music = base.loader.loadMusic('phase_4/audio/bgm/TC_nbrhood.ogg')
+        self.music = base.loader.loadMusic('phase_4/audio/bgm/estate_nbrhood.ogg')
         self.underwaterSound = base.loader.loadSfx('phase_4/audio/sfx/AV_ambient_water.ogg')
         self.swimSound = base.loader.loadSfx('phase_4/audio/sfx/AV_swim_single_stroke.ogg')
         self.submergeSound = base.loader.loadSfx('phase_5.5/audio/sfx/AV_jump_in_water.ogg')
@@ -167,6 +167,7 @@ class EstateLoader(SafeZoneLoader.SafeZoneLoader):
         self.place.load()
         self.place.enter(requestStatus)
         self.estateZoneId = zoneId
+        base.playMusic(self.music, looping=1, volume=0.8)
 
     def exitEstate(self):
         self.notify.debug('exitEstate')
@@ -212,6 +213,7 @@ class EstateLoader(SafeZoneLoader.SafeZoneLoader):
         base.cr.playGame.setPlace(self.place)
         self.place.load()
         self.place.enter(requestStatus)
+        self.music.stop()
 
     def exitHouse(self):
         self.ignore(self.houseDoneEvent)
