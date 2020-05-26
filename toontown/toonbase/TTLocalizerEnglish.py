@@ -10476,6 +10476,7 @@ TrunkDeleteHat = "Delete\nhat"
 TrunkDeleteGlasses = "Delete\nglasses"
 TrunkDeleteBackpack = "Delete\nbackpack"
 TrunkDeleteShoes = "Delete\nshoes"
+IEstate = "The Estate"
 EstateOwnerLeftMessage = "Sorry, the owner of this estate left.  You'll be sent to the playground in %s seconds"
 EstatePopupOK = lOK
 EstateTeleportFailed = "Couldn't go home. Try again!"

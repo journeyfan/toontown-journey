@@ -1,4 +1,4 @@
-from pandac.PandaModules import Vec4
+from pandac.PandaModules import Vec4, Fog
 
 from toontown.safezone.DDSafeZoneLoader import DDSafeZoneLoader
 from toontown.town.DDTownLoader import DDTownLoader

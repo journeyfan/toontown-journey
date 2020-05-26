@@ -59,8 +59,8 @@ class Hood(StateData.StateData):
         self.titleText.setColor(Vec4(*self.titleColor))
         self.titleText.clearColorScale()
         self.titleText.setFg(self.titleColor)
-        seq = Sequence(Wait(0.1), Wait(6.0), self.titleText.colorScaleInterval(0.5, Vec4(1.0, 1.0, 1.0, 0.0)), Func(self.titleText.hide))
-        seq.start()
+        self.seq = Sequence(Wait(0.1), LerpPosInterval(self.titleText, 1, (0, 0, -0.2), startPos=(0, 0, -1), blendType='easeInOut'), Wait(6.0), LerpPosInterval(self.titleText, 1, (0, 0, -1), startPos=(0, 0, -0.2), blendType='easeInOut'), Func(self.titleText.hide))
+        self.seq.start()
 
     def hideTitleText(self):
         if self.titleText:
@@ -69,6 +69,7 @@ class Hood(StateData.StateData):
     def exit(self):
         taskMgr.remove('titleText')
         if self.titleText:
+            self.seq.finish()
             self.titleText.cleanup()
             self.titleText = None
         base.localAvatar.stopChat()

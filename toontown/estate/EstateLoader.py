@@ -2,6 +2,7 @@ from pandac.PandaModules import *
 from toontown.toonbase.ToontownGlobals import *
 from direct.interval.IntervalGlobal import *
 from direct.fsm import ClassicFSM, State
+from direct.gui import OnscreenText
 from toontown.safezone import SafeZoneLoader
 import random
 from toontown.launcher import DownloadForceAcknowledge
@@ -30,6 +31,8 @@ class EstateLoader(SafeZoneLoader.SafeZoneLoader):
         self.safeZoneStorageDNAFile = None
         self.cloudSwitch = 0
         self.id = MyEstate
+        self.titleText = None
+        self.titleColor = (1, 1, 1, 1)
         self.estateOwnerId = None
         self.branchZone = None
         self.houseDoneEvent = 'houseDone'
@@ -108,6 +111,9 @@ class EstateLoader(SafeZoneLoader.SafeZoneLoader):
 
     def enter(self, requestStatus):
         self.estateOwnerId = requestStatus.get('ownerId', base.localAvatar.doId)
+        hoodText = TTLocalizer.IEstate
+        self.titleText = OnscreenText.OnscreenText(hoodText, fg=self.titleColor, font=getSignFont(), pos=(0, -0.5), scale=TTLocalizer.HtitleText, drawOrder=0, mayChange=1)
+        self.spawnTitleText()
         base.localAvatar.inEstate = 1
         self.loadCloudPlatforms()
         if base.cloudPlatformsEnabled and 0:
@@ -116,8 +122,29 @@ class EstateLoader(SafeZoneLoader.SafeZoneLoader):
             self.setCloudSwitch(self.cloudSwitch)
         SafeZoneLoader.SafeZoneLoader.enter(self, requestStatus)
 
+    def spawnTitleText(self):
+        self.doSpawnTitleText()
+
+    def doSpawnTitleText(self):
+        self.titleText.setText(TTLocalizer.IEstate)
+        self.titleText.show()
+        self.titleText.setColor(Vec4(*self.titleColor))
+        self.titleText.clearColorScale()
+        self.titleText.setFg(self.titleColor)
+        self.seq = Sequence(Wait(0.1), LerpPosInterval(self.titleText, 1, (0, 0, -0.2), startPos=(0, 0, -1), blendType='easeInOut'), Wait(6.0), LerpPosInterval(self.titleText, 1, (0, 0, -1), startPos=(0, 0, -0.2), blendType='easeInOut'), Func(self.titleText.hide))
+        self.seq.start()
+
+    def hideTitleText(self):
+        if self.titleText:
+            self.titleText.hide()
+
     def exit(self):
         self.ignoreAll()
+        taskMgr.remove('titleText')
+        if self.titleText:
+            self.seq.finish()
+            self.titleText.cleanup()
+            self.titleText = None
         base.cr.cache.flush()
         base.localAvatar.stopChat()
         base.localAvatar.inEstate = 0
