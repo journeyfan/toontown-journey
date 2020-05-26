@@ -32,7 +32,7 @@ class EstateLoader(SafeZoneLoader.SafeZoneLoader):
         self.cloudSwitch = 0
         self.id = MyEstate
         self.titleText = None
-        self.titleColor = (1, 1, 1, 1)
+        self.titleColor = (0.1, 1.0, 0.1, 1.0)
         self.estateOwnerId = None
         self.branchZone = None
         self.houseDoneEvent = 'houseDone'
