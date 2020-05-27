@@ -1,3 +1,4 @@
+from panda3d.core import VBase3
 from direct.interval.IntervalGlobal import *
 from direct.distributed.ClockDelta import *
 from toontown.toonbase import ToontownGlobals

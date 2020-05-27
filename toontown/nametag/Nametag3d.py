@@ -148,6 +148,7 @@ class Nametag3d(Nametag, Clickable3d):
             reversed=self.chatReversed,
             button=self.chatButton[self.clickState])
         self.chatBalloon.reparentTo(self.contents)
+        self.animateChatBalloon()
 
     def drawNametag(self):
         if self.font is None:
