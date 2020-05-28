@@ -55,6 +55,24 @@ class DistributedBattleBaseAI(DistributedObjectAI.DistributedObjectAI, BattleBas
         if self.air.holidayManager.isMoreXpHolidayRunning():
             mult = getMoreXpHolidayMultiplier()
             self.battleCalc.setSkillCreditMultiplier(mult)
+
+        # if zone id is an hq
+        if self.getZoneId() < 14000 and self.getZoneId() >= 11000:
+            mult = 2
+            self.battleCalc.setSkillCreditMultiplier(mult)
+        #if zone id is an hq and there is an invasion
+        if self.getZoneId() < 14000 and self.getZoneId() >= 11000 and self.air.suitInvasionManager.getInvading():
+            mult = 4 
+            self.battleCalc.setSkillCreditMultiplier(mult)
+        #if zone id is an hq and double xp holiday holiday is going on
+        if self.getZoneId() < 14000 and self.getZoneId() >= 11000 and self.air.holidayManager.isMoreXpHolidayRunning():
+            mult = 4
+            self.battleCalc.setSkillCreditMultiplier(mult)
+        #if zone id is an hq, there is an invasion and double xp holiday is going on
+        if self.getZoneId() < 14000 and self.getZoneId() >= 11000 and self.air.suitInvasionManager.getInvading() and self.air.holidayManager.isMoreXpHolidayRunning():
+            mult = 6
+            self.battleCalc.setSkillCreditMultiplier(mult)
+
         self.fsm = None
         self.clearAttacks()
         self.ignoreFaceOffDone = 0
