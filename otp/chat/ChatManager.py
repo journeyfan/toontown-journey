@@ -65,6 +65,7 @@ class ChatManager(DirectObject.DirectObject):
          State.State('mainMenu', self.enterMainMenu, self.exitMainMenu),
          State.State('speedChat', self.enterSpeedChat, self.exitSpeedChat),
          State.State('normalChat', self.enterNormalChat, self.exitNormalChat),
+         State.State('globalChat', self.enterGlobalChat, self.exitGlobalChat),
          State.State('whisper', self.enterWhisper, self.exitWhisper),
          State.State('whisperChat', self.enterWhisperChat, self.exitWhisperChat),
          State.State('whisperChatPlayer', self.enterWhisperChatPlayer, self.exitWhisperChatPlayer),
@@ -378,6 +379,9 @@ class ChatManager(DirectObject.DirectObject):
     def enterWhisperChat(self, avatarName, avatarId):
         result = self.chatInputNormal.activateByData(avatarId)
         return result
+    
+
+
 
     def exitWhisperChat(self):
         self.chatInputNormal.deactivate()
@@ -418,6 +422,18 @@ class ChatManager(DirectObject.DirectObject):
         if base.wantCustomControls:
             base.localAvatar.controlManager.enableWASD()
         self.chatInputNormal.deactivate()
+
+    def enterGlobalChat(self, avatarName, avatarId):
+        if base.wantCustomControls:
+            base.localAvatar.controlManager.disableWASD()
+        result = self.chatInputNormal.activateByData()
+        return result 
+
+    def exitGlobalChat(self):
+        if base.wantCustomControls:
+            base.localAvatar.controlManager.enableWASD()
+        self.chatInputNormal.deactivate()
+
 
     def enterOpenChatWarning(self):
         self.notify.error('called enterOpenChatWarning() on parent class')

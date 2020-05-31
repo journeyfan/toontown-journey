@@ -137,6 +137,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar, PlayerBase.PlayerBa
     def setSystemMessage(self, aboutId, chatString, whisperType = WTSystem):
         self.displayWhisper(aboutId, chatString, whisperType)
 
+
     def displayWhisper(self, fromId, chatString, whisperType):
         print('Whisper type %s from %s: %s' % (whisperType, fromId, chatString))
 
@@ -246,6 +247,13 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar, PlayerBase.PlayerBa
         self.displayTalkWhisper(fromAV, avatarName, chat, mods)
         base.talkAssistant.receiveWhisperTalk(fromAV, avatarName, fromAC, None, self.doId, self.getName(), newText, scrubbed)
         return
+
+    def setTalkGlobal(self, fromAV, fromAC, avatarName, chat, mods, flags):
+        newText, scrubbed = self.scrubTalk(chat, mods):
+        self.displayTalkGlobal(fromAV, avatarName, chat, mods)
+        base.talkAssistant.receiveGlobalTalk(fromAV, avatarName, fromAC, None, newText, scrubbed)
+
+        
 
     def displayTalkWhisper(self, fromId, avatarName, chatString, mods):
         print('TalkWhisper from %s: %s' % (fromId, chatString))

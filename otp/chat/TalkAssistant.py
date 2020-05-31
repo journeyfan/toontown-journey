@@ -369,6 +369,7 @@ class TalkAssistant(DirectObject.DirectObject):
             base.cr.chatHistory.addToHistory('{0} whispers: {1}'.format(avatarName, message), avatarId)
         return error
 
+
     def receiveAccountTalk(self, avatarId, avatarName, accountId, accountName, toId, toName, message, scrubbed = 0):
         if not accountName and base.cr.playerFriendsManager.playerId2Info.get(accountId):
             accountName = base.cr.playerFriendsManager.playerId2Info.get(accountId).playerName
@@ -468,6 +469,41 @@ class TalkAssistant(DirectObject.DirectObject):
             base.cr.chatHistory.addToHistory('System Message: {0}'.format(message))
         return error
 
+    
+    def receiveGlobalTalk(self, senderAvId, avatarId, avatarName, accountId, accountName, message, scrubbed = 0):
+        error = None
+        if not avatarName and senderAvId:
+            localAvatar.sendUpdate('logSuspiciousEvent', ['receiveGlobalTalk: invalid avatar name (%s)' % senderAvId])
+            avatarName = self.findAvatarName(senderAvId)
+        if not accountName and accountId:
+            accountName = self.findPlayerName(accountId)
+        newMessage = TalkMessage(self.countMessage(), self.stampTime(), message, senderAvId, avatarName, accountId, accountName, None, None, None, None, TALK_GLOBAL, None)
+        if senderAvId != localAvatar.doId:
+            self.addHandle(senderAvId, newMessage)
+        reject = 0
+        if senderAvId:
+            reject = self.addToHistoryDoId(newMessage, senderAvId, scrubbed)
+        if accountId:
+            self.addToHistoryDISLId(newMessage, accountId)
+        if reject == 1:
+            newMessage.setBody(OTPLocalizer.AntiSpamInChat)
+        if reject != 2:
+            isSpam = self.spamDictByDoId.get(senderAvId) and reject
+            if not isSpam:
+                self.historyComplete.append(newMessage)
+                self.historyOpen.append(newMessage)
+                messenger.send('NewOpenMessage', [newMessage])
+                if hasattr(base.cr, 'chatHistory'):
+                    if self.isThought(message):
+                        base.cr.chatHistory.addToHistory('{0} thinks: {1}'.format(avatarName, message), senderAvId)
+                    else:
+                        base.cr.chatHistory.addToHistory('{0}: {1}'.format(avatarName, message), senderAvId)
+            if newMessage.getBody() == OTPLocalizer.AntiSpamInChat:
+                self.spamDictByDoId[senderAvId] = 1
+            else:
+                self.spamDictByDoId[senderAvId] = 0
+        return error
+        
     def receiveDeveloperMessage(self, message):
         error = None
         newMessage = TalkMessage(self.countMessage(), self.stampTime(), message, None, None, None, None, localAvatar.doId, localAvatar.getName(), localAvatar.DISLid, localAvatar.DISLname, INFO_DEV, None)

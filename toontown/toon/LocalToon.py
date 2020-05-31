@@ -588,6 +588,16 @@ class LocalToon(DistributedToon.DistributedToon, LocalAvatar.LocalAvatar):
         whisper.manage(base.marginManager)
         base.playSfx(sfx)
 
+    def displayTalkGlobal(self, fromId, avatarName, rawString, mods):
+        sender = base.cr.identifyAvatar(fromId)
+        if sender:
+            chatString, scrubbed = sender.scrubTalk(rawString, mods)
+        else:
+            chatString, scrubbed = self.scrubTalk(rawString, mods)
+        sender = self
+        whisper = WhisperPopup(chatString, OTPGlobals.getInterfaceFont(), WTNormal)
+        whisper.setClickable(avatarName, fromId)
+        whisper.manage(base.marginManager)
     def displayTalkAccount(self, fromId, senderName, rawString, mods):
         sender = None
         playerInfo = None

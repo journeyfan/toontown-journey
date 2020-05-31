@@ -32,6 +32,7 @@ TCMwhisperButton = 0.05
 TCMwhisperScButton = 0.05
 TCMhistoryButtonPos = (0.404, 0, -0.072)
 TCMhistoryButton = 0.06
+TCMgcButtonPos = (0.504, 0, =0.072)
 TCMunpaidChatWarningWordwrap = 18
 TCMunpaidChatWarning = 0.055
 TCMunpaidChatWarningPos = (0.0, 0.3)

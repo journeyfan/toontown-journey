@@ -34,6 +34,8 @@ class ToontownChatManager(ChatManager.ChatManager):
         gui = loader.loadModel('phase_3.5/models/gui/chat_input_gui')
         self.normalButton = DirectButton(image=(gui.find('**/ChtBx_ChtBtn_UP'), gui.find('**/ChtBx_ChtBtn_DN'), gui.find('**/ChtBx_ChtBtn_RLVR')), pos=(0.0683, 0, -0.072), parent=base.a2dTopLeft, scale=1.179, relief=None, image_color=Vec4(1, 1, 1, 1), text=('', OTPLocalizer.ChatManagerChat, OTPLocalizer.ChatManagerChat), text_align=TextNode.ALeft, text_scale=TTLocalizer.TCMnormalButton, text_fg=Vec4(1, 1, 1, 1), text_shadow=Vec4(0, 0, 0, 1), text_pos=(-0.0525, -0.09), textMayChange=0, sortOrder=DGG.FOREGROUND_SORT_INDEX, command=self.__normalButtonPressed)
         self.normalButton.hide()
+        self.globalButton = DirectButton(image=(gui.find('**/ChtBx_ChtBtn_UP'), gui.find('**/ChtBx_ChtBtn_DN'), gui.find('**/ChtBx_ChtBtn_RLVR')), pos=TTLocalizer.TCMgcButtonPos, parent=base.a2dTopLeft, scale=1.179, relief=None, image_color=Vec4(1, 1, 1, 1), text=('', OTPLocalizer.ChatManagerChat, OTPLocalizer.ChatManagerChat), text_align=TextNode.ALeft, text_scale=TTLocalizer.TCMnormalButton, text_fg=Vec4(1, 1, 1, 1), text_shadow=Vec4(0, 0, 0, 1), text_pos=(-0.0525, -0.09), textMayChange=0, sortOrder=DGG.FOREGROUND_SORT_INDEX, command=self.__globalButtonPressed)
+        self.normalButton.hide()
         self.openScSfx = loader.loadSfx('phase_3.5/audio/sfx/GUI_quicktalker.ogg')
         self.openScSfx.setVolume(0.6)
         self.scButton = DirectButton(image=(gui.find('**/ChtBx_ChtBtn_UP'), gui.find('**/ChtBx_ChtBtn_DN'), gui.find('**/ChtBx_ChtBtn_RLVR')), pos=TTLocalizer.TCMscButtonPos, parent=base.a2dTopLeft, scale=1.179, relief=None, image_color=Vec4(0.75, 1, 0.6, 1), text=('', OTPLocalizer.GlobalSpeedChatName, OTPLocalizer.GlobalSpeedChatName), text_scale=TTLocalizer.TCMscButton, text_fg=Vec4(1, 1, 1, 1), text_shadow=Vec4(0, 0, 0, 1), text_pos=(0, -0.09), textMayChange=0, sortOrder=DGG.FOREGROUND_SORT_INDEX, command=self.__scButtonPressed, clickSound=self.openScSfx)
@@ -76,6 +78,8 @@ class ToontownChatManager(ChatManager.ChatManager):
         loader.unloadModel('phase_3.5/models/gui/chat_input_gui')
         self.normalButton.destroy()
         del self.normalButton
+        self.globalButton.destroy()
+        del self.globalButton
         self.scButton.destroy()
         del self.scButton
         del self.openScSfx
@@ -128,11 +132,13 @@ class ToontownChatManager(ChatManager.ChatManager):
             DirectButton(self.openChatWarning, image=buttonImage, relief=None, text=OTPLocalizer.OpenChatWarningOK, text_scale=0.05, text_pos=(0.0, -0.1), textMayChange=0, pos=(0.0, 0.0, -0.55), command=self.__handleOpenChatWarningOK)
             buttons.removeNode()
         self.openChatWarning.show()
-        normObs, scObs = self.isObscured()
+        normObs, scObs, globalObs = self.isObscured()
         if not scObs:
             self.scButton.show()
         if not normObs:
             self.normalButton.show()
+        if not globalObs:
+            self.globalButton.show()
         return
 
     def enterMainMenu(self):
@@ -189,11 +195,13 @@ class ToontownChatManager(ChatManager.ChatManager):
             self.teaser = TeaserPanel.TeaserPanel('secretChat', self.__handleUnpaidChatWarningDone)
             if base.localAvatar.inTutorial:
                 self.teaser.hidePay()
-        normObs, scObs = self.isObscured()
+        normObs, scObs, globalObs = self.isObscured()
         if not scObs:
             self.scButton.show()
         if not normObs:
             self.normalButton.show()
+        if not globalObs:
+            self.globalButton.show()
         return
 
     def exitUnpaidChatWarning(self):
@@ -375,6 +383,13 @@ class ToontownChatManager(ChatManager.ChatManager):
             self.notify.info('QA-REGRESSION: CHAT: Speedchat Plus')
         messenger.send('wakeup')
         self.fsm.request('normalChat')
+    
+    def __globalButtonPressed(self, avatarName, avatarId):
+        if base.config.GetBool('want-qa-regression', 0):
+            self.notify.info('QA-REGRESSION: CHAT: Global')
+        messenger.send('wakeup')
+        self.fsm.request('globalChat')
+
 
     def __scButtonPressed(self):
         if base.config.GetBool('want-qa-regression', 0):
@@ -421,6 +436,15 @@ class ToontownChatManager(ChatManager.ChatManager):
             self.fsm.request('mainMenu')
         return
 
+    def enterGlobalChat(self, avatarName, avatarId):
+        result = ChatManager.ChatManager.enterGlobalChat(self, avatarName, avatarId)
+        if result == None:
+            self.notify.warning('something went wrong in enterGlobalChat, falling back to main menu')
+            self.fsm.request('mainMenu')
+        return
+
+    def enterGlobalChat(self, avatarName, avatarId):
+        result = ChatManager.ChatManager.enterGlobalChat(self, avatarName, avatarId)
     def enterNoSecretChatAtAllAndNoWhitelist(self):
         if self.noSecretChatAtAllAndNoWhitelist == None:
             buttons = loader.loadModel('phase_3/models/gui/dialog_box_buttons_gui')
