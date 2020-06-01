@@ -337,6 +337,11 @@ class TalkAssistant(DirectObject.DirectObject):
                 self.historyComplete.append(newMessage)
                 self.historyOpen.append(newMessage)
                 messenger.send('NewOpenMessage', [newMessage])
+                if hasattr(base.cr, 'chatHistory'):
+                    if self.isThought(message):
+                        base.cr.chatHistory.addToHistory('{0} thinks: {1}'.format(avatarName, message), senderAvId)
+                    else:
+                        base.cr.chatHistory.addToHistory('{0}: {1}'.format(avatarName, message), senderAvId)
             if newMessage.getBody() == OTPLocalizer.AntiSpamInChat:
                 self.spamDictByDoId[senderAvId] = 1
             else:
@@ -360,6 +365,8 @@ class TalkAssistant(DirectObject.DirectObject):
         if accountId:
             self.addToHistoryDISLId(newMessage, accountId)
         messenger.send('NewOpenMessage', [newMessage])
+        if hasattr(base.cr, 'chatHistory'):
+            base.cr.chatHistory.addToHistory('{0} whispers: {1}'.format(avatarName, message), avatarId)
         return error
 
     def receiveAccountTalk(self, avatarId, avatarName, accountId, accountName, toId, toName, message, scrubbed = 0):
@@ -435,6 +442,8 @@ class TalkAssistant(DirectObject.DirectObject):
             self.historyComplete.append(newMessage)
             self.historyOpen.append(newMessage)
             messenger.send('NewOpenMessage', [newMessage])
+        if hasattr(base.cr, 'chatHistory'):
+            base.cr.chatHistory.addToHistory('{0} thinks: {1}'.format(avatarName, message), avatarId)
         return error
 
     def receiveGameMessage(self, message):
@@ -444,6 +453,8 @@ class TalkAssistant(DirectObject.DirectObject):
             self.historyComplete.append(newMessage)
             self.historyUpdates.append(newMessage)
         messenger.send('NewOpenMessage', [newMessage])
+        if hasattr(base.cr, 'chatHistory'):
+            base.cr.chatHistory.addToHistory('System Message: {0}'.format(message))
         return error
 
     def receiveSystemMessage(self, message):
@@ -453,6 +464,8 @@ class TalkAssistant(DirectObject.DirectObject):
             self.historyComplete.append(newMessage)
             self.historyUpdates.append(newMessage)
         messenger.send('NewOpenMessage', [newMessage])
+        if hasattr(base.cr, 'chatHistory'):
+            base.cr.chatHistory.addToHistory('System Message: {0}'.format(message))
         return error
 
     def receiveDeveloperMessage(self, message):
@@ -535,6 +548,8 @@ class TalkAssistant(DirectObject.DirectObject):
         self.historyOpen.append(newMessage)
         self.addToHistoryDoId(newMessage, senderAvId)
         messenger.send('NewOpenMessage', [newMessage])
+        if hasattr(base.cr, 'chatHistory'):
+            base.cr.chatHistory.addToHistory('{0}: {1}'.format(name, message), senderAvId)
         return error
 
     def receiveAvatarWhisperSpeedChat(self, type, messageIndex, senderAvId, name = None):
@@ -552,6 +567,8 @@ class TalkAssistant(DirectObject.DirectObject):
         self.historyOpen.append(newMessage)
         self.addToHistoryDoId(newMessage, senderAvId)
         messenger.send('NewOpenMessage', [newMessage])
+        if hasattr(base.cr, 'chatHistory'):
+            base.cr.chatHistory.addToHistory('{0} whispers: {1}'.format(name, message), senderAvId)
         return error
 
     def receivePlayerWhisperSpeedChat(self, type, messageIndex, senderAvId, name = None):

@@ -536,6 +536,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         timestamp = time.strftime('%m-%d-%Y %H:%M:%S', time.localtime())
         if fromAV == 0:
             print(':%s: setTalk: %r, %r, %r' % (timestamp, self.doId, self.name, chat))
+            avatarName = self.name
         else:
             print(':%s: setTalk: %r, %r, %r' % (timestamp, fromAV, avatarName, chat))
 

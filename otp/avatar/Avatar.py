@@ -564,6 +564,8 @@ class Avatar(Actor, ShadowCaster):
                         dialogue = self.__chatDialogueList[0]
                     else:
                         dialogue = None
+                    if hasattr(base.cr, 'chatHistory'):
+                        base.cr.chatHistory.addToHistory('{0}: {1}'.format(self.name, self.__chatMessage))
                     self.setChatAbsolute(self.__chatMessage, self.__chatFlags, dialogue)
                     self.__chatSet = 1
                 if pageNumber < self.nametag.getNumChatPages():

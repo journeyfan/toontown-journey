@@ -51,6 +51,7 @@ def init():
             "bookCloseButton": base.localAvatar.book.bookCloseButton,
             "chatNormalButton": base.localAvatar.chatMgr.normalButton,
             "chatScButton": base.localAvatar.chatMgr.scButton,
+            'chatHistoryButton': base.localAvatar.chatMgr.historyButton,
             "arrows": BlinkingArrows.BlinkingArrows(),
         }
     )
@@ -1104,8 +1105,8 @@ class NPCMoviePlayer(DirectObject.DirectObject):
         return Func(self.toon.book.obscureButton, val)
 
     def parseObscureChat(self, line):
-        token, val0, val1 = line
-        return Func(self.toon.chatMgr.obscure, val0, val1)
+        token, val0, val1, val2 = line
+        return Func(self.toon.chatMgr.obscure, val0, val1, val2)
 
     def parseArrowsOn(self, line):
         arrows = self.getVar("arrows")

@@ -642,7 +642,8 @@ class DistributedSuit(DistributedSuitBase.DistributedSuitBase, DelayDeletable):
                     base.playSfx(self.soundChatBubble, node=self)
             elif self.nametag.getStompChatText():
                 self.playDialogueForString(self.nametag.getStompChatText(), self.nametag.CHAT_STOMP_DELAY)
-
+            if hasattr(base.cr, 'chatHistory'):
+                base.cr.chatHistory.addToHistory('\1cogGray\1{0}\2: {1}'.format(self.name, self.nametag.getChatText()))
     def playDialogueForString(self, chatString, delay = 0.0):
         if len(chatString) == 0:
             return

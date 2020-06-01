@@ -91,6 +91,8 @@ class ClientServicesManager(DistributedObjectGlobal):
     def systemMessage(self, message):
         whisper = WhisperPopup(message, OTPGlobals.getInterfaceFont(), WTSystem)
         whisper.manage(base.marginManager)
+        if hasattr(base.cr, 'chatHistory'):
+            base.cr.chatHistory.addToHistory('System Message: {0}'.format(message))
 
         if self.systemMessageSfx is None:
             self.systemMessageSfx = base.loader.loadSfx('phase_3/audio/sfx/clock03.ogg')
