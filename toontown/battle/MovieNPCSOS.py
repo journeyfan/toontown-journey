@@ -195,15 +195,14 @@ def __doSprinkle(attack, recipients, hp = 0):
 
 
 
-def __doJuggle(attack, recipients=None, hp=0):
+def __doJuggle(attack, recipients, hp):
 
     toon = NPCToons.createLocalNPC(attack['npcId'])
     if toon is None:
+        print('toon is none')
         return
-    if recipients is None:
-        targets = attack['toons']
-    else:
-        targets = attack[recipients]
+
+    targets = attack[recipients]
     level = 5
     battle = attack['battle']
     track = Sequence(teleportIn(attack, toon))
@@ -211,8 +210,7 @@ def __doJuggle(attack, recipients=None, hp=0):
     first = 1
     targetTrack = Sequence()
     for target in targets:
-        targetToon = target['toon']
-        reactIval = Func(__healToon, targetToon, hp)
+        reactIval = Func(__healToon, target, hp)
         if first == 1:
             targetTrack.append(Wait(delay))
             first = 0
@@ -226,6 +224,39 @@ def __doJuggle(attack, recipients=None, hp=0):
     track.append(mtrack)
     track.append(Func(toon.setHpr, Vec3(180.0, 0.0, 0.0)))
     track.append(teleportOut(attack, toon))
+    return track
+
+def __doJuggleRestock(attack, hp):
+
+    toon = NPCToons.createLocalNPC(attack['npcId'])
+    if toon is None:
+        print('toon is none')
+        return
+
+    targets = attack['toons']
+    level = 5
+    battle = attack['battle']
+    track = Sequence(teleportIn(attack, toon))
+    delay = 4.0
+    first = 1
+    targetTrack = Sequence()
+    for target in targets:
+        reactIval = Func(__healToon, target, hp)
+        if first == 1:
+            targetTrack.append(Wait(delay))
+            first = 0
+        targetTrack.append(reactIval)
+    cube = globalPropPool.getProp('cubes')
+    cube2 = MovieUtil.copyProp(cube)
+    cubes = [cube, cube2]
+    hips = [toon.getLOD(toon.getLODNames()[0]).find('**/joint_hips'), toon.getLOD(toon.getLODNames()[1]).find('**/joint_hips')]
+    cubeTrack = Sequence(Func(MovieUtil.showProps, cubes, hips), MovieUtil.getActorIntervals(cubes, 'cubes'), Func(MovieUtil.removeProps, cubes))
+    mtrack = Parallel(cubeTrack, __getSoundTrack(level, 0.7, duration=7.7, node=toon), ActorInterval(toon, 'juggle'), targetTrack)
+    track.append(mtrack)
+    track.append(Func(toon.setHpr, Vec3(180.0, 0.0, 0.0)))
+    track.append(teleportOut(attack, toon))
+    return track
+
 
 
 def __doSmooch(attack, hp = 0):
@@ -284,7 +315,7 @@ def __doCogsMiss(attack, level, hp):
 
 
 def __doRestockGags(attack, level, hp):
-    track = __doJuggle(attack, hp)
+    track = __doJuggleRestock(attack, hp)
     pbpText = attack['playByPlayText']
     if level == ToontownBattleGlobals.HEAL_TRACK:
         text = TTLocalizer.MovieNPCSOSHeal
