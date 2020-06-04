@@ -214,6 +214,7 @@ AvProps = (
         "stormcloud",
     ),
     ("flowerpot", "sandbag", "anvil", "weight", "safe", "piano", "piano"),
+    ("flowerpot", "sandbag", "anvil", "weight", "safe", "piano", "piano"),
 )
 AvPropsNew = (
     (

@@ -29,6 +29,8 @@ class TrackPoster(DirectFrame):
             help = TTLocalizer.TrackChoiceGuiSOUND
         elif trackId == ToontownBattleGlobals.DROP_TRACK:
             help = TTLocalizer.TrackChoiceGuiDROP
+        elif trackId == ToontownBattleGlobals.POWER_TRACK:
+            help = TTLocalizer.TrackChoiceGuiDROP #replace with power once we come up with the text
         else:
             help = ''
         self.helpText = DirectFrame(parent=self.poster, relief=None, text=help, text_font=ToontownGlobals.getInterfaceFont(), text_fg=self.normalTextColor, text_scale=0.05, text_align=TextNode.ALeft, text_wordwrap=8.0, textMayChange=0, pos=(-0.05, 0, 0.14))
