@@ -199,7 +199,6 @@ def __doJuggle(attack, recipients, hp):
 
     toon = NPCToons.createLocalNPC(attack['npcId'])
     if toon is None:
-        print('toon is none')
         return
 
     targets = attack[recipients]
