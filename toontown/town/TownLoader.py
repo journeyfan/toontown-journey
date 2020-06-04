@@ -28,10 +28,10 @@ class TownLoader(StateData.StateData):
     zone2music = {
         ToontownCentral : 'phase_9/audio/bgm/encntr_suit_ttc.ogg',
         DonaldsDock : 'phase_9/audio/bgm/encntr_suit_dd.ogg',
-        DaisyGardens : 'phase_9/audio/bgm/encntr_suit_dg.ogg',
+        DaisyGardens : 'phase_9/audio/bgm/encntr_suit_dg.mp3',
         MinniesMelodyland : 'phase_9/audio/bgm/encntr_suit_mml.ogg',
         TheBrrrgh : 'phase_9/audio/bgm/encntr_suit_tb.ogg',
-        DonaldsDreamland : 'phase_9/audio/bgm/encntr_suit_ddl.ogg'
+        DonaldsDreamland : 'phase_9/audio/bgm/encntr_suit_ddl.mp3'
     }
 
     def __init__(self, hood, parentFSMState, doneEvent):
@@ -61,9 +61,9 @@ class TownLoader(StateData.StateData):
         self.loadBattleAnims()
         self.branchZone = ZoneUtil.getBranchZone(zoneId)
         self.canonicalBranchZone = ZoneUtil.getCanonicalBranchZone(zoneId)
-        self.music = base.loadMusic(self.musicFile)
-        self.activityMusic = base.loadMusic(self.activityMusicFile)
-        self.battleMusic = base.loadMusic(self.zone2music.get(ZoneUtil.getHoodId(zoneId), 'phase_9/audio/bgm/encntr_suit_ttc.ogg'))#'phase_3.5/audio/bgm/encntr_general_bg.ogg'))
+        self.music = base.loader.loadMusic(self.musicFile)
+        self.activityMusic = base.loader.loadMusic(self.activityMusicFile)
+        self.battleMusic = base.loader.loadMusic(self.zone2music.get(ZoneUtil.getHoodId(zoneId), 'phase_9/audio/bgm/encntr_suit_ttc.ogg'))#'phase_3.5/audio/bgm/encntr_general_bg.ogg'))
         self.townBattle = TownBattle.TownBattle(self.townBattleDoneEvent)
         self.townBattle.load()
 

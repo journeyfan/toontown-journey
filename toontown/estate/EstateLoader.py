@@ -2,6 +2,7 @@ from pandac.PandaModules import *
 from toontown.toonbase.ToontownGlobals import *
 from direct.interval.IntervalGlobal import *
 from direct.fsm import ClassicFSM, State
+from direct.gui import OnscreenText
 from toontown.safezone import SafeZoneLoader
 import random
 from toontown.launcher import DownloadForceAcknowledge
@@ -30,6 +31,8 @@ class EstateLoader(SafeZoneLoader.SafeZoneLoader):
         self.safeZoneStorageDNAFile = None
         self.cloudSwitch = 0
         self.id = MyEstate
+        self.titleText = None
+        self.titleColor = (0.1, 1.0, 0.1, 1.0)
         self.estateOwnerId = None
         self.branchZone = None
         self.houseDoneEvent = 'houseDone'
@@ -47,12 +50,12 @@ class EstateLoader(SafeZoneLoader.SafeZoneLoader):
 
     def load(self):
         SafeZoneLoader.SafeZoneLoader.load(self)
-        self.music = base.loadMusic('phase_4/audio/bgm/TC_nbrhood.ogg')
-        self.underwaterSound = base.loadSfx('phase_4/audio/sfx/AV_ambient_water.ogg')
-        self.swimSound = base.loadSfx('phase_4/audio/sfx/AV_swim_single_stroke.ogg')
-        self.submergeSound = base.loadSfx('phase_5.5/audio/sfx/AV_jump_in_water.ogg')
-        self.birdSound = list(map(base.loadSfx, ['phase_4/audio/sfx/SZ_TC_bird1.ogg', 'phase_4/audio/sfx/SZ_TC_bird2.ogg', 'phase_4/audio/sfx/SZ_TC_bird3.ogg']))
-        self.cricketSound = list(map(base.loadSfx, ['phase_4/audio/sfx/SZ_TC_bird1.ogg', 'phase_4/audio/sfx/SZ_TC_bird2.ogg', 'phase_4/audio/sfx/SZ_TC_bird3.ogg']))
+        self.music = base.loader.loadMusic('phase_4/audio/bgm/estate_nbrhood.ogg')
+        self.underwaterSound = base.loader.loadSfx('phase_4/audio/sfx/AV_ambient_water.ogg')
+        self.swimSound = base.loader.loadSfx('phase_4/audio/sfx/AV_swim_single_stroke.ogg')
+        self.submergeSound = base.loader.loadSfx('phase_5.5/audio/sfx/AV_jump_in_water.ogg')
+        self.birdSound = list(map(base.loader.loadSfx, ['phase_4/audio/sfx/SZ_TC_bird1.ogg', 'phase_4/audio/sfx/SZ_TC_bird2.ogg', 'phase_4/audio/sfx/SZ_TC_bird3.ogg']))
+        self.cricketSound = list(map(base.loader.loadSfx, ['phase_4/audio/sfx/SZ_TC_bird1.ogg', 'phase_4/audio/sfx/SZ_TC_bird2.ogg', 'phase_4/audio/sfx/SZ_TC_bird3.ogg']))
         if base.goonsEnabled:
             invModel = loader.loadModel('phase_3.5/models/gui/inventory_icons')
             self.invModels = []
@@ -81,6 +84,7 @@ class EstateLoader(SafeZoneLoader.SafeZoneLoader):
         del self.submergeSound
         del self.birdSound
         del self.cricketSound
+        self.music.stop()
         for node in self.houseNode:
             node.removeNode()
 
@@ -107,6 +111,9 @@ class EstateLoader(SafeZoneLoader.SafeZoneLoader):
 
     def enter(self, requestStatus):
         self.estateOwnerId = requestStatus.get('ownerId', base.localAvatar.doId)
+        hoodText = TTLocalizer.IEstate
+        self.titleText = OnscreenText.OnscreenText(hoodText, fg=self.titleColor, font=getSignFont(), pos=(0, -0.5), scale=TTLocalizer.HtitleText, drawOrder=0, mayChange=1)
+        self.spawnTitleText()
         base.localAvatar.inEstate = 1
         self.loadCloudPlatforms()
         if base.cloudPlatformsEnabled and 0:
@@ -115,8 +122,29 @@ class EstateLoader(SafeZoneLoader.SafeZoneLoader):
             self.setCloudSwitch(self.cloudSwitch)
         SafeZoneLoader.SafeZoneLoader.enter(self, requestStatus)
 
+    def spawnTitleText(self):
+        self.doSpawnTitleText()
+
+    def doSpawnTitleText(self):
+        self.titleText.setText(TTLocalizer.IEstate)
+        self.titleText.show()
+        self.titleText.setColor(Vec4(*self.titleColor))
+        self.titleText.clearColorScale()
+        self.titleText.setFg(self.titleColor)
+        self.seq = Sequence(Wait(0.1), LerpPosInterval(self.titleText, 1, (0, 0, -0.2), startPos=(0, 0, -1), blendType='easeInOut'), Wait(6.0), LerpPosInterval(self.titleText, 1, (0, 0, -1), startPos=(0, 0, -0.2), blendType='easeInOut'), Func(self.titleText.hide))
+        self.seq.start()
+
+    def hideTitleText(self):
+        if self.titleText:
+            self.titleText.hide()
+
     def exit(self):
         self.ignoreAll()
+        taskMgr.remove('titleText')
+        if self.titleText:
+            self.seq.finish()
+            self.titleText.cleanup()
+            self.titleText = None
         base.cr.cache.flush()
         base.localAvatar.stopChat()
         base.localAvatar.inEstate = 0
@@ -167,6 +195,7 @@ class EstateLoader(SafeZoneLoader.SafeZoneLoader):
         self.place.load()
         self.place.enter(requestStatus)
         self.estateZoneId = zoneId
+        base.playMusic(self.music, looping=1, volume=0.8)
 
     def exitEstate(self):
         self.notify.debug('exitEstate')
@@ -212,6 +241,7 @@ class EstateLoader(SafeZoneLoader.SafeZoneLoader):
         base.cr.playGame.setPlace(self.place)
         self.place.load()
         self.place.enter(requestStatus)
+        self.music.stop()
 
     def exitHouse(self):
         self.ignore(self.houseDoneEvent)

@@ -1,4 +1,4 @@
-from lib.libpandadna import DNASuitPoint
+from libpandadna import DNASuitPoint
 from toontown.suit import SuitTimings
 from toontown.toonbase import ToontownGlobals
 

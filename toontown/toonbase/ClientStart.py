@@ -5,8 +5,7 @@ import builtins
 builtins.process = 'client'
 
 
-# Temporary hack patch:
-builtins.__dict__.update(__import__('pandac.PandaModules', fromlist=['*']).__dict__)
+from panda3d.core import *
 from direct.extensions_native import HTTPChannel_extensions
 from direct.extensions_native import Mat3_extensions
 from direct.extensions_native import VBase3_extensions
@@ -129,21 +128,21 @@ logo.setBin('fixed', 20)
 logo.reparentTo(backgroundNodePath)
 backgroundNodePath.find('**/bg').setBin('fixed', 10)
 base.graphicsEngine.renderFrame()
-DirectGuiGlobals.setDefaultRolloverSound(base.loadSfx('phase_3/audio/sfx/GUI_rollover.ogg'))
-DirectGuiGlobals.setDefaultClickSound(base.loadSfx('phase_3/audio/sfx/GUI_create_toon_fwd.ogg'))
+DirectGuiGlobals.setDefaultRolloverSound(base.loader.loadSfx('phase_3/audio/sfx/GUI_rollover.ogg'))
+DirectGuiGlobals.setDefaultClickSound(base.loader.loadSfx('phase_3/audio/sfx/GUI_create_toon_fwd.ogg'))
 DirectGuiGlobals.setDefaultDialogGeom(loader.loadModel('phase_3/models/gui/dialog_box_gui'))
 from . import TTLocalizer
 from otp.otpbase import OTPGlobals
 OTPGlobals.setDefaultProductPrefix(TTLocalizer.ProductPrefix)
 if base.musicManagerIsValid:
-    music = base.loadMusic('phase_3/audio/bgm/ttf_theme.ogg')
+    music = base.loader.loadMusic('phase_3/audio/bgm/ttf_theme.ogg')
     if music:
         music.setLoop(1)
         music.setVolume(0.9)
         music.play()
     notify.info('Loading the default GUI sounds...')
-    DirectGuiGlobals.setDefaultRolloverSound(base.loadSfx('phase_3/audio/sfx/GUI_rollover.ogg'))
-    DirectGuiGlobals.setDefaultClickSound(base.loadSfx('phase_3/audio/sfx/GUI_create_toon_fwd.ogg'))
+    DirectGuiGlobals.setDefaultRolloverSound(base.loader.loadSfx('phase_3/audio/sfx/GUI_rollover.ogg'))
+    DirectGuiGlobals.setDefaultClickSound(base.loader.loadSfx('phase_3/audio/sfx/GUI_create_toon_fwd.ogg'))
 else:
     music = None
 from . import ToontownLoader
@@ -183,8 +182,9 @@ builtins.loader = base.loader
 autoRun = ConfigVariableBool('toontown-auto-run', 1)
 if autoRun:
     try:
-        run()
+        base.run()
     except SystemExit:
+        print("Clean Exit")
         raise
     except:
         from toontown.toonbase import PythonUtil

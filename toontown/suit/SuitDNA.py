@@ -64,6 +64,7 @@ suitATypes = ['ym',
  'm',
  'mh',
  ##Adding new Security Cogs
+ 'wm',
  'bg',
  'w']
 suitBTypes = ['p',
@@ -88,7 +89,6 @@ suitCTypes = ['f',
  'cc',
  'gh',
   ##Adding new Security Cogs
- 'wm',
  'bnc',
  'mc',
  'ssa']
@@ -123,6 +123,7 @@ suitsPerLevel = [1,
  1]
 suitsPerDept = 8
 levelsPerSuit = 5
+MaxCogSuitLevel = 50 - 1
 goonTypes = ['pg', 'sg']
 
 def getSuitBodyType(name):

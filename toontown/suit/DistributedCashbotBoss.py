@@ -222,6 +222,7 @@ class DistributedCashbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         planeNode.addSolid(plane)
         planeNode.setCollideMask(ToontownGlobals.PieBitmask)
         self.geom.attachNewNode(planeNode)
+        self.battleThreeMusic = base.loader.loadMusic('phase_9/audio/bgm/encntr_cfo.mp3')
         self.geom.reparentTo(render)
 
     def unloadEnvironment(self):
@@ -493,7 +494,7 @@ class DistributedCashbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         loco = loader.loadModel('phase_10/models/cogHQ/CashBotLocomotive')
         car1 = loader.loadModel('phase_10/models/cogHQ/CashBotBoxCar')
         car2 = loader.loadModel('phase_10/models/cogHQ/CashBotTankCar')
-        trainPassingSfx = base.loadSfx('phase_10/audio/sfx/CBHQ_TRAIN_pass.ogg')
+        trainPassingSfx = base.loader.loadSfx('phase_10/audio/sfx/CBHQ_TRAIN_pass.ogg')
         boomSfx = loader.loadSfx('phase_3.5/audio/sfx/ENC_cogfall_apart.ogg')
         rollThroughDoor = self.rollBossToPoint(fromPos=Point3(120, -280, 0), fromHpr=None, toPos=Point3(120, -250, 0), toHpr=None, reverse=0)
         rollTrack = Sequence(Func(self.getGeomNode().setH, 180), rollThroughDoor[0], Func(self.getGeomNode().setH, 0))
@@ -581,6 +582,7 @@ class DistributedCashbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
             self.doAnimate('hit', now=1)
             self.showHpText(-delta, scale=5)
         self.bossDamage = bossDamage
+        self.bossHealthBar.update(self.bossMaxDamage - self.bossDamage, self.bossMaxDamage)
         self.updateHealthBar()
 
     def setRewardId(self, rewardId):
@@ -771,6 +773,7 @@ class DistributedCashbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         self.midVault.stash()
         self.__hideResistanceToon()
         localAvatar.setCameraFov(ToontownGlobals.BossBattleCameraFov)
+        self.bossHealthBar.start(self.bossMaxDamage - self.bossDamage, self.bossMaxDamage)
         self.generateHealthBar()
         self.updateHealthBar()
         base.playMusic(self.battleThreeMusic, looping=1, volume=0.9)

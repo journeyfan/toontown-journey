@@ -6,7 +6,7 @@ from pandac.PandaModules import *
 import random
 
 from . import ToonInteriorColors
-from lib.libpandadna import DNADoor
+from libpandadna import DNADoor
 from toontown.hood import ZoneUtil
 from toontown.toon.DistributedNPCToonBase import DistributedNPCToonBase
 from toontown.toonbase.ToonBaseGlobal import *

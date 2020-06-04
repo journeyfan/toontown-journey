@@ -10,7 +10,7 @@ from direct.interval.IntervalGlobal import Sequence, Wait, Func, Parallel, Sound
 from direct.showbase import PythonUtil
 from direct.task.Task import Task
 import operator
-from pandac.PandaModules import *
+from panda3d.core import *
 import random
 import time
 from . import Experience
@@ -61,6 +61,7 @@ from toontown.suit import SuitDNA
 from toontown.toonbase import TTLocalizer
 from toontown.toonbase import ToontownGlobals
 from otp.ai import MagicWordManager
+from direct.showbase.InputStateGlobal import inputState
 
 if base.wantKarts:
     from toontown.racing.KartDNA import *
@@ -196,7 +197,11 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
 
     def setRedeemedCodes(self, redeemedCodes):
         self.redeemedCodes = redeemedCodes
-        
+    
+    def setSprint(self):
+        if self.isLocal():
+            inputState.set('debugRunning', inputState.isSet('debugRunning') is not True)
+
     def disable(self):
         for soundSequence in self.soundSequenceList:
             soundSequence.finish()

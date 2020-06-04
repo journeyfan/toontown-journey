@@ -243,8 +243,10 @@ class DistributedLawbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
                 self.bossDamageMovie.resumeUntil(self.bossDamage * self.bossDamageToMovie)
                 if self.recoverRate:
                     taskMgr.add(self.__recoverBossDamage, taskName)
-        self.makeScaleReflectDamage()
+        self.bossHealthBar.update(self.bossMaxDamage - self.bossDamage, self.bossMaxDamage)
 
+        self.makeScaleReflectDamage()
+        
     def getBossDamage(self):
         self.notify.debug('----- getBossDamage')
         now = globalClock.getFrameTime()
@@ -396,9 +398,9 @@ class DistributedLawbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         elevatorModel = loader.loadModel('phase_11/models/lawbotHQ/LB_Elevator')
         elevatorModel.reparentTo(self.elevatorEntrance)
         self.setupElevator(elevatorModel)
-        self.promotionMusic = base.loadMusic('phase_7/audio/bgm/encntr_suit_winning_indoor.ogg')
-        self.betweenBattleMusic = base.loadMusic('phase_9/audio/bgm/encntr_toon_winning.ogg')
-        self.battleTwoMusic = base.loadMusic('phase_11/audio/bgm/LB_juryBG.ogg')
+        self.promotionMusic = base.loader.loadMusic('phase_7/audio/bgm/encntr_suit_winning_indoor.ogg')
+        self.betweenBattleMusic = base.loader.loadMusic('phase_9/audio/bgm/encntr_toon_winning.ogg')
+        self.battleTwoMusic = base.loader.loadMusic('phase_11/audio/bgm/LB_juryBG.ogg')
         floor = self.geom.find('**/MidVaultFloor1')
         if floor.isEmpty():
             floor = self.geom.find('**/CR3_Floor')
@@ -968,7 +970,7 @@ class DistributedLawbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         #if diffSettings[4]:
             #localAvatar.chatMgr.chatInputSpeedChat.removeCJMenu()
             #localAvatar.chatMgr.chatInputSpeedChat.addCJMenu(self.bonusWeight)
-
+        self.bossHealthBar.start(self.bossMaxDamage - self.bossDamage, self.bossMaxDamage)
     def __doneBattleThree(self):
         self.notify.debug('----- __doneBattleThree')
         self.setState('NearVictory')

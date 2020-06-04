@@ -579,7 +579,22 @@ def skipCFO():
     boss.b_setState('PrepareBattleThree')
     return 'Skipping the first round...'
 
-
+@magicWord(category=CATEGORY_MODERATOR, types = [int])
+def hitCFO(damage):
+    '''
+    Hits the CFO
+    '''
+    invoker = spellbook.getInvoker()
+    boss = None 
+    avId = invoker.doId
+    for do in list(simbase.air.doId2do.values()):
+        if isinstance(do, DistributedCashbotBossAI):
+            if invoker.doId in do.involvedToons:
+                boss = do
+                break
+    if not boss:
+        return "You aren't in a CFO!"
+    boss.magicWordHit(damage, avId)
 @magicWord(category=CATEGORY_MODERATOR)
 def killCFO():
     """

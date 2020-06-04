@@ -191,6 +191,7 @@ CRBootedReasons = {1: 'An unexpected problem has occurred.  Your connection has 
  152: "You've been banned by a moderator due to a violation of our Terms of Service. For more details, please review the message sent to your account associated with '%(name)s' by logging on the website.",
  153: 'The district you were playing on has been reset.  Everyone who was playing on that district has been disconnected.  However, you should be able to connect again and go right back into the game.',
  154: 'Toontown Journey is now temporarily closed for maintenance. Everyone who was playing has been disconnected from the game.\n\nFor more information, please visit the Toontown Journey website.',
+ 166: 'You were disconnected to prevent a district reset.',
  288: 'Sorry, you have used up all of your available minutes this month.',
  349: 'Sorry, you have used up all of your available minutes this month.'}
 CRBootedReasonUnknownCode = 'An unexpected problem has occurred (error code %s).  Your connection has been lost, but you should be able to connect again and go right back into the game.'

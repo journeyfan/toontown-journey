@@ -83,17 +83,17 @@ class CogdoElevatorMovie(CogdoGameMovie):
         self._toonDialogueSfx = loader.loadSfx('phase_3.5/audio/dial/AV_dog_long.ogg')
         self._camHelperNode = NodePath('CamHelperNode')
         self._camHelperNode.reparentTo(render)
-        dialogue = TTLocalizer.CogdoMazeGameElevatorRewardLaff
+        dialogue = TTLocalizer.CogdoElevatorRewardLaff
 
         def start():
             self.frame.show()
-            base.setCellsAvailable(base.bottomCells + base.leftCells + base.rightCells, 0)
+            base.setCellsActive(base.bottomCells + base.leftCells + base.rightCells, 0)
 
         def end():
             self._dialogueLabel.reparentTo(hidden)
             self.toonHead.reparentTo(hidden)
             self.frame.hide()
-            base.setCellsAvailable(base.bottomCells + base.leftCells + base.rightCells, 1)
+            base.setCellsActive(base.bottomCells + base.leftCells + base.rightCells, 1)
             self._stopUpdateTask()
 
         self._ival = Sequence(Func(start), Func(self.displayLine, dialogue), Wait(self.elevatorDuration), Func(end))

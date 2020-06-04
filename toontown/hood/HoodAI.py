@@ -1,6 +1,6 @@
 from direct.directnotify.DirectNotifyGlobal import *
 from toontown.building import DistributedBuildingMgrAI
-from lib.libpandadna import DNAStorage, DNAGroup, DNAVisGroup
+from libpandadna import DNAStorage, DNAGroup, DNAVisGroup
 from toontown.fishing.DistributedFishingPondAI import DistributedFishingPondAI
 from toontown.hood import ZoneUtil
 from toontown.safezone import TreasureGlobals

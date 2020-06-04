@@ -167,10 +167,10 @@ class DistributedBossbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         planeNode.setCollideMask(ToontownGlobals.PieBitmask)
         self.geom.attachNewNode(planeNode)
         self.geom.reparentTo(render)
-        self.promotionMusic = base.loadMusic('phase_7/audio/bgm/encntr_suit_winning_indoor.ogg')
-        self.betweenPhaseMusic = base.loadMusic('phase_9/audio/bgm/encntr_toon_winning.ogg')
-        self.phaseTwoMusic = base.loadMusic('phase_12/audio/bgm/BossBot_CEO_v1.ogg')
-        self.phaseFourMusic = base.loadMusic('phase_12/audio/bgm/BossBot_CEO_v2.ogg')
+        self.promotionMusic = base.loader.loadMusic('phase_7/audio/bgm/encntr_suit_winning_indoor.ogg')
+        self.betweenPhaseMusic = base.loader.loadMusic('phase_9/audio/bgm/encntr_toon_winning.ogg')
+        self.phaseTwoMusic = base.loader.loadMusic('phase_12/audio/bgm/BossBot_CEO_v1.ogg')
+        self.phaseFourMusic = base.loader.loadMusic('phase_12/audio/bgm/BossBot_CEO_v2.ogg')
         self.pickupFoodSfx = loader.loadSfx('phase_6/audio/sfx/SZ_MM_gliss.ogg')
         self.explodeSfx = loader.loadSfx('phase_4/audio/sfx/firework_distance_02.ogg')
 
@@ -668,6 +668,8 @@ class DistributedBossbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
                 toon.takeOffSuit()
 
         self.bossClub.reparentTo(self.rightHandJoint)
+        self.bossHealthBar.start(self.bossMaxDamage - self.bossDamage, self.bossMaxDamage)
+        self.bossHealthBar.update(self.bossMaxDamage, self.bossMaxDamage)
         self.generateHealthBar()
         self.updateHealthBar()
         base.playMusic(self.phaseFourMusic, looping=1, volume=0.9)
@@ -688,7 +690,9 @@ class DistributedBossbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
             self.flashRed()
             self.showHpText(-delta, scale=5)
         self.bossDamage = bossDamage
+        self.bossHealthBar.update(self.bossMaxDamage - self.bossDamage, self.bossMaxDamage)
         self.updateHealthBar()
+
 
     def setGolfSpot(self, golfSpot, golfSpotIndex):
         self.golfSpots[golfSpotIndex] = golfSpot

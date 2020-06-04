@@ -189,6 +189,8 @@ class DistributedSellbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         self.bossDamage = bossDamage
         self.recoverRate = recoverRate
         self.recoverStartTime = recoverStartTime
+        self.bossHealthBar.update(self.bossMaxDamage - self.bossDamage, self.bossMaxDamage)
+
         taskName = 'RecoverBossDamage'
         taskMgr.remove(taskName)
         if self.bossDamageMovie:
@@ -551,10 +553,10 @@ class DistributedSellbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         self.rope.ropeNode.setUvScale(0.8)
         self.rope.setTexture(self.cage.findTexture('hq_chain'))
         self.rope.setTransparency(1)
-        self.promotionMusic = base.loadMusic('phase_7/audio/bgm/encntr_suit_winning_indoor.ogg')
-        self.betweenBattleMusic = base.loadMusic('phase_9/audio/bgm/encntr_toon_winning.ogg')
-        self.battleTwoMusic = base.loadMusic('phase_7/audio/bgm/encntr_suit_winning_indoor.ogg')
-        self.battleThreeMusic = base.loadMusic('phase_9/audio/bgm/encntr_vp_boss.ogg')
+        self.promotionMusic = base.loader.loadMusic('phase_7/audio/bgm/encntr_suit_winning_indoor.ogg')
+        self.betweenBattleMusic = base.loader.loadMusic('phase_9/audio/bgm/encntr_toon_winning.ogg')
+        self.battleTwoMusic = base.loader.loadMusic('phase_7/audio/bgm/encntr_suit_winning_indoor.ogg')
+        self.battleThreeMusic = base.loader.loadMusic('phase_9/audio/bgm/encntr_vp_boss.ogg')
         self.geom.reparentTo(render)
 
     def unloadEnvironment(self):
@@ -894,7 +896,8 @@ class DistributedSellbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         self.bossDamageToMovie = self.bossDamageMovie.getDuration() / self.bossMaxDamage
         self.bossDamageMovie.setT(self.bossDamage * self.bossDamageToMovie)
         base.playMusic(self.battleThreeMusic, looping=1, volume=0.9)
-
+        self.bossHealthBar.start(self.bossMaxDamage - self.bossDamage, self.bossMaxDamage)
+        
     def __doneBattleThree(self):
         self.setState('NearVictory')
         self.unstickBoss()

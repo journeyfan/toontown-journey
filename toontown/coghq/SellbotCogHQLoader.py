@@ -30,7 +30,7 @@ class SellbotCogHQLoader(CogHQLoader.CogHQLoader):
             state = self.fsm.getStateNamed(stateName)
             state.addTransition('factoryInterior')
 
-        self.musicFile = 'phase_9/audio/bgm/encntr_suit_HQ_nbrhood.ogg'
+        self.musicFile = 'phase_9/audio/bgm/sbhq_courtyard.mp3'
         self.cogHQExteriorModelPath = 'phase_9/models/cogHQ/SellbotHQExterior'
         self.cogHQLobbyModelPath = 'phase_9/models/cogHQ/SellbotHQLobby'
         self.factoryExteriorModelPath = 'phase_9/models/cogHQ/SellbotFactoryExterior'

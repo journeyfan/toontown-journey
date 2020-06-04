@@ -161,7 +161,7 @@ WAIT 1.094
 LERP_POSHPRSCALE flower -1.76 7.42 -0.63 179.96 -89.9 -153.43 0.12 0.12 0.12 1
 PLAY_ANIM npc 'right-hand-start' -1.5
 WAIT 1
-ADD_INVENTORY 5 0 2
+ADD_INVENTORY 5 0 1
 POSHPRSCALE inventory -0.77 7.42 1.11 0 0 0 3 0.01 3
 REPARENTTO flower hidden
 REPARENTTO tart npc "**/1000/**/def_joint_right_hold"
@@ -176,7 +176,7 @@ WAIT 1.094
 LERP_POSHPRSCALE tart -1.66 7.42 -0.36 0 30 30 0.12 0.12 0.12 1.0
 PLAY_ANIM npc 'right-hand-start' -1.5
 WAIT 1
-ADD_INVENTORY 4 0 2
+ADD_INVENTORY 4 0 1
 POSHPRSCALE inventory -0.77 7.42 1.11 0 0 0 3 0.01 3
 REPARENTTO tart hidden
 #PLAY_ANIM npc 'neutral' 1

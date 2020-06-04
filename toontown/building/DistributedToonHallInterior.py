@@ -3,7 +3,7 @@ from direct.interval.IntervalGlobal import *
 from direct.distributed.ClockDelta import *
 from direct.showbase import Audio3DManager
 from toontown.toonbase import ToontownGlobals
-from lib.libpandadna import DNADoor
+from libpandadna import DNADoor
 import pickle
 from .DistributedToonInterior import DistributedToonInterior
 from direct.directnotify import DirectNotifyGlobal

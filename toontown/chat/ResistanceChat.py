@@ -20,7 +20,8 @@ RESISTANCE_TOONUP = 0
 RESISTANCE_RESTOCK = 1
 RESISTANCE_MONEY = 2
 RESISTANCE_DANCE = 3
-
+RESISTANCE_TICKETS = 4
+RESISTANCE_MERITS = 5
 allowedResistanceMessages = []
 if config.GetBool('want-resistance-toonup', True):
     allowedResistanceMessages.append(RESISTANCE_TOONUP)
@@ -30,8 +31,14 @@ if config.GetBool('want-resistance-money', True):
     allowedResistanceMessages.append(RESISTANCE_MONEY)
 if config.GetBool('want-resistance-dance', True):
     allowedResistanceMessages.append(RESISTANCE_DANCE)
+
+if config.GetBool('want-resistance-tickets', True):
+    allowedResistanceMessages.append(RESISTANCE_TICKETS)
+
+if config.GetBool('want-resistance-merits', True):
+    allowedResistanceMessages.append(RESISTANCE_MERITS)
     
-resistanceMenu = [RESISTANCE_TOONUP, RESISTANCE_RESTOCK, RESISTANCE_MONEY,RESISTANCE_DANCE]
+resistanceMenu = [RESISTANCE_TOONUP, RESISTANCE_RESTOCK, RESISTANCE_MONEY,RESISTANCE_DANCE, RESISTANCE_TICKETS, RESISTANCE_MERITS]
 randomResistanceMenu = [RESISTANCE_TOONUP, RESISTANCE_RESTOCK, RESISTANCE_MONEY,RESISTANCE_DANCE]
 resistanceDict = {
     RESISTANCE_TOONUP: {
@@ -60,6 +67,7 @@ resistanceDict = {
             ToontownBattleGlobals.THROW_TRACK,
             ToontownBattleGlobals.SQUIRT_TRACK,
             ToontownBattleGlobals.DROP_TRACK,
+            ToontownBattleGlobals.POWER_TRACK,
             -1
         ],
         'extra': [
@@ -70,6 +78,7 @@ resistanceDict = {
             TTLocalizer.MovieNPCSOSThrow,
             TTLocalizer.MovieNPCSOSSquirt,
             TTLocalizer.MovieNPCSOSDrop,
+            TTLocalizer.MovieNPCSOSPower,
             TTLocalizer.MovieNPCSOSAll
         ],
         'items': [0, 1, 2, 3, 4, 5, 6, 7]
@@ -80,8 +89,22 @@ resistanceDict = {
         'chatText': TTLocalizer.ResistanceDanceChat,
         'values': ['Dance'],
         'items': [0]
-    }
-}
+    },
+RESISTANCE_TICKETS: {
+        'menuName': TTLocalizer.ResistanceTicketsMenu,
+        'itemText': TTLocalizer.ResistanceTicketsItem,
+        'chatText': TTLocalizer.ResistanceTicketsChat,
+        'values': [200, 400, 800, 2000],
+        'items': [0, 1, 2, 3]
+    },
+RESISTANCE_MERITS: {
+    'menuName': TTLocalizer.ResistanceMeritsMenu,
+    'itemText': TTLocalizer.ResistanceMeritsItem,
+    'chatText': TTLocalizer.ResistanceMeritsChat,
+    'values': [500,1000,1500,2000],
+    'items': [0,1,2,3]
+
+}}
 
 
 def encodeId(menuIndex, itemIndex):
@@ -120,10 +143,10 @@ def getItemText(textId):
     menuIndex, itemIndex = decodeId(textId)
     value = resistanceDict[menuIndex]['values'][itemIndex]
     text = resistanceDict[menuIndex]['itemText']
-    if menuIndex is RESISTANCE_TOONUP:
-        if value is -1:
+    if menuIndex == RESISTANCE_TOONUP:
+        if value == -1:
             value = TTLocalizer.ResistanceToonupItemMax
-    elif menuIndex is RESISTANCE_RESTOCK:
+    elif menuIndex == RESISTANCE_RESTOCK:
         value = resistanceDict[menuIndex]['extra'][itemIndex]
     return text % str(value)
 
@@ -210,6 +233,30 @@ def doEffect(textId, speakingToon, nearbyToons):
             toon = base.cr.doId2do.get(toonId)
             if toon and (not toon.ghostMode):
                 toon.setAnimState('victory')
+    elif menuIndex == RESISTANCE_TICKETS:
+        effect = BattleParticles.loadParticleFile('resistanceEffectSparkle.ptf')
+        ticket = loader.loadModel('phase_6/models/karting/tickets.bam')
+        ticket = ticket.find('**/tickets')
+        colors = {
+            'particles-1': (1, 1, 0, 1),
+            'particles-2': (1, 0, 0, 1),
+            'particles-3': (0, 1, 0, 1),
+            'particles-4': (0, 0, 1, 1),
+            'particles-5': (1, 0, 1, 1)
+        }
+        for name, color in list(colors.items()):
+            node = ticket.copyTo(NodePath())
+            node.setColorScale(*color)
+            p = effect.getParticlesNamed(name)
+            p.renderer.setGeomNode(node.node())
+        fadeColor = VBase4(0, 1, 0, 1)
+
+
+    elif menuIndex == RESISTANCE_MERITS:
+
+        
+        effect = BattleParticles.loadParticleFile('resistanceEffectSparkle.ptf')
+        fadeColor = VBase4(1, 0.5,1,1 )
     else:
         return
     recolorToons = Parallel()

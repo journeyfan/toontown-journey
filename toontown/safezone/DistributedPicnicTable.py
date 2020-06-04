@@ -57,8 +57,8 @@ class DistributedPicnicTable(DistributedNode.DistributedNode):
          None,
          None]
         self.haveAnimated = []
-        self.winSound = base.loadSfx('phase_6/audio/sfx/KART_Applause_1.ogg')
-        self.happyDance = base.loadSfx('phase_5/audio/sfx/AA_heal_happydance.ogg')
+        self.winSound = base.loader.loadSfx('phase_6/audio/sfx/KART_Applause_1.ogg')
+        self.happyDance = base.loader.loadSfx('phase_5/audio/sfx/AA_heal_happydance.ogg')
         self.accept('stoppedAsleep', self.handleSleep)
         base.localAvatar.startSleepWatch(self.handleSleep)
         self.__toonTracks = {}
@@ -500,10 +500,10 @@ class DistributedPicnicTable(DistributedNode.DistributedNode):
         self.tableclothSphereNode.setCollideMask(BitMask32(0))
 
     def enterOff(self):
-        base.setCellsAvailable(base.leftCells + base.bottomCells, 0)
+        base.setCellsActive(base.leftCells + base.bottomCells, 0)
 
     def exitOff(self):
-        base.setCellsAvailable(base.bottomCells, 0)
+        base.setCellsActive(base.bottomCells, 0)
 
     def enterChooseMode(self):
         self.winTrack = Sequence(autoFinish=1)

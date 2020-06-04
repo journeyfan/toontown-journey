@@ -11,7 +11,7 @@ from direct.fsm import State
 from direct.interval.IntervalGlobal import *
 from otp.speedchat import SpeedChatGlobals
 from pandac.PandaModules import *
-from lib.libpandadna import DNADoor
+from libpandadna import DNADoor
 from toontown.hood import ZoneUtil
 from toontown.toon import ToonDNA
 from toontown.toon import ToonHead

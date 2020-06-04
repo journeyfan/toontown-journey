@@ -1,4 +1,5 @@
 from pandac.PandaModules import *
+from direct.interval.IntervalGlobal import *
 
 
 class ChatBalloon(NodePath):
@@ -93,6 +94,11 @@ class ChatBalloon(NodePath):
 
         # Finally, enable anti-aliasing:
         self.setAntialias(AntialiasAttrib.MMultisample)
+
+    def playDeflateAnimation(self):
+        deflateSeq = Sequence(LerpScaleInterval(self, 1, 5), Func(self.removeNode))
+        if not deflateSeq.isPlaying():
+            deflateSeq.start()
 
     def setForeground(self, foreground):
         self.foreground = foreground

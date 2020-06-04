@@ -1,5 +1,5 @@
 from toontown.classicchars import DistributedGoofySpeedwayAI
-from lib.libpandadna import DNAGroup, DNAVisGroup
+from libpandadna import DNAGroup, DNAVisGroup
 from toontown.hood import HoodAI
 from toontown.hood import ZoneUtil
 from toontown.racing import RaceGlobals

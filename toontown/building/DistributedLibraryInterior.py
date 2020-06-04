@@ -2,7 +2,7 @@ from direct.distributed.DistributedObject import DistributedObject
 import random
 
 from toontown.building import  ToonInteriorColors
-from lib.libpandadna import DNADoor
+from libpandadna import DNADoor
 from toontown.hood import ZoneUtil
 from toontown.toon.DistributedNPCToonBase import DistributedNPCToonBase
 

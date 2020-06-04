@@ -921,7 +921,7 @@ def skipCEO():
     if boss.state in ('PrepareBattleThree', 'BattleThree'):
         return "You can't skip this round."
     boss.exitIntroduction()
-    boss.b_setState('PrepareBattleThree')
+    boss.b_setState('PrepareBattleFour')
 
 
 @magicWord(category=CATEGORY_PROGRAMMER)

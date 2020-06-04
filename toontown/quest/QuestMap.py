@@ -232,6 +232,9 @@ class QuestMap(DirectFrame):
              1,
              1,
              0.8 - 1.4 * task.time % 0.5 * 2 / 0.8 + 0.2)
+        if self.marker['geom_scale'] <= 1.6:
+            snd = base.loader.loadSfx("phase_4/audio/sfx/maps_activate.ogg")
+            snd.play()
         if task.time < 1:
             return Task.cont
         else:

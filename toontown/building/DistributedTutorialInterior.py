@@ -4,7 +4,7 @@ from direct.interval.IntervalGlobal import *
 from direct.distributed.ClockDelta import *
 from toontown.toonbase import ToontownGlobals
 from toontown.dna.DNAParser import *
-from lib.libpandadna import DNAStorage, DNADoor
+from libpandadna import DNAStorage, DNADoor
 from . import ToonInterior
 from direct.directnotify import DirectNotifyGlobal
 from direct.distributed import DistributedObject, DistributedSmoothNode
