@@ -354,13 +354,13 @@ class DistributedCogKart(DistributedElevatorExt.DistributedElevatorExt):
         print('rejectBoard %s' % reason)
         if hasattr(base.localAvatar, 'elevatorNotifier'):
             if reason == ElevatorConstants.REJECT_SHUFFLE:
-                base.localAvatar.elevatorNotifier.showMe(TTLocalizer.ElevatorHoppedOff)
+                base.localAvatar.elevatorNotifier.showMeWithoutStopping(TTLocalizer.ElevatorHoppedOff)
             elif reason == ElevatorConstants.REJECT_MINLAFF:
-                base.localAvatar.elevatorNotifier.showMe(TTLocalizer.KartMinLaff % self.minLaff)
+                base.localAvatar.elevatorNotifier.showMeWithoutStopping(TTLocalizer.KartMinLaff % self.minLaff)
             elif reason == ElevatorConstants.REJECT_PROMOTION:
-                base.localAvatar.elevatorNotifier.showMe(TTLocalizer.BossElevatorRejectMessage)
+                base.localAvatar.elevatorNotifier.showMeWithoutStopping(TTLocalizer.BossElevatorRejectMessage)
             elif reason == ElevatorConstants.REJECT_NOT_YET_AVAILABLE:
-                base.localAvatar.elevatorNotifier.showMe(TTLocalizer.NotYetAvailable)
+                base.localAvatar.elevatorNotifier.showMeWithoutStopping(TTLocalizer.NotYetAvailable)
         doneStatus = {'where': 'reject'}
         elevator = self.getPlaceElevator()
         if elevator:
