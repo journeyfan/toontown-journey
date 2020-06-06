@@ -3305,6 +3305,7 @@ MovieNPCSOSSound = "Sound"
 MovieNPCSOSThrow = "Throw"
 MovieNPCSOSSquirt = "Squirt"
 MovieNPCSOSDrop = "Drop"
+MovieNPCSOSPower = "Power" #UNLIMITED POWERRRRRRRR
 MovieNPCSOSAll = "All"
 MoviePetSOSTrickFail = "Sigh"
 MoviePetSOSTrickSucceedBoy = "Good boy!"

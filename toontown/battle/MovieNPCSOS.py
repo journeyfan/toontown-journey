@@ -266,6 +266,8 @@ def __doRestockGags(attack, level, hp):
         text = TTLocalizer.MovieNPCSOSSquirt
     elif level == ToontownBattleGlobals.DROP_TRACK:
         text = TTLocalizer.MovieNPCSOSDrop
+    elif level == ToontownBattleGlobals.POWER_TRACK:
+        text = TTLocalizer.MovieNPCSOSPower
     elif level == -1:
         text = TTLocalizer.MovieNPCSOSAll
     pbpTrack = pbpText.getShowInterval(TTLocalizer.MovieNPCSOSRestockGags % text, track.getDuration())
