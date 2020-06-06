@@ -12802,3 +12802,26 @@ blacklist = [
     "autism",
 ]
 
+GroupTrackerPlaceText = [
+    'Front Factory',
+    'Side Factory',
+    'VP',
+    'Coin Mint',
+    'Dollar Mint',
+    'Bullion Mint',
+    'CFO',
+    'A Office',
+    'B Office',
+    'C Office',
+    'D Office',
+    'CJ',
+    'Front Three',
+    'Middle Six',
+    'Back Nine',
+    'CEO'
+
+]
+GroupLoading = 'Loading groups...'
+GroupEmpty = 'No groups available'
+
+GroupListTitle = 'Groups'

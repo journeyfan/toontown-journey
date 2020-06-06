@@ -1,0 +1,79 @@
+from toontown.toonbase.ToontownGlobals import *
+
+LEADER = 0
+DISTRICT = 1
+PLACE = 2
+MEMBER_IDS = 3
+MEMBER_NAMES = 4
+DISPLAY = 5
+
+FACTORY_FRONT = 0
+FACTORY_SIDE = 1
+VP = 2
+
+COIN_MINT = 10
+DOLLAR_MINT = 11
+BULLION_MINT = 12
+CFO = 13
+
+A_OFFICE = 20
+B_OFFICE = 21
+C_OFFICE = 22
+D_OFFICE = 23
+CJ = 24
+FRONT_THREE = 30
+MIDDLE_SIX = 31
+BACK_NINE = 32
+CEO = 33
+
+ZONES_TO_PLACE = {
+    SellbotFactoryExt: [FACTORY_FRONT, FACTORY_SIDE],
+    SellbotLobby: [VP],
+    CashbotHQ: [COIN_MINT, DOLLAR_MINT, BULLION_MINT],
+    CashbotLobby: [CFO],
+    LawbotOfficeExt: [A_OFFICE, B_OFFICE, C_OFFICE, D_OFFICE],
+    LawbotLobby: [CJ],
+    BossbotHQ: [FRONT_THREE, MIDDLE_SIX, BACK_NINE],
+    BossbotLobby: [CEO]
+
+
+}
+MAX_PLAYERS = {
+    FACTORY_FRONT: 4,
+    FACTORY_SIDE: 4,
+    VP: 8,
+    COIN_MINT: 4,
+    DOLLAR_MINT: 4,
+    BULLION_MINT: 4,
+    CFO: 8,
+    A_OFFICE: 4,
+    B_OFFICE: 4,
+    C_OFFICE: 4,
+    D_OFFICE: 4,
+    CJ: 8,
+    FRONT_THREE: 4,
+    MIDDLE_SIX: 4,
+    BACK_NINE: 4,
+    CEO: 8
+}
+IMAGE_IDS = {
+    FACTORY_FRONT: 3,
+    FACTORY_SIDE:3,
+    VP:3,
+
+    COIN_MINT:2,
+    DOLLAR_MINT:2,
+    BULLION_MINT:2,
+    CFO:2,
+
+    A_OFFICE:1,
+    B_OFFICE:1,
+    C_OFFICE:1,
+    D_OFFICE:1,
+    CJ:1,
+
+    FRONT_THREE:0,
+    MIDDLE_SIX:0,
+    BACK_NINE:0,
+    CEO:0
+}
