@@ -178,7 +178,8 @@ SuitParts = ['phase_3.5/models/char/suitA-mod',
             'phase_3.5/models/char/suitC-mod',
             'phase_4/models/char/suitA-heads',
             'phase_4/models/char/suitB-heads',
-            'phase_3.5/models/char/suitC-heads']
+            'phase_3.5/models/char/suitC-heads',
+            'phase_12/models/bossbotHQ/mole_cog']
 
 Preloaded = {}
 
@@ -426,7 +427,6 @@ class Suit(Avatar.Avatar):
 
             if dna.name == 'cc':
                 self.headColor = SuitGlobals.ColdCallerHead
-
             self.generateBody()
 
             if SuitGlobals.suitProperties[dna.name][SuitGlobals.HEAD_TEXTURE_INDEX]:
@@ -434,6 +434,7 @@ class Suit(Avatar.Avatar):
 
             for head in SuitGlobals.suitProperties[dna.name][SuitGlobals.HEADS_INDEX]:
                 self.generateHead(head)
+            
 
             self.setHeight(SuitGlobals.suitProperties[dna.name][SuitGlobals.HEIGHT_INDEX])
 
@@ -633,6 +634,8 @@ class Suit(Avatar.Avatar):
     def generateHead(self, headType):
         filePrefix, phase = ModelDict[self.style.body]
         filepath = 'phase_' + str(phase) + filePrefix + 'heads'
+        if headType == 'mole_cog':
+            filepath = 'phase_12/models/bossbotHQ/mole_cog'
         headModel = NodePath('cog_head')
         Preloaded[filepath].copyTo(headModel)
         headReferences = headModel.findAllMatches('**/' + headType)
@@ -645,6 +648,10 @@ class Suit(Avatar.Avatar):
                 headPart.setTexture(headTex, 1)
             if self.headColor:
                 headPart.setColor(self.headColor)
+            if headType == 'themolder':
+                headPart.setScale(0.75)
+                headPart.setZ(-0.35)
+                headPart.setH(180)
             headPart.flattenStrong()
             self.headParts.append(headPart)
         headModel.removeNode()

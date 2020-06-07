@@ -63,6 +63,10 @@ SHADOW_SCALE_POS = ((1.225,
   -0.0225,
   10,
   -0.025),
+ (0.9,
+  -0.0225,
+  10,
+  -0.025),
  (1.25,
   0,
   10,
@@ -201,7 +205,7 @@ class SuitPage(ShtikerPage.ShtikerPage):
     def load(self):
         ShtikerPage.ShtikerPage.load(self)
         frameModel = loader.loadModel('phase_3.5/models/gui/suitpage_frame')
-        frameModel.setScale((0.0452/base.getAspectRatio()), 0.03, 0.045)
+        frameModel.setScale((0.0452/base.getAspectRatio()), 0.02, 0.045)
         frameModel.setPos(0, 10, -0.575)
         self.guiTop = NodePath('guiTop')
         self.guiTop.reparentTo(self)
