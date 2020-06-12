@@ -6149,7 +6149,7 @@ def summoncogdo(track="s", difficulty=5):
     building = av.findClosestDoor()
     if building == None:
         return "Try another building -invalid building"
-        building.cogdoTakeOver(difficulty, 2, track)
+    building.cogdoTakeOver(difficulty, 2, track)
     return "Successfully spawned cogdo with track %s and difficulty %d" % (
         track,
         difficulty,
