@@ -556,7 +556,7 @@ class DistributedSellbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         self.promotionMusic = base.loader.loadMusic('phase_7/audio/bgm/encntr_suit_winning_indoor.ogg')
         self.betweenBattleMusic = base.loader.loadMusic('phase_9/audio/bgm/encntr_toon_winning.ogg')
         self.battleTwoMusic = base.loader.loadMusic('phase_7/audio/bgm/encntr_suit_winning_indoor.ogg')
-        self.battleThreeMusic = base.loader.loadMusic('phase_9/audio/bgm/encntr_vp_boss.ogg')
+        self.battleThreeMusic = base.loader.loadMusic('phase_9/audio/bgm/encntr_vp_boss.mp3')
         self.geom.reparentTo(render)
 
     def unloadEnvironment(self):
