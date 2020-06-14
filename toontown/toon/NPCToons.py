@@ -912,7 +912,7 @@ NPCToonDict = {
     91918: (-1, lnames[91918], ('dss', 'l', 's', 'm', 20, 0, 20, 2, 66, 3, 12, 3, 12, 11), 'm', 0, NPC_REGULAR),
     91919: (-1, lnames[91919], ('css', 'l', 'l', 'f', 22, 0, 22, 22,11,27,0,27,2,26), 'f', 0, NPC_REGULAR),
     91920: (-1, lnames[91920], ('mss', 'm', 'm', 'm', 36, 36, 36, 36, 86, 27, 75, 27, 0, 18),'m', 0, NPC_REGULAR),
-    91921: (-1, lnames[91920], ('mss', 'm', 'm', 'm', 15,0,15,15, 148, 27, 136, 27, 57, 27 ), 'm', 0, NPC_REGULAR)}
+    91921: (-1, lnames[91921], ('mss', 'm', 'm', 'm', 15,0,15,15, 148, 27, 136, 27, 57, 27 ), 'm', 0, NPC_REGULAR)}
 
 if config.GetBool('want-new-toonhall', 1):
     NPCToonDict[2001] = (
