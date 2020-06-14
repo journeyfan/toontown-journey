@@ -11,7 +11,8 @@ from toontown.fishing import FishingTargetGlobals
 from toontown.safezone.DistributedFishingSpotAI import DistributedFishingSpotAI
 from toontown.safezone.SZTreasurePlannerAI import SZTreasurePlannerAI
 from toontown.safezone import TreasureGlobals
-
+from toontown.toon import NPCToons
+from toontown.toonbase import TTLocalizer
 
 class DistributedEstateAI(DistributedObjectAI):
     notify = DirectNotifyGlobal.directNotify.newCategory("DistributedEstateAI")
@@ -33,6 +34,7 @@ class DistributedEstateAI(DistributedObjectAI):
         self.targets = []
 
         self.owner = None
+
         
     def generate(self):
         DistributedObjectAI.generate(self)
@@ -71,7 +73,10 @@ class DistributedEstateAI(DistributedObjectAI):
         spot.setPosHpr(46.8254, -113.682, 0.46015, 135, 0, 0)
         spot.generateWithRequired(self.zoneId)
         self.spots.append(spot)
-
+        NPCToons.createNPC(
+                simbase.air,16010,
+                (self.zoneId, TTLocalizer.NPCToonNames[16010], ('mss', 'm', 'm', 'm', 36, 36, 36, 36, 86, 27, 75, 27, 0, 18),'m', 0, NPCToons.NPC_FISHERMAN),
+                self.zoneId, posIndex=0)
         self.createTreasurePlanner()
 
 
@@ -89,6 +94,7 @@ class DistributedEstateAI(DistributedObjectAI):
 
         if self.treasurePlanner:
             self.treasurePlanner.stop()
+
 
         self.requestDelete()
 
