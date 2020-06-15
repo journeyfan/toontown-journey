@@ -46,6 +46,10 @@ class Estate(Place.Place):
           'doorOut',
           'push',
           'pet']),
+         State.State('purchase',
+                        self.enterPurchase,
+                        self.exitPurchase, [
+                            'walk']),
          State.State('stopped', self.enterStopped, self.exitStopped, ['walk', 'teleportOut']),
          State.State('sit', self.enterSit, self.exitSit, ['walk']),
          State.State('push', self.enterPush, self.exitPush, ['walk']),

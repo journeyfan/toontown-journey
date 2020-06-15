@@ -606,6 +606,7 @@ QuestsItemDict = {
     7012: ["Slimy Kelp", "Slimy Kelp", "some "],
     7013: ["Pestle", "Pestles", "a "],
     7014: ["Jar of Wrinkle Cream", "Jars of Wrinkle Cream", "a "],
+    
 }
 QuestsHQOfficerFillin = lHQOfficerM
 QuestsHQWhereFillin = ""
@@ -9904,6 +9905,7 @@ NPCToonNames = {
     7007: "Dewin Tymme",
     7008: "Ima Cagedtoon",
     7009: "Jimmy Thelock",
+    16010: "Fisherman Darth",
     # Start with 91913.
     91913: "Tom",
     91917: "Knight Racer",
