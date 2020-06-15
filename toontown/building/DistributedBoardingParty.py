@@ -363,7 +363,7 @@ class DistributedBoardingParty(DistributedObject.DistributedObject, BoardingPart
         elif reason == BoardingPartyBase.BOARDCODE_MISSING:
             self.notify.debug("%s 's group cannot board because something was missing" % leaderId)
             rejectText = TTLocalizer.BoardcodeMissing
-        base.localAvatar.elevatorNotifier.showMe(rejectText)
+        base.localAvatar.elevatorNotifier.showMeWithoutStopping(rejectText)
 
     def postGroupDissolve(self, quitterId, leaderId, memberList, kick):
         self.notify.debug('%s group has dissolved' % leaderId)

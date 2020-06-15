@@ -96,7 +96,7 @@ class DistributedElevatorExt(DistributedElevator.DistributedElevator):
     def handleEnterSphere(self, collEntry):
         self.notify.debug('Entering Elevator Sphere....')
         if hasattr(localAvatar, 'boardingParty') and localAvatar.boardingParty and localAvatar.boardingParty.getGroupLeader(localAvatar.doId) and localAvatar.boardingParty.getGroupLeader(localAvatar.doId) != localAvatar.doId:
-            base.localAvatar.elevatorNotifier.showMe(TTLocalizer.ElevatorGroupMember)
+            base.localAvatar.elevatorNotifier.showMeWithoutStopping(TTLocalizer.ElevatorGroupMember)
         elif self.allowedToEnter(self.zoneId):
             self.cr.playGame.getPlace().detectedElevatorCollision(self)
         else:
