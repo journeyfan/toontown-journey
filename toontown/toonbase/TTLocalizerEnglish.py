@@ -9905,7 +9905,7 @@ NPCToonNames = {
     7007: "Dewin Tymme",
     7008: "Ima Cagedtoon",
     7009: "Jimmy Thelock",
-    16010: "Fisherman Darth Anon",
+    16010: "Fisherman Darth",
     # Start with 91913.
     91913: "Tom",
     91917: "Knight Racer",
